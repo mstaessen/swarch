@@ -1,0 +1,4 @@
+.project
+*.pdf
+*.synctex.gz
+tmp/*

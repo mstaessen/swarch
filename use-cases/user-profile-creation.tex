@@ -1,0 +1,53 @@
+\begin{description}
+	\item[Primary actor] Customer
+	\item[Interested parties] Call Center, ReMeS, Utilty providing company
+	\item[Preconditions] \ 
+	\begin{itemize}
+		\item The customer needs to have a contract on record with at least one
+		company participating in the ReMeS program
+	\end{itemize}
+	\item[Postconditions] \ 
+	\begin{itemize}
+		\item The customer has web access to the ReMeS system
+	\end{itemize}
+	\item[Normal flow] \ 
+	\begin{enumerate}
+	  	% 1
+		\item The customer contacts the ReMeS call center to request the necessary
+		documents to be filled out.
+		% 2
+		\item a ReMeS employee sends the necessary documents to the residential user
+		by regular mail.
+		% 3
+		\item The residential user fills out the required documents.
+		% 4
+		\item The customer sends the filled out forms back to ReMeS.
+		% 5
+		\item a ReMeS employee processes the customer’s request and generates an
+		authentication token (e.g. username and password)
+		% 6
+		\item a ReMeS employee sends an authentication token back to the residential
+		user by regular mail.
+		% 7 & 8 % 9 % 10 % 11 & 12 & 13
+	\end{enumerate}
+	\item[Alternate flow] \ 
+	\begin{description}
+		\item[2a] The customer is a business/the customer has a business contract.
+		\begin{enumerate}
+			\item a ReMeS employee sends the necessary documents to the business owner.
+			\item The alternate flow returns to step 3 in the normal flow.
+		\end{enumerate}
+		\item[6a] The customer is a business/the customer has a business contract.
+		\begin{enumerate}
+			\item a ReMeS employee sends the authentication token back to the business owner.
+		\end{enumerate}
+	\end{description}
+	\item[Exception flow] \ 
+	\begin{description}
+		\item[5a] There are errors in the application.
+		\begin{enumerate}
+			\item a ReMeS employee sends the form back to the customer with addional
+			information about the application not passing.
+		\end{enumerate}
+	\end{description}
+\end{description}
