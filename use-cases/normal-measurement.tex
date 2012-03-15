@@ -1,0 +1,53 @@
+\begin{description}
+	\item[Primary actor] Remote module
+	\item[Interested parties] Customer, Utility providing company, ReMeS
+	\item[Preconditions] \ 
+	\begin{itemize}
+		\item The remote module is installed.
+		\item The remote module is activated.
+	\end{itemize}
+	\item[Postconditions] \ 
+	\begin{itemize}
+		\item The data center has collected a trame.
+	\end{itemize}
+	\item[Normal flow] \ 
+	\begin{enumerate}
+	  	% 1
+	  	\item The remote module reads the usage value.
+	  	% 2
+		\item The remote module prepares the trame.
+		% 3
+		\item The remote module sends the trame to the configured phone number by SMS.
+		% 4
+		\item The data center collects the trame.
+		% 5
+		\item The data center registers the new usage value(s).
+	\end{enumerate}
+	\item[Alternate flow] \ 
+	\begin{description}
+		\item[3a] The remote module is a WiFi module.
+		\begin{enumerate}
+			\item The remote module sends the trame to the configured IP address using
+			the configured WiFi connection.
+			\item Return to step 3 in the normal flow.
+		\end{enumerate}
+		\item[3b] The remote module is a GPRS module.
+		\begin{enumerate}
+			\item The remote module sends the trame to the configured IP address using
+			the configured GPRS connection.
+			\item Return to step 3 in the normal flow.
+		\end{enumerate}
+	\end{description}
+	\item[Exception flow] \ 
+	\begin{description}
+		\item[1a] The battery is low.
+		\begin{enumerate}
+			\item Include Use Case \ref{uc-low-battery-alarm} (``Low Battery Alarm'').
+		\end{enumerate}
+		\item[3a] The trame cannot be delivered.
+		\begin{enumerate}
+			\item The remote module waits for 5 minutes;
+			\item Return to step 1 in the normal flow.  
+		\end{enumerate}
+	\end{description}
+\end{description}
