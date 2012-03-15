@@ -1,0 +1,39 @@
+\begin{description}
+	\item[Primary actor] ReMeS
+	\item[Interested parties] Customer, Call Center, Utilty providing company,
+	Emergency services
+	\item[Preconditions] \ 
+	\begin{itemize}
+		\item The customer needs to have an alarm configuration registrerd in ReMeS.
+	\end{itemize}
+	\item[Postconditions] \ 
+	\begin{itemize}
+		\item The event is logged.
+		\item The consumption profile is updated.
+	\end{itemize}
+	\item[Normal flow] \ 
+	\begin{enumerate}
+	  	% 1
+	  	\item ReMeS detects an anomaly in the consumption pattern of a customer.
+	  	% 2
+	  	\item ReMeS contacts the customer either by email or by SMS to notify
+	  	him/her that there is a possible anomaly.
+	  	% 3 
+	  	\item The customer receives the email or sms and reads it.
+		% 4
+	  	\item Upon reading it, the customer determines that it is normal behaviour.
+		% 5
+	  	\item He/She logs in into the ReMeS portal with username and password and
+	  	indicates that the detected anomaly was a false alarm.
+	\end{enumerate}
+	\item[Alternate flow] \ 
+	\begin{description}
+		\item[4a] Upon reading it, the customer determines that is indeed an anomaly.
+		\item[5a] He/She logs in into the ReMeS portal with username and password and
+	  	indicates that the detected anomaly was indeed an anomaly.
+	\end{description}
+	\item[Exception flow] \ 
+	\begin{description}
+		\item
+	\end{description}
+\end{description}
