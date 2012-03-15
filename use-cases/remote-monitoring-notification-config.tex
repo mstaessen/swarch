@@ -1,0 +1,41 @@
+\begin{description}
+	\item[Primary actor] Customer
+	\item[Interested parties] ReMeS, Utilty providing company
+	\item[Preconditions] \ 
+	\begin{itemize}
+		\item The customer is registered in the ReMeS system.
+	\end{itemize}
+	\item[Postconditions] \ 
+	\begin{itemize}
+		\item The new alarm configuration is stored.
+	\end{itemize}
+	\item[Normal flow] \ 
+	\begin{enumerate}
+	  	% 1
+	  	\item The user logs in to the ReMeS portal with his/her username and
+	  	password.
+	  	% 2
+	  	\item The user navigates to the correct module for alarm
+	  	notification recipient configuration.
+	  	% 3 
+	  	\item There he/she adds the required contact details, namely email address
+	  	and (mobile) phone number.
+	  	% 4
+	  	\item System acknowledges the received details.
+	\end{enumerate}
+	\item[Alternate flow] \ 
+	\begin{description}
+		\item
+	\end{description}
+	\item[Exception flow] \ 
+	\begin{description}
+		\item[1a] Username and/or password are wrong.
+		\begin{enumerate}
+		  \item correct the spellingserrors(s) and retry.
+		\end{enumerate}
+		\item[4a] One or more of the contact details are incorrect. (for example an
+		email address without a domain name)
+		\begin{enumerate}
+		  \item The user is notified and has to correct the incorrect details.
+		\end{enumerate}
+\end{description}
