@@ -13,38 +13,31 @@
 	\item[Normal flow] \ 
 	\begin{enumerate}
 	  	% 1
-	  	\item The remote module reads the usage value.
-	  	% 2
-		\item The remote module prepares the trame.
-		% 3
+		\item The remote module prepares a data trame with all the information (date
+		and time, battery level, counter values, \ldots).
+		% 2
 		\item The remote module sends the trame to the configured phone number by SMS.
-		% 4
+		% 3
 		\item The data center collects the trame.
-		% 5
-		\item The data center registers the new usage value(s).
+		% 4
+		\item The data center processes the trame.
 	\end{enumerate}
 	\item[Alternate flow] \ 
 	\begin{description}
-		\item[3a] The remote module is a WiFi module.
+		\item[2a] The remote module uses the internet to send trames.
 		\begin{enumerate}
 			\item The remote module sends the trame to the configured IP address using
 			the configured WiFi connection.
 			\item Return to step 3 in the normal flow.
 		\end{enumerate}
-		\item[3b] The remote module is a GPRS module.
+		\item[4a] The battery is low.
 		\begin{enumerate}
-			\item The remote module sends the trame to the configured IP address using
-			the configured GPRS connection.
-			\item Return to step 3 in the normal flow.
+			\item Include Use Case \ref{uc-low-battery-alarm} (``Low Battery Alarm'').
 		\end{enumerate}
 	\end{description}
 	\item[Exception flow] \ 
 	\begin{description}
-		\item[1a] The battery is low.
-		\begin{enumerate}
-			\item Include Use Case \ref{uc-low-battery-alarm} (``Low Battery Alarm'').
-		\end{enumerate}
-		\item[3a] The trame cannot be delivered.
+		\item[2a] The trame cannot be sent (timeout or wrong response code).
 		\begin{enumerate}
 			\item The remote module waits for 5 minutes;
 			\item Return to step 1 in the normal flow.  
