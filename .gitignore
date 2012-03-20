@@ -1,4 +1,5 @@
 .project
+.settings/*
 *.pdf
 *.synctex.gz
 tmp/*

@@ -1,0 +1,53 @@
+\begin{description}
+	\item[Primary actor] Remote monitoring module
+	\item[Interested parties] Customer, Call Center, Utilty providing company,
+	ReMeS, Emergency services
+	\item[Preconditions] \ 
+	\begin{itemize}
+	  	\item An anomaly detection algorithm triggered the alarm.
+		\item The remote module is installed and active.
+		\item The customer needs to have an alarm configuration.
+	\end{itemize}
+	\item[Postconditions] \ 
+	\begin{itemize}
+		\item The event is logged.
+		\item The consumption profile is updated.
+	\end{itemize}
+	\item[Normal flow] \ 
+	\begin{enumerate}
+	  	% 1
+	  	\item The remote monitoring module prepares an alarm trame.
+	  	% 2
+	  	\item The remote monitoring module sends the alarm trame to the configured
+	  	data center. 
+	  	% 3 
+	  	\item The data center collects the alarm trame.
+		% 4
+	  	\item The data center processes the alarm trame.
+		% 5
+	  	\item The data center notifies the customer. Include use case
+	  	\ref{uc-alarm-transmission-remes} (``Alarm transmission: ReMeS'').
+	\end{enumerate}
+	\item[Alternate flow] \ 
+	\begin{description}
+		\item[4a] The trame is coming from a remote gas monitoring module.
+			\begin{enumerate}
+				\item ReMeS sends a shutdown command to the remote valve.
+				\item The remote valve shuts down.
+				\item The remote valve acknowledges to ReMeS if the shutdown was successful.
+			\end{enumerate}
+		\item[5a] The data center recognizes this alarm trame as a false alarm.
+		\begin{enumerate}
+			\item ReMeS records a false alarm.
+			\item The use case ends here. 
+		\end{enumerate}
+	\end{description}
+	\item[Exception flow] \ 
+	\begin{description}
+		\item[2a] The trame could not been sent. 
+		\begin{enumerate}
+			\item The remote module waits for 3 seconds.
+			\item Return to step 2 of the normal flow.
+		\end{enumerate}
+	\end{description}
+\end{description}

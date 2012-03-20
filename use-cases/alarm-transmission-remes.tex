@@ -5,6 +5,8 @@
 	\item[Preconditions] \ 
 	\begin{itemize}
 		\item The customer needs to have an alarm configuration registrerd in ReMeS.
+		\item ReMeS has detected an anomaly in the consumption pattern of a
+		customer OR an alarm has been sent from a remote monitoring module.
 	\end{itemize}
 	\item[Postconditions] \ 
 	\begin{itemize}
@@ -14,26 +16,28 @@
 	\item[Normal flow] \ 
 	\begin{enumerate}
 	  	% 1
-	  	\item ReMeS detects an anomaly in the consumption pattern of a customer.
-	  	% 2
-	  	\item ReMeS contacts the customer either by email or by SMS to notify
-	  	him/her that there is a possible anomaly.
-	  	% 3 
+	  	\item ReMeS sends either an email or a text message (depending on
+	  	the configuration) to notify the customer that there is a potential anomaly.
+	  	% 2 
 	  	\item The customer receives the email or sms and reads it.
+		% 3
+	  	\item The customer determines that is indeed an anomaly.
 		% 4
-	  	\item Upon reading it, the customer determines that it is normal behaviour.
-		% 5
-	  	\item He/She logs in into the ReMeS portal with username and password and
-	  	indicates that the detected anomaly was a false alarm.
+	  	\item The customer logs in into the ReMeS portal and indicates that the detected anomaly was indeed an anomaly.
 	\end{enumerate}
 	\item[Alternate flow] \ 
 	\begin{description}
-		\item[4a] Upon reading it, the customer determines that is indeed an anomaly.
-		\item[5a] He/She logs in into the ReMeS portal with username and password and
-	  	indicates that the detected anomaly was indeed an anomaly.
+		\item[4a] The reported alarm is a falsa alarm.
+		\begin{enumerate}
+		  \item The customer logs in into the ReMeS portal and indicates that the detected anomaly was a false alarm.
+		\end{enumerate}
 	\end{description}
 	\item[Exception flow] \ 
 	\begin{description}
-		\item
+		\item[2a] The alarm message can not be sent.
+		\begin{itemize}
+			\item ReMeS waits for 3 seconds.
+			\item Return to step 2 in Normal flow. 
+		\end{itemize}
 	\end{description}
 \end{description}
