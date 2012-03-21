@@ -3,9 +3,9 @@
 
 \section{Use case diagram}
 
-\npar The use case diagram is shown in figure \ref{fig:use-case-diagram}. 
+\npar The use case diagram is shown in figure \ref{fig:use-case-diagram}.
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\begin{centering}
 		\includegraphics[width=\textwidth]{figs/use-case-diagram.pdf}
 		\caption{Use case diagram}
@@ -15,62 +15,66 @@
 
 \section{Use cases}
 
-\subsection{User profile creation}
-\label{uc-user-profile-creation}
-\input{use-cases/user-profile-creation.tex}
+\subsection{Create customer profile}
+\label{uc:create-customer-profile}
+\input{use-cases/create-customer-profile.tex}
 
-\subsection{User profile association with a remote monitoring module}
-\label{uc-user-profile-association}
-\input{use-cases/user-profile-association.tex}
+\subsection{Link remote module}
+\label{uc:link-remote-module}
+\input{use-cases/link-remote-module.tex}
 
-\subsection{Remote module installation and initialization}
-\label{uc-remote-module-installation}
-\input{use-cases/remote-module-installation.tex}
+\subsection{Unlink remote module}
+\label{uc:unlink-remote-module}
+\input{use-cases/unlink-remote-module.tex}
 
-\subsection{Remote monitoring: transmission frequency reconfiguration}
-\label{uc-remote-monitoring-frequency-reconfiguration}
-\input{use-cases/remote-monitoring-frequency-reconfiguration.tex}
+\subsection{Install remote module}
+\label{uc:install-remote-module}
+\input{use-cases/install-remote-module.tex}
 
-\subsection{Remote monitoring: Alarm notification configuration}
-\label{uc-remote-monitoring-notification-config}
-\input{use-cases/remote-monitoring-notification-config.tex}
+\subsection{Uninstall remote module}
+\label{uc:uninstall-remote-module}
+\input{use-cases/uninstall-remote-module.tex}
 
-\subsection{Remote control: Valve shutdown}
-\label{uc-remote-control-valve-shutdown}
-\input{use-cases/remote-control-valve-shutdown.tex}
+\subsection{Replace remote module}
+\label{uc:replace-remote-module}
+\input{use-cases/replace-remote-module.tex}
 
-\subsection{Remote control: Anomaly detection response configuration}
-\label{uc-remote-control-anomaly-detection-response-config}
-\input{use-cases/remote-control-anomaly-response-config.tex}
+\subsection{Configure transmission frequency}
+\label{uc:configure-transmission-frequency}
+\input{use-cases/configure-transmission-frequency.tex}
 
-\subsection{Remote module replacement}
-\label{uc-remote-module-replacement}
-\input{use-cases/remote-module-replacement.tex}
+\subsection{Configure alarm notification}
+\label{uc:configure-alarm-notification}
+\input{use-cases/configure-alarm-notification.tex}
 
-\subsection{Remote control module de-activation}
-\label{uc-remote-module-deactivation}
-\input{use-cases/remote-module-deactivation.tex}
+\subsection{Configure anomaly response}
+\label{uc:configure-anomaly-response}
+\input{use-cases/configure-anomaly-response.tex}
 
-\subsection{Normal measurement data transmission}
-\label{uc-normal-measurement}
-\input{use-cases/normal-measurement.tex}
+\subsection{Send data trame}
+\label{uc:send-data-trame}
+\input{use-cases/send-data-trame.tex}
 
-\subsection{Alarm data transmission: remote monitoring module}
-\label{uc-alarm-transmission-module}
-\input{use-cases/alarm-transmission-module.tex}
+\subsection{Send alarm trame}
+\label{uc:send-alarm-trame}
+\input{use-cases/send-alarm-trame.tex}
 
-\subsection{Alarm data transmission: ReMeS}
-\label{uc-alarm-transmission-remes}
-\input{use-cases/alarm-transmission-remes.tex}
+\subsection{Send alarm}
+\label{uc:send-alarm}
+\input{use-cases/send-alarm.tex}
 
-\subsection{Low battery alarm}
-\label{uc-low-battery-alarm}
-\input{use-cases/low-battery-alarm.tex}
+\subsection{Send low battery alarm}
+\label{uc:send-low-battery-alarm}
+\input{use-cases/send-low-battery-alarm.tex}
 
-\subsection{New invoice creation}
-\label{uc-new-bill-creation}
-\input{use-cases/new-bill-creation.tex}
+\subsection{Close valve}
+\label{uc:close-valve}
+\input{use-cases/shutdown-valve.tex}
 
-\subsection{Invoice payment received}
-\label{uc-bill-payment-received}
-\input{use-cases/bill-payment-received.tex}
+\subsection{Create invoice}
+\label{uc:create-invoice}
+\input{use-cases/create-invoice.tex}
+
+\subsection{Pay invoice}
+\label{uc:pay-invoice}
+\input{use-cases/pay-invoice.tex}
