@@ -10,7 +10,8 @@ analysis of one's consumption.
 that some anomaly is detected. This could be e.g. an excessive usage of a cetrain
 \emph{utility}.
 
-\item[AlarmCall] %TODO
+\item[AlarmCall] An \emph{AlarmCall} represents the telephone conversation
+between ReMeS and the \emph{Customer}.
 
 \item[AlarmConfiguration] An \emph{AlarmConfiguration} is a general name for the
 contact details of a \emph{customer}. \emph{Customers} can be reached via sms or
@@ -87,7 +88,10 @@ generalisation for \emph{UpdateEvents} and \emph{AlarmEvents}.
 
 \item[Gas] This is the \emph{utility}, namely \emph{Gas}.
 
-\item[Government] %TODO
+\item[Government] The \emph{Government} is a stakeholder of ReMeS with as main
+concern having insight in the usage statistics of utilities in the country.
+Foreign \emph{governmnent} are also stakeholders if \emph{utilities} are
+exported or imported.
 
 \item[GPRSModule] This refers to a specific kind of \emph{Module} which
 communicates with the \emph{CommunicationUnit} through the use of GPRS
@@ -122,7 +126,9 @@ task of an \emph{Operator} is dual. First of all to assist \emph{Customers} in
 troubleshooting. Secondly, any kind of notification for a \emph{Customers} is
 done by such a person.
 
-\item[Payment] %TODO
+\item[Payment] A payment is the transfer of money, using a certain payment
+method (cash, creditcard, etc.), from one party (such as a person or company) to
+another.
 
 \item[Personnel] This is a general name for all different kind of Employees. In
 this project there are \emph{SystemAdministrators}, \emph{Operators} and
@@ -145,7 +151,9 @@ appropriate information, \emph{reports} are published on fixed data.
 \item[ResidentialCustomer] A \emph{ResidentialCustomer} is a single person which
 is a \emph{Customer} of a \emph{utility} \emph{Company}. 
 
-\item[SIMCard] %TODO
+\item[SIMCard] A SIM Card (subscriber identification module) contains the
+account information for mobile numbers such as telephone number, serial number
+and default carrier, etc.
 
 \item[SIMCardModule] A \emph{SIMCardModule} is a \emph{Module} which
 communicates with the \emph{CommunicationUnit} using a phonenumber. This is
@@ -173,12 +181,15 @@ affected by the actions a company, in this case ReMeS.
 and reparation of Modules and other hardware regarding the various units of the
 \emph{DataCenter}.
 
-\item[TelephoneCompany]
+\item[TelephoneCompany] A \emph{TelephoneCompany} is a provider of certain
+communication services, such as (wireless) telephony.
 
-\item[ThirdPartyService]
+\item[ThirdPartyPaymentService] This is a service for the electronic management
+of invoicing. It is in fact an intermediate between client and customer to
+collect the payments of any pending invoices.
 
-\item[Trame] A Trame is a block of bits that contains certain meta-data and
-a data section in a predefined format. This format is different for each
+\item[Trame] A \emph{Trame} is a block of bits that contains certain meta-data
+and a data section in a predefined format. This format is different for each
 \emph{Module}. The data section can be used in two different ways. One is for
 communication from the \emph{Module} to ReMeS, in this case the data section
 contains actual measurements. The other way is for communication in the other
@@ -193,12 +204,16 @@ normal data \emph{Trame}. This is a single format that every unit of the
 consumption of a certain \emph{Customer}. This information is particularly
 useful for the invoicing.
 
-\item[Utility]
+\item[Utility] %TODO
 
-\item[ValveModule]
+\item[ValveModule] This is a \emph{Module} which controls the flow of a certain
+\emph{utility}. The behaviour of this \emph{Module} can be controlled by sending
+commands to configure it. An example is the automic sealing when a leak is
+detected.
 
 \item[Water] This is the \emph{utility}, namely \emph{Water}.
 
-\item[WiFiModule]
+\item[WiFiModule] A \emph{WiFiModule} refers to a specific kind of \emph{Module}
+which communicates with the \emph{CommunicationUnit} through the use of WiFi.
 
 \end{description}
