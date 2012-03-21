@@ -3,7 +3,7 @@
 	\item[Stimulus] Fault: due to a hardware failure, the software stops working.
 	\item[Artifact] Remote module 
 	\item[Environment] During normal operation 
-	\item[Response] \
+	\item[Response] \ %TODO: SLA met hardware manufacturer vermelden ?
 	\begin{enumerate}
 	  \item The system should detect and record the event.
 	  \item As long as the corresponding module is not repaired, no data can
@@ -18,5 +18,7 @@
 	  \item The detection time should be at most the update frequency of the
 	  corresponding module.
 	  \item In 98\% of all cases the problem should be fixed within 2 days.
+	  \item If these problems occur systematicly (rate > 2/year), usage
+	  analysis and revision of SLA should be done within one month.
 	\end{enumerate}
 \end{description}
