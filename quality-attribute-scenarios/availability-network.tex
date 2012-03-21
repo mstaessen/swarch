@@ -1,8 +1,32 @@
 \begin{description}
 	\item[Source] External to the system.
-	\item[Stimulus] Crash.
-	\item[Artifact] Network.
+	\item[Stimulus] Fault: The transmission of data is unexpectedly
+	(i.e. not by a scheduled maintenance) interrupted.
+	This could be due to two reasons:
+	\begin{enumerate}
+	  \item One of the main transmission lines snaps during road maintenance.
+	  \item The sms network is overloaded on Newyear's eve.
+	\end{enumerate}
+	\item[Artifact] Communication channels
 	\item[Environment] During normal operation.
-	\item[Response] Contact provider.
-	\item[Response measure] \ %TODO
+	\item[Response] \
+	\begin{enumerate}
+	  \item The system should detect the network failure.
+	  \item During the breakdown, no additional measurements can be collected nor
+	  can alarms from modules be received. 
+	  \item To prevent a (useless) overreaction, some basic troubleshooting is
+	  passed through (checking the physical connections, rebooting the router,
+	  etc.).
+	  \item In case none of the above basic tips solved the problem, the network
+	  provider should be notified of the crash.
+	\end{enumerate}
+	\item[Response measure] \
+	\begin{enumerate}
+	  \item Detection should be done under x minutes %todo
+	  \item In accordance to the SLA with the Telecom operator, The data flow
+	  should be re-established within the specified period.
+	  \item If this becoming unavailable gets systematic (rate > 1/month), usage
+analysis and revision of SLA should be done within one month. %todo: gekopieerd
+% van pdf, nuttig?
+	\end{enumerate}
 \end{description}

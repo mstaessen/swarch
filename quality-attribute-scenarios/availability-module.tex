@@ -1,18 +1,22 @@
 \begin{description}
 	\item[Source] Internal to the system
-	\item[Stimulus] Crash
+	\item[Stimulus] Fault: due to a hardware failure, the software stops working.
 	\item[Artifact] Remote module 
 	\item[Environment] During normal operation 
 	\item[Response] \
 	\begin{enumerate}
-	  \item Become unavailable until repair.  
-	  \item System should:
-	  \begin{enumerate}
-	  	\item Detect the crash
-	  	\item Record the event
-	  	\item Notify the operator of the system
-	  	\item Notify the module's host (the customer)
-	  \end{enumerate}
+	  \item The system should detect and record the event.
+	  \item As long as the corresponding module is not repaired, no data can
+	  be received from or send to this module.
+	  \item The module's host (i.e. the customer where the module is hosted) should
+	  be notified.
+	  \item A specialized technician should be dispatched to repair or replace the
+	  module.
 	\end{enumerate}
-	\item[Response measure] \ %TODO
+	\item[Response measure] \ 
+	\begin{enumerate}
+	  \item The detection time should be at most the update frequency of the
+	  corresponding module.
+	  \item In 98\% of all cases the problem should be fixed within 2 days.
+	\end{enumerate}
 \end{description}

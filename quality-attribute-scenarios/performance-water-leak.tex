@@ -1,14 +1,19 @@
 \begin{description}
-	\item[Source] Internal to the system
+	\item[Source] Water monitoring module, Internal to the system
 	\item[Stimulus] Water leak alarm message
 	\item[Artifact] System
 	\item[Environment] During normal mode
 	\item[Response] \
 		\begin{enumerate}
-		  \item System should record the message
-		  \item Notify customers
-		  \item Seal off valves
+		  \item The system should record the message
+		  \item Upon processing the message, the customers who could experience
+		  inconvenience are notified.
+		  \item Depending on the profile of the involved customers, the system
+		  could seal off the valves.
 		\end{enumerate}
-	\item[Response measure] 95\% of all notifications should reach the recipient
-	within 3 minutes. 
+	\item[Response measure] \
+	\begin{enumerate}
+	  \item 95\% of all notifications should reach the recipient within 3 minutes.
+	  \item %TODO: upper limit on closure of the valves ?
+	\end{enumerate} 
 \end{description}
