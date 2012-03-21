@@ -1,19 +1,57 @@
 \begin{description}
 	\item[Source] Internal to the system
-	\item[Stimulus] Crash
-	\item[Artifact] Datacenter
+	\item[Stimulus] Hardware failure in the datacenter. Since the datacenter
+	consists of several units, there could be various reasons for failure: one of
+	the analysis, prediction, anomaly detection or storage servers goes down.
+	\item[Artifact] All of the entities which make up the datacenter could be the
+	artifact :
+	\begin{enumerate}
+	  \item Analysis unit
+	  \item Prediction unit
+	  \item Anomaly detection unit
+	  \item Storage unit
+	\end{enumerate}
 	\item[Environment] During normal operation
 	\item[Response] \
 	\begin{enumerate}
-	  \item Become unavailable until repair.  %prioriteit voor collection, dan
-	  % prection, etc.
-	  \item System should:
+	  \item Independent of the unit that goes down, the system should detect the
+	  crash.
+	  \item If the analysis or prediction unit goes down:
 	  \begin{enumerate}
-	  	\item Detect the crash
-	  	\item Record the event
-	  	\item Notify the operator of the system % alles notifien
+	    \item Any pending operations on the server should be cancelled and those
+	    temporary results are lost (i.e. they have to be recalculated).
+	    \item As long as the server is down, no new advices, predictions or alarms
+	    can be made.
+	    \item Under no circumstances can this failure leave (or bring) the system
+	    in an inconsistent state.
+	    \item A technician is dispatched to resolve the problem, this could be a
+	    replacement of one single component or the whole server. The technician
+	    could be belonging to ReMeS or the hardware manufacturer.
+	    \item Upon resolving the problem, the server can resume his analysis,
+	    prediction or anomaly detection tasks.
+	  \end{enumerate}
+	  \item If the storage unit goes down:
+	  \begin{enumerate}
+	   \item There should be at least one replica of all the data because ReMeS
+	   core business (i.e. predicting, monitoring and analyzing) all relies on
+	   (available) data.
+	   \item Any pending operations on this (crashed) server should be cancelled
+	   and resumed or restarted on the replica. In this way the rest of the system
+	   has no knowledge of this recent crash.
+	   \item Under no circumstances can this failure leave (or bring) the system
+	    in an inconsistent state.
+	    \item A technician is dispatched to resolve the problem, this could be a
+	    replacement of one single component or the whole server. The technician
+	    could be belonging to ReMeS or the hardware manufacturer.
+	    \item When the main server is back up and running, the replica can return
+	    control to the main server.
 	  \end{enumerate}
 	\end{enumerate}
-	\item[Response measure] \ %TODO uptime 99.9% excluded from scheduled
-	% maintenance
+	\item[Response measure] \
+	\begin{enumerate}
+	  \item The system has a guaranteed uptime of 99.9\% excluded from scheduled
+	  maintenance.
+	  \item In accordance to the SLA with the hardware manufacturer, the problem is
+	  solved on time with respect to the SLA.
+	\end{enumerate}
 \end{description}
