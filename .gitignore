@@ -1,5 +1,6 @@
 .project
 .settings/*
 *.pdf
+!figs/*.pdf
 *.synctex.gz
 tmp/*
