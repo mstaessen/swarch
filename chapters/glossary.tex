@@ -10,7 +10,7 @@ analysis of one's consumption.
 that some anomaly is detected. This could be e.g. an excessive usage of a cetrain
 \emph{utility}.
 
-\item[AlarmCall]
+\item[AlarmCall] %TODO
 
 \item[AlarmConfiguration] An \emph{AlarmConfiguration} is a general name for the
 contact details of a \emph{customer}. \emph{Customers} can be reached via sms or
@@ -81,12 +81,13 @@ safety and health by addressing different emergencies. The three main services
 are: Police, Fire Department and Medical urgency.
 
 \item[Event] An event is a message which is send from the
-\emph{CommunicationUnit} to one of the units of the \emph{DataCenter}. It forms
-a generalisation for \emph{UpdateEvents} and \emph{AlarmEvents}.
+\emph{CommunicationUnit} to one of the units of the \emph{DataCenter} (it is a
+one-way traffic message, so it is not send in the other direction). It forms a
+generalisation for \emph{UpdateEvents} and \emph{AlarmEvents}.
 
 \item[Gas] This is the \emph{utility}, namely \emph{Gas}.
 
-\item[Government] 
+\item[Government] %TODO
 
 \item[GPRSModule] This refers to a specific kind of \emph{Module} which
 communicates with the \emph{CommunicationUnit} through the use of GPRS
@@ -121,7 +122,7 @@ task of an \emph{Operator} is dual. First of all to assist \emph{Customers} in
 troubleshooting. Secondly, any kind of notification for a \emph{Customers} is
 done by such a person.
 
-\item[Payment]
+\item[Payment] %TODO
 
 \item[Personnel] This is a general name for all different kind of Employees. In
 this project there are \emph{SystemAdministrators}, \emph{Operators} and
@@ -129,39 +130,68 @@ this project there are \emph{SystemAdministrators}, \emph{Operators} and
 
 \item[Prediction] \emph{Companies} want to know how much of which utility they
 will have to produce in the coming period (this could a week, a month, a year,
-etc.). To Provide \emph{Companies} with this information 
+etc.). To Provide \emph{Companies} with this information accurate
+\emph{Predictions} are made which contain exactly the previously mentioned
+information.
 
-\item[PredictionUnit]
+\item[PredictionUnit] This unit is responsible for generating accurate
+\emph{Predictions} based on the measurement data originating from the clients.
+This data comes from a \emph{CommunicationUnit}.
 
-\item[Report]
+\item[Report] \emph{Stakeholders} of ReMeS are interested in its activities and
+consumption patterns of its users. To provide the stakeholders with the
+appropriate information, \emph{reports} are published on fixed data.
 
-\item[ResidentialCustomer]
+\item[ResidentialCustomer] A \emph{ResidentialCustomer} is a single person which
+is a \emph{Customer} of a \emph{utility} \emph{Company}. 
 
-\item[SIMCard]
+\item[SIMCard] %TODO
 
-\item[SIMCardModule]
+\item[SIMCardModule] A \emph{SIMCardModule} is a \emph{Module} which
+communicates with the \emph{CommunicationUnit} using a phonenumber. This is
+realized via a \emph{SIMCard} placed in the \emph{Module}. The
+\emph{SIMCardModule} is in fact a generalisation for \emph{SMSModules} and
+\emph{GPRSModules}.
 
-\item[SMSCommunicationUnit]
+\item[SMSCommunicationUnit] This unit is responsible for the collection of
+measurement data through SMS. The collected data is then send to the DataCenter.
 
-\item[SMSModule]
+\item[SMSModule] This refers to a specific kind of \emph{Module} which
+communicates with the \emph{CommunicationUnit} through the use of SMS.
 
-\item[StorageUnit]
+\item[StorageUnit] The \emph{StorageUnit} is responsible for the persistent
+storage of all \emph{events}. The other units can collect their data in these
+persistent storage.
 
-\item[StakeHolder]
+\item[StakeHolder]A \emph{Stakeholder} is a party that can affect or be
+affected by the actions a company, in this case ReMeS.
 
-\item[SystemAdministrator]
+\item[SystemAdministrator] A \emph{SystemAdministrator} is a manager of a
+\emph{CommunicationUnit}. %TODO
 
-\item[Technician]
+\item[Technician] A \emph{Technician} is responsible for the (un)installation
+and reparation of Modules and other hardware regarding the various units of the
+\emph{DataCenter}.
 
 \item[TelephoneCompany]
 
 \item[ThirdPartyService]
 
-\item[Trame]
+\item[Trame] A Trame is a block of bits that contains certain meta-data and
+a data section in a predefined format. This format is different for each
+\emph{Module}. The data section can be used in two different ways. One is for
+communication from the \emph{Module} to ReMeS, in this case the data section
+contains actual measurements. The other way is for communication in the other
+direction, then it contains commands.
 
-\item[UpdateEvent]
+\item[UpdateEvent] An \emph{UpdatemEvent} is an event which is sent from the
+\emph{CommunicationUnit} to the \emph{DataCenter} when the latter receives a
+normal data \emph{Trame}. This is a single format that every unit of the
+\emph{DataCenter} can read.
 
-\item[UsageDetail]
+\item[UsageDetail] The \emph{UsageDetail} contains a detailed description of the
+consumption of a certain \emph{Customer}. This information is particularly
+useful for the invoicing.
 
 \item[Utility]
 
