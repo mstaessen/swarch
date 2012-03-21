@@ -23,10 +23,14 @@
 	  	% 3 
 	  	\item The data center collects the alarm trame.
 		% 4
-	  	\item The data center processes the alarm trame.
+		\item The data center converts the alarm trame to an alarm event.
 		% 5
-	  	\item The data center notifies the customer. Include use case
-	  	\ref{uc-alarm-transmission-remes} (``Alarm transmission: ReMeS'').
+		\item The storage unit saves the alarm event.
+		% 6
+	  	\item The anomaly detection unit examines the alarm event.
+		% 7
+	  	\item The anomaly detection unit sends a notification to the customer.
+	  	Include use case \ref{uc-alarm-transmission-remes} (``Alarm transmission: ReMeS'').
 	\end{enumerate}
 	\item[Alternate flow] \ 
 	\begin{description}
@@ -36,7 +40,7 @@
 				\item The remote valve shuts down.
 				\item The remote valve acknowledges to ReMeS if the shutdown was successful.
 			\end{enumerate}
-		\item[5a] The data center recognizes this alarm trame as a false alarm.
+		\item[6a] The data center recognizes this alarm trame as a false alarm.
 		\begin{enumerate}
 			\item ReMeS records a false alarm.
 			\item The use case ends here. 
