@@ -1,0 +1,37 @@
+\begin{description}
+	\item[Primary actor] Customer
+	\item[Interested parties] Technician, ReMeS, Utilty providing company
+	\item[Preconditions] \ 
+	\begin{itemize}
+		\item The customer has a faulty or outdated remote module installed.
+	\end{itemize}
+	\item[Postconditions] \ 
+	\begin{itemize}
+		\item The valve is shut down.
+	\end{itemize}
+	\item[Normal flow] \ 
+	\begin{enumerate}
+	  	% 1
+	  	\item The technician comes to the premises of the customer.
+	  	% 2 
+	  	\item The technician deactivates the remote module. Include use case
+	  	\ref{uc-remote-module-deactivation} (``Remote module deactivation'').
+	  	% 3
+	  	\item The technician removes the old module.
+	  	% 4
+	  	\item The technician installs the new module. Include use case
+	  	\ref{uc-remote-module-installation} (``Remote module installation'').
+	\end{enumerate}
+	\item[Exception flow] \ 
+	\begin{description}
+		\item[2a] The communication unit cannot reach the remote valve.
+		\begin{enumerate}
+		  \item The communication unit waits till the module calls the base.
+		  \item Return to step 2 in normal flow.
+		\end{enumerate}
+		\item[4a] The acknowledgement times out.
+		\begin{enumerate}
+			\item The remote module tries again for up to three times.
+		\end{enumerate}
+	\end{description}
+\end{description}
