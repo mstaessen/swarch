@@ -71,42 +71,104 @@ for a payment based on the his/her or it's consumption. There are two kinds of
 units in the system. This is a clever notation to easily refer to AnalyticsUnit,
 PredictionUnit, StorageUnit and AnomalyDetectionUnit in one time.
 
-\item[Electricity] This is the \emph{utility}, electricity.
+\item[Electricity] This is the \emph{utility}, \emph{Electricity}.
 
 \item[EmergencyCall] An \emph{EmergencyCall} is special kind of
 \emph{AlarmCall}, namely to the \emph{EmergencyService}.
 
-\item[EmergencyService]
-\item[Event]
-\item[Gas]
-\item[Government]
-\item[GPRSModule]
-\item[HiredModule]
-\item[IPCenter]
-\item[Invoice]
-\item[Module]
-\item[MonitoringModule]
-\item[Operator]
+\item[EmergencyService] Emergency services are organizations which ensure public
+safety and health by addressing different emergencies. The three main services
+are: Police, Fire Department and Medical urgency.
+
+\item[Event] An event is a message which is send from the
+\emph{CommunicationUnit} to one of the units of the \emph{DataCenter}. It forms
+a generalisation for \emph{UpdateEvents} and \emph{AlarmEvents}.
+
+\item[Gas] This is the \emph{utility}, namely \emph{Gas}.
+
+\item[Government] 
+
+\item[GPRSModule] This refers to a specific kind of \emph{Module} which
+communicates with the \emph{CommunicationUnit} through the use of GPRS
+technology.
+
+\item[HiredModule] A \emph{HiredModule} is a \emph{Module} hired by a
+\emph{customer}. This occurs when a \emph{company} has outsourced the billing
+aspect to ReMeS.
+
+\item[Invoice] An Invoice is a document containing the consumption of a
+\emph{Customer} for a certain utility during a certain period of time.
+Furthermore (and more important), this document also contains the total amount
+the \emph{Customer} has to pay for this consumption to the \emph{Company}.
+
+\item[IPCommunicationUnit] This unit is responsible for the collection of
+measurement data through GPRS and Wifi. The collected data is then send to the
+DataCenter.
+
+\item[Module] This is a general name for all sorts of modules.
+There are \emph{Modules} who measure monitor data and \emph{Modules} that can
+control the flow (valves). Another way in which \emph{Modules} can differ is the
+communication type (i.e. GPRS, SMS and Wifi). A final distinction is the owner,
+modules can be owned by a \emph{Company} or hired by a customer.
+
+\item[MonitoringModule] This is a \emph{Module} which measures the consumption
+of a certain \emph{utility}. The measured data is send to the
+\emph{CommunicationUnit} in a certain format, dependent of the type of the
+module.
+
+\item[Operator] An Operator is a person who works in the \emph{CallCenter}. The
+task of an \emph{Operator} is dual. First of all to assist \emph{Customers} in
+troubleshooting. Secondly, any kind of notification for a \emph{Customers} is
+done by such a person.
+
 \item[Payment]
-\item[Personnel]
-\item[Prediction]
+
+\item[Personnel] This is a general name for all different kind of Employees. In
+this project there are \emph{SystemAdministrators}, \emph{Operators} and
+\emph{Technicians}.
+
+\item[Prediction] \emph{Companies} want to know how much of which utility they
+will have to produce in the coming period (this could a week, a month, a year,
+etc.). To Provide \emph{Companies} with this information 
+
 \item[PredictionUnit]
+
 \item[Report]
+
 \item[ResidentialCustomer]
+
 \item[SIMCard]
+
 \item[SIMCardModule]
+
+\item[SMSCommunicationUnit]
+
 \item[SMSModule]
+
 \item[StorageUnit]
+
 \item[StakeHolder]
+
 \item[SystemAdministrator]
+
 \item[Technician]
+
 \item[TelephoneCompany]
+
 \item[ThirdPartyService]
+
 \item[Trame]
+
 \item[UpdateEvent]
+
 \item[UsageDetail]
+
 \item[Utility]
+
 \item[ValveModule]
-\item[Water]
+
+\item[Water] This is the \emph{utility}, namely \emph{Water}.
+
 \item[WiFiModule]
+
 \end{description}
