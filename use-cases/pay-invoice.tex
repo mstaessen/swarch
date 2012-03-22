@@ -1,0 +1,41 @@
+\begin{description}
+	\item[Primary actor] Customer
+	\item[Interested parties] ReMeS, Utility providing company, Third Party Paymeny
+	Service
+	\item[Preconditions] \ 
+	\begin{itemize}
+		\item The customer has a pending invoice.
+		\item The third party payment service has the invoice at it's disposal.
+	\end{itemize}
+	\item[Postconditions] \ 
+	\begin{itemize}
+		\item The customer has no more pending invoices and the invoice is paid.
+		\item The utility providing company and third party payment service each got
+		their share of the paid invoice.
+	\end{itemize}
+	\item[Normal flow] \ 
+	\begin{enumerate}
+	  	% 1
+	  	\item The third party payment service notifies the customer that there is a
+	  	pending invoice
+	  	% 2
+	  	\item The customer transfer the correct amount of money to the payment
+	  	service before expiration of the due date.
+	  	% 3 
+	  	\item Upon receiving the correct amount of money from the customer, the
+	  	payment service notifies ReMeS and the corresponding utility providing
+	  	company.
+	\end{enumerate}
+	\item[Alternate flow] \ 
+	\begin{description}
+		\item[2a] The customer does not pay on time
+		\begin{enumerate}
+		  \item a last warning to pay is sent.
+		  \item 
+		\end{enumerate}
+	\end{description}
+	\item[Exception flow] \ 
+	\begin{description}
+		\item 
+	\end{description}
+\end{description}
