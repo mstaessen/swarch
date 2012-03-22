@@ -1,14 +1,13 @@
 \begin{description}
-	\item[Primary actor] Customer
-	\item[Interested parties] ReMeS, Utility providing company
+	\item[Primary actor] Valve Operator
+	\item[Interested parties] Customer, ReMeS, Utility providing company
 	\item[Preconditions] \ 
 	\begin{itemize}
-		\item The customer has a valve installed.
-		\item The valve is registered in the ReMeS system.
-		\item The valve is active.
-		\item The valve is open.
-		\item The customer is logged in into the ReMeS portal OR the anomaly detection
-		unit requested to shut down the remote valve.
+		\item The remote valve is installed at the customer's premise.
+		\item The remote valve is registered.
+		\item The remote valve is active.
+		\item The remote valve is open.
+		\item A request has been made to shut down the valve.
 	\end{itemize}
 	\item[Postconditions] \ 
 	\begin{itemize}
@@ -17,7 +16,7 @@
 	\item[Normal flow] \ 
 	\begin{enumerate}
 	  	% 1
-	  	\item The customer indicates which remote valve he wants to shut down.
+	  	\item The valve operator indicates which remote valve needs to be shut down.
 	  	% 2 
 	  	\item The communication unit sends a request to the remote valve to shut it
 	  	down.
