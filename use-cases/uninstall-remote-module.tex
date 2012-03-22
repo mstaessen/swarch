@@ -3,50 +3,27 @@
 	\item[Interested parties] Customer, ReMeS, Utility providing company
 	\item[Preconditions] \ 
 	\begin{itemize}
-		\item ReMeS has at least one operating monitoring module.
+	  	\item The technician is logged in. 
+		\item The customer has at least one deactivated remote module.
+		\item The technician can physically reach the remote device (the customer is
+		present and/or the module is reachable).
 	\end{itemize}
 	\item[Postconditions] \ 
 	\begin{itemize}
-		\item The utility control module closes the valve in case a leak is detected.
-		\item ReMeS is aware of this profile for the control module.
+		\item The remote module is removed from the customer's premise.
+		\item The remote module is unregistered from ReMeS.
 	\end{itemize}
 	\item[Normal flow] \ 
 	\begin{enumerate}
 	  	% 1
-	  	\item The user logs in to the ReMeS portal with his/her username and
-	  	password.
+	  	\item The technician arrives at the customer's premise.
 	  	% 2
-	  	\item The user navigates to the correct utility control module for
-	  	reconfiguration.
+	  	\item The technician searches the remote module profile.
 	  	% 3 
-	  	\item There he/she selects the profile on how to act in case a leak is
-	  	detected. In this case, he/she chooses to immediately close the valve in
-	  	case of leak.
+	  	\item The technician unregisters the remote module.
 	  	% 4
-	  	\item ReMeS receives this reconfiguration request and sends the
-	  	corresponding to command to the correct control module.
+	  	\item The technician uninstalls the remote module.
 	  	% 5
-	  	\item The module receives this command and acknowledges it.
+	  	\item The technician leaves.
 	\end{enumerate}
-	\item[Alternate flow] \ 
-	\begin{description}
-		\item
-	\end{description}
-	\item[Exception flow] \ 
-	\begin{description}
-		\item[1a] Username and/or password are wrong.
-		\begin{enumerate}
-		  \item correct the spellingserrors(s) and retry.
-		\end{enumerate}
-		\item[4a] The request is lost.
-		\begin{enumerate}
-		  \item The user portal doesn't get an acknowledgement and has to resend the
-		  request.
-		\end{enumerate}
-		\item[5a] The command is lost or not executed.
-		\begin{enumerate}
-		  \item The ReMeS system doesn't get an acknowledgement and has to resend the
-		  command.
-		 \end{enumerate}
-	\end{description}
 \end{description}
