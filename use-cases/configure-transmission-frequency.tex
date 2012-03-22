@@ -3,41 +3,45 @@
 	\item[Interested parties] Customer, ReMeS, Utility providing company
 	\item[Preconditions] \ 
 	\begin{itemize}
-		\item The authorized user is logged into the ReMeS portal with his/her
-		username and password.
-		\item The utility providing company has offered a lower price for consumers
-		who are willing to send measurement data more frequently.
+		\item The authorized user is logged into the ReMeS portal.
+		\item The customer has an installed, registered and active monitoring module.
 	\end{itemize}
 	\item[Postconditions] \ 
 	\begin{itemize}
-		\item The remote monitoring module sends data more frequently
-		\item The customer has a lower utility price.
+		\item The update frequency of the module has changed.
 	\end{itemize}
 	\item[Normal flow] \ 
 	\begin{enumerate}
 	  	% 1
-	  	\item The authorized user navigates to the correct utility module for
-	  	reconfiguration.
+	  	\item The authorized user indicates for which module he wants to reconfigure
+	  	the update frequency.
 	  	% 2 
-	  	\item There he/she selects that he/she is willing to send data more
-	  	frequently inexchange for a lower utility price.
+	  	\item The authorized user changes the update frequency for the monitoring
+	  	module module.
 	  	% 3
-	  	\item ReMeS receives this reconfiguration request and sends the
-	  	corresponding command to the correct module.
+	  	\item The authorized user confirms the update frequency changes.
 	  	% 4
-	  	\item The module receives this command and acknowledges it.
+	  	\item The communication unit sends the reconfiguration request to the
+	  	correct remote module.
+	  	% 5
+	  	\item The remote module receives the request.
+	  	% 6
+	  	\item The remote module reconfigures itself.
+	  	% 7
+	  	\item The remote module acknowledges the change if successful.
 	\end{enumerate}
 	\item[Exception flow] \ 
 	\begin{description}
-		\item[3a] The request is lost.
+		\item[5a] The remote does not receive the request.
 		\begin{enumerate}
-		  \item The user portal doesn't get an acknowledgement and has to resend the
-		  request.
+			\item The communication unit waits for a while.
+			\item Return to step 4 of the normal flow.
 		\end{enumerate}
-		\item[4a] The command is lost or not executed.
+		\item[6a] Reconfiguration fails.
 		\begin{enumerate}
-		  \item The ReMeS system doesn't get an acknowledgement and has to resend the
-		  command.
+			\item The remote module keeps the old setting.
+			\item An error message will be displayed on the ReMeS portal.
+			\item The use case ends here.
 		 \end{enumerate}
 	\end{description}
 \end{description}
