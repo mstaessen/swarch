@@ -1,5 +1,5 @@
 \begin{description}
-	\item[Primary actor] Remote module
+	\item[Primary actor] Remote monitoring module
 	\item[Interested parties] Customer, ReMeS, Utility providing company 
 	\item[Preconditions] \ 
 	\begin{itemize}
@@ -18,23 +18,34 @@
 		% 2
 		\item The remote module sends the trame to the configured phone number by SMS.
 		% 3
-		\item The data center collects the trame.
-		% 4
-		\item The data center processes the trame.
+		\item The communication unit collects the trame.
+		% 4 
+		\item The communication unit creates a corresponding event.
+		% 5
+		\item The storage unit stores the event. 
+		% 6
+		\item The anomaly detection unit processes the trame.
+		% 7
+		\item The analytics unit processes the trame.
 	\end{enumerate}
 	\item[Alternate flow] \ 
 	\begin{description}
+		\item[1a] The battery is low.
+		\begin{enumerate}
+			\item Include Use Case \ref{uc:send-low-battery-alarm} (``Send low battery
+			alarm'').
+		\end{enumerate}
 		\item[2a] The remote module uses the internet to send trames.
 		\begin{enumerate}
 			\item The remote module sends the trame to the configured IP address using
 			the configured WiFi connection.
 			\item Return to step 3 in the normal flow.
 		\end{enumerate}
-		\item[4a] The battery is low.
+		\item[6a] An anomaly is detected.
 		\begin{enumerate}
-			\item Include Use Case \ref{uc:send-low-battery-alarm} (``Send low battery
-			alarm'').
-		\end{enumerate}
+			\item Include use case \ref{uc:send-alarm} (``Send alarm'').
+			\item Return to step 7 in the normal flow.  
+		\end{enumerate} 
 	\end{description}
 	\item[Exception flow] \ 
 	\begin{description}

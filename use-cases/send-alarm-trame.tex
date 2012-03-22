@@ -1,5 +1,5 @@
 \begin{description}
-	\item[Primary actor] Remote monitoring module
+	\item[Primary actor] Remote Monitoring Module
 	\item[Interested parties] Customer, Call Center, Utility providing company,
 	ReMeS, Emergency services
 	\item[Preconditions] \ 
@@ -11,7 +11,6 @@
 	\item[Postconditions] \ 
 	\begin{itemize}
 		\item The event is logged.
-		\item The consumption profile is updated.
 	\end{itemize}
 	\item[Normal flow] \ 
 	\begin{enumerate}
@@ -19,18 +18,18 @@
 	  	\item The remote monitoring module prepares an alarm trame.
 	  	% 2
 	  	\item The remote monitoring module sends the alarm trame to the configured
-	  	data center. 
+	  	communication unit. 
 	  	% 3 
-	  	\item The data center collects the alarm trame.
+	  	\item The communication unit collects the alarm trame.
 		% 4
-		\item The data center converts the alarm trame to an alarm event.
+		\item The communication unit converts the alarm trame to an alarm event.
 		% 5
 		\item The storage unit saves the alarm event.
 		% 6
-	  	\item The anomaly detection unit examines the alarm event.
+	  	\item The anomaly detection unit processes alarm event.
 		% 7
 	  	\item The anomaly detection unit sends a notification to the customer.
-	  	Include use case \ref{uc-alarm-transmission-remes} (``Alarm transmission: ReMeS'').
+	  	Include use case \ref{uc:send-alarm} (``Send alarm'').
 	\end{enumerate}
 	\item[Alternate flow] \ 
 	\begin{description}
