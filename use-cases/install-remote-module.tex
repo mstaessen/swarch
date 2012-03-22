@@ -1,27 +1,35 @@
 \begin{description}
-	\item[Primary actor] Customer
-	\item[Interested parties] ReMeS, Utilty providing company, technicians
+	\item[Primary actor] Technician
+	\item[Interested parties] Customer, ReMeS, Utilty providing company
 	\item[Preconditions] \ 
 	\begin{itemize}
-		\item The customer needs to have a contract on record with at least one
-		company participating in the ReMeS program
+	  	\item the customer needs to have an approved and activated customer profile
+	  	in the ReMeS system.
 	\end{itemize}
 	\item[Postconditions] \ 
 	\begin{itemize}
-		\item The customer has monitoring module installed
+		\item The remote module is installed at the customer's premise.
+		\item The remote module is activated.  
 	\end{itemize}
 	\item[Normal flow] \ 
 	\begin{enumerate}
 	  	% 1
-		\item The customers contacts ReMeS to schedule the installation of the module.
+		\item The technician arrives at the customer's premise.
 		% 2
-		\item The technician visits the customer at the agreed moment.
-		% 3 
 		\item The technician installs the module.
+		% 3
+		\item The technician registers the remote module with the ReMeS by entering
+		the relevant information (e.g. serial number, brand, module type, location,
+		initial meter value, other modules in front of this remote module, \ldots).
 		% 4
-		\item The technician seals the module to prevent tampering.
+		\item The technician configures the module for data communication.
 		% 5
-		\item The technician records the initial meter value.
-		% 6 % 7 & 8 % 9 % 10 % 11 & 12 & 13
+		\item The technician seals the module to prevent tampering.
+		% 6
+		\item The technician links the module to the customer's profile. Include use
+		case \ref{uc:link-remote-module} (``Link remote module'').
+		% 7
+		\item The remote module sends its first trame, initializing the usage
+		monitoring. Include use case \ref{uc:send-data-trame} (``Send data trame'').
 	\end{enumerate}
 \end{description}
