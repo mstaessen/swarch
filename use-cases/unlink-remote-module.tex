@@ -1,25 +1,40 @@
 \begin{description}
-	\item[Primary actor] ReMeS
-	\item[Interested parties] Customer, Call Center, Utilty providing company,
-	Emergency services
+	\item[Primary actor] Authorized User
+	\item[Interested parties] Customer, Technician, Call Center, Utility providing
+	company
 	\item[Preconditions] \ 
 	\begin{itemize}
-		\item The customer or technician is logged in into the ReMeS portal. 
-		\item The customer must have a remote module installed.
-		\item The remote module must be registered with ReMeS.
+		\item The authorized user is logged in. 
+		\item The remote module is registered.
+		\item The remote module is activated.
 	\end{itemize}
 	\item[Postconditions] \ 
 	\begin{itemize}
-		\item The specified modules are removed from the customer's account.
+		\item The remote module is removed from the customer's profile.
+		\item The remote module is removed from the customer's premise.
 	\end{itemize}
 	\item[Normal flow] \ 
 	\begin{enumerate}
 	  	% 1
-	  	\item The customer or technician indicates which remote module he or she
-	  	wants to unregister.
+	  	\item The authorized user indicates which remote module he or she
+	  	wants to unlink.
 	  	% 2
-	  	\item The customer or technician confirms the removal of the module.
+	  	\item The authorized user confirms the removal of the module from
+	  	the customer's profile.
 	  	% 3
-	  	\item ReMeS unlinks the remote module from the customers profile. 
+	  	\item The authorized user schedules an appointment to uninstall the
+	  	module.
+		% 4
+	  	\item At the scheduled appointment, include use case
+	  	\ref{uc:uninstall-remote-module} (``Uninstall remote module'').
 	\end{enumerate}
+	\item[Exception flow] \
+	\begin{description}
+		\item[4a] The customer is not present at the scheduled appointment.
+		\begin{enumerate}
+			\item A call center operator contacts the customer to schedule a new
+			appointment.
+			\item Return to step 4 in the normal flow.
+		\end{enumerate}
+	\end{description}
 \end{description}
