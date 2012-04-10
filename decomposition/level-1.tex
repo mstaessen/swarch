@@ -67,35 +67,73 @@ in this level of decomposition.
 \subsubsection{Tactics}
 \label{tactics:whole-system}
 
+\paragraph{}
+
 \npar After selecting the drivers for the current decomposition, one has to
 choose the tactics to achieve them. Recall from section
 \ref{drivers:whole-system} that the first driver was Av1. All approaches to
-maintain availity involve either detection, recovery or prevention of faults.
+maintain availability involve either detection, recovery or prevention of
+faults.
 
-\npar First of all to detect a fault there are three options: ping/echo,
-heartbeat and exceptions. It is important to notice that the latter one is not
-practical. This can be illustrated with a simple example. Suppose that a
-component $c_1$ can fail while no other component $c_2$ needs a service of
-$c_1$ for a duration longer than the detectioninterval of five seconds (see
-Av1). It is obvious that the fault won't be detected under five seconds
-because $c_2$ will only throw an exception when it tries to contact $c_1$ (and
-this will take place only after five seconds and hence useless). For the
-detection we have chosen for the heartbeat tactic for performance reasons.
-The ping/echo mechanism periodically requires two messages, namely a ping and a
-response while the heartbeat only requires one. Notice that only detecting a
-fault is insufficient, resolving the fault is at least equally important.
+\npar First of all, a fault needs to be detected. For this, there are three
+options: ping/echo, heartbeat and exceptions. It is important to notice that the
+latter is not very practical. This can be illustrated with a simple example.
 
-\npar Once a fault has been detected, the faulting hardware must be taken out of
-action and be replaced by a working version. To guarantee an uptime of 99.9\%
-however, there has to a backup to take over the tasks the previously faulting
-hardware was performing. As was the case in the previous paragraph, there are
-many alternatives. The most frequently used ones are: active redundancy, passive
-redundancy and spare. The main criterion to select one of these is the downtime
-of the system. These downtimes are respectively: in the order of miliseconds,
-seconds and minutes. An uptime of 99.9\% corresponds to 0.72 hours (= 43.2
-minutes) of permitted downtime on a monthly basis. This number reveals potential
-problems when a spare is used because there can be only less the 10 failures a
-month. %TODO: argumenteren waarom active of waarom passive
+\npar Suppose that a component $c_1$ depends on another component $c_2$. For
+some reason, $c_1$ does not need the services of $c_2$ for a duration longer
+than the detection interval of 5 seconds (see Av1). Within this time, no
+detection can occur, simply because there is no interaction between the
+components. For this reason, we eliminate exceptions as a primary fault
+detection system. However, exceptions will still have to be implemented in order
+to make the system fail gracefully (a component being unavailable will not
+cause the system to crash).
+
+\npar Another detection method uses ping/echo. This primarily focusses on
+network connectivity and will not check the availabillity of the service itself.
+Again, this is not very practical. A server can be reachable, but the service on
+a certain port number may be unavailable. In this case, the ping/echo
+method would not detect the fault. 
+
+\npar Heartbeat on the other hand, will be part of the system itself and will be
+able to check whether the service is still up and running. It will periodically
+(at most every 5 seconds) check the state of the system and send out a pulse
+to a heartbeat monitor if everything is runnning fine.
+
+\npar Another advantage of using heartbeat is that the pulse can contain data,
+more specifically status data. For instance, a single failing disk in a RAID5
+array can cause a warning but will not cause the system to crash. This
+information can be included in the pulse of the heartbeat to inform the
+administrators to replace the failing disk.
+
+\npar As a result, heartbeat seems the best solution to detect faults. 
+
+\npar Detecting a fault is insufficient, resolving the fault is at least equally
+important. Once a fault has been detected, the faulting component must be taken
+out of action and be repaired or replaced with a working version. However, in
+order to guarantee an uptime of 99.9\%, there has to be a backup to take over in
+case of a component fault.
+
+\npar As was the case in the previous paragraph, there are many alternatives.
+The most frequently used ones are active redundancy, passive redundancy and
+spare. The main criterion to select one of these is the downtime of the system.
+These downtimes are respectively in the order of miliseconds, seconds and
+minutes. An uptime of 99.9\% corresponds to 0.72 hours (= 43.2 minutes) of
+permitted downtime on a monthly basis. This number reveals potential problems
+when a spare is used because there can be only less the 10 failures a month. For
+this reason, use of spares is eliminated.
+
+\npar The difference between active and passive replication is rather subtle.
+In an active replication scheme, the system will recover faster then in a
+passive replication scheme. However, all replicas should be in a consistent
+state. This increases the communication overhead, compared to a passive
+replication scheme. 
+
+\npar On the other hand, the active replication scheme can also provide load
+balancing. If one replica has a higher load than another, the replica with the
+lowest load can be used to process the query. For this reason, the active
+replication scheme is selected. 
+
+\paragraph{Performance} 
 
 \npar For performance tactics there are three categories: resource
 arbitration, resource management and resource demand.
@@ -156,5 +194,8 @@ requests to all the replicas.
 
 \subsubsection{Other requirements}
 \label{others:whole-system}
+
+
+
 
 
