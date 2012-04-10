@@ -93,7 +93,7 @@ of the system. These downtimes are respectively: in the order of miliseconds,
 seconds and minutes. An uptime of 99.9\% corresponds to 0.72 hours (= 43.2
 minutes) of permitted downtime on a monthly basis. This number reveals potential
 problems when a spare is used because there can be only less the 10 failures a
-month. 
+month. %TODO: argumenteren waarom active of waarom passive
 
 \npar For performance tactics there are three categories: resource
 arbitration, resource management and resource demand.
@@ -114,6 +114,23 @@ of consideration.
 \npar On a lower level one could also try to minimize network overhead by
 only sending small amounts of data in each trame. This is achieved by
 limiting the size of the trames to 160 bytes.
+
+\npar To conclude a small overview is given of all selected tactics for this
+decomposition.
+
+\begin{itemize}
+ 	\item Av1 (High): Measurement database Failure
+ 	\begin{itemize}
+ 		\item Detection: Heartbeat 
+ 		\item Recovery : %TODO zie eerdere todo in de tekst
+ 	\end{itemize}
+  	\item P1 (High): Timely closure of valves
+  	\begin{itemize}
+  		\item Resource arbitration : Scheduling
+		\item Resource management  : concurrency
+		\item Resource demand      : limited tramesize
+  	\end{itemize}
+\end{itemize}
 
 \subsubsection{Design Patterns}
 \label{dp:whole-system}
