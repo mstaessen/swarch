@@ -162,7 +162,7 @@ decomposition.
  	\item Av1 (High): Measurement database Failure
  	\begin{itemize}
  		\item Detection: Heartbeat 
- 		\item Recovery : %TODO zie eerdere todo in de tekst
+ 		\item Recovery : Active replication
  	\end{itemize}
   	\item P1 (High): Timely closure of valves
   	\begin{itemize}
@@ -173,13 +173,13 @@ decomposition.
 \end{itemize}
 
 \subsubsection{Design Patterns}
-\label{dp:whole-system}
+\label{dp:whole-system} %TODO verder uitwerken
 
 \npar With respect to resource arbitration and resouce management, the
 \emph{Active Object} design pattern is chosen for trame communication and
 processing. Schedulers will determine the order in which trames are received,
 processed and sent. These schedulers will have different scheduling policies,
-implemented with the \emph{strategy} design pattern, in order to allow operation
+implemented with the \emph{Strategy} design pattern, in order to allow operation
 in different modes.
 
 \npar The trames will have to be objectified. This will yield two advantages.
