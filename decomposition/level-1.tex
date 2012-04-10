@@ -72,5 +72,24 @@ in this level of decomposition.
 \subsubsection{Design Patterns}
 \label{dp:whole-system}
 
+\npar With respect to resource arbitration and resouce management, the
+\emph{Active Object} design pattern is chosen for trame communication and
+processing. Schedulers will determine the order in which trames are received,
+processed and sent. These schedulers will have different scheduling policies,
+implemented with the \emph{strategy} design pattern, in order to allow operation
+in different modes.
+
+\npar The trames will have to be objectified. This will yield two advantages.
+Firstly, the scheduler can be implemented using the \emph{Command Processor}
+design pattern. Secondly, a unified language will exist for all vendor
+specific trame formats.
+
+\npar To make the data highly available, the database will be replicated. This
+can be achieved by using the \emph{Replicated Component Group} design pattern.
+The database will be replaced with a front-end interface that replicates all
+requests to all the replicas. 
+
 \subsubsection{Other requirements}
 \label{others:whole-system}
+
+
