@@ -77,11 +77,13 @@ heartbeat and exceptions. It is important to notice that the latter one is not
 practical. This can be illustrated with a simple example. Suppose that a
 component $c_1$ can fail while no other component $c_2$ needs a service of
 $c_1$ for a duration longer than the detectioninterval of five seconds (see
-Av1). For the detection we have chosen for the heartbeat tactic for
-performance reasons. The ping/echo mechanism periodically requires two
-messages, namely a ping and a response while the heartbeat only requires
-one. Notice that only detecting a fault is insufficient, resolving the fault is
-at least equally important.
+Av1). It is obvious that the fault won't be detected under five seconds
+because $c_2$ will only throw an exception when it tries to contact $c_1$ (and
+this will take place only after five seconds and hence useless). For the
+detection we have chosen for the heartbeat tactic for performance reasons.
+The ping/echo mechanism periodically requires two messages, namely a ping and a
+response while the heartbeat only requires one. Notice that only detecting a
+fault is insufficient, resolving the fault is at least equally important.
 
 \npar Once a fault has been detected, the faulting hardware must be taken out of
 action and be replaced by a working version. To guarantee an uptime of 99.9\%
