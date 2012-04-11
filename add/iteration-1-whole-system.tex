@@ -4,26 +4,30 @@
 \npar In the first iteration, the whole system, ReMeS is decomposed. It takes
 all the requirements and quality attribute scenarios as input.
 
-\subsection{Step 0: Confirm there is sufficient requirements information} 
-
-% TODO de tekst in deze subsectie beschrijft niet helemaal wat in deze sectie
-% moet komen.
-
-\npar In the first step of the ADD process, the whole system is decomposed in
-two subsystems ``Remote Module Subsystem'' and ``Portal''. The decomposition is
-shown in figure \ref{fig:dec/level-1}.
+\npar Two subsystems are recognized: a ``Remote Module Subsystem'' and the
+``Portal''. This is shown in figure \ref{fig:add/it1/decomposition}.
 
 \begin{figure}[H]
 	\begin{centering}
 		% TODO
 		%\includegraphics[width=0.6\textwidth]{figs/decomposition/whole-system/decomposition.pdf}
-		\caption{The level 1 decomposition of the ReMeS system}
-		\label{fig:dec/level-1}
+		\caption{The subsystems of the ReMeS system}
+		\label{fig:add/it1/decomposition}
 	\end{centering}
 \end{figure}
 
+\subsection{Step 0: Confirm there is sufficient requirements information} 
+
+% TODO de tekst in deze subsectie beschrijft niet helemaal wat in deze sectie
+% moet komen. Ofwel scrappen we dit, ofwel maken we hier nog eens een overzicht
+% van de requirements met prioritization door de opdrachtgever en invloed op de
+% architectuur. 
+% Referenced from: http://www.sei.cmu.edu/reports/06tr023.pdf
+
 \subsection{Step 1: Identify candidate drivers}
 \label{add:it1/drivers}
+
+% TODO verwijs naar step 0?
 
 \npar For the first decomposition, two high priority quality attribute scenarios
 and their associated use cases are taken into account. 
@@ -54,7 +58,7 @@ trames), trame storage, trame processing and customer communication.
 
 \npar In order to obtain a better understanding of the relationships between
 these functionalities, a small domain model is drafted. Figure
-\ref{fig:dec/whole-system/draft} This model can then be refined later on
+\ref{fig:add/it1/draft} This model can then be refined later on
 in this level of decomposition.
 
 \begin{figure}[H]
@@ -62,7 +66,7 @@ in this level of decomposition.
 		% TODO
 		%\includegraphics[width=0.6\textwidth]{figs/decomposition/whole-system/domainmodel-draft.pdf}
 		\caption{Draft of the domain model used in the level 1 decomposition}
-		\label{fig:dec/whole-system/draft}
+		\label{fig:add/it1/draft}
 	\end{centering}
 \end{figure}
 
@@ -210,76 +214,71 @@ requests to all the replicas.
 \subsection{Step 5: Verify and refine}
 \label{add:it1/verification}
 
-\npar In this step, we verifiy that that the element decomposition thus far
-meets the functional requirements and quality attribute requirements. Also,
-child elements are prepared for further decomposition.
+\npar In this step, we verify that that the element decomposition thus far meets
+the functional requirements and quality attribute requirements. Also, child
+elements are prepared for further decomposition.
 
-\npar First, we will verify that all functional requirements and quality
-attribute requirements of the parent element have been allocated to one or more
-child elements in the decomposition.
+\npar Three things have to be verified. First, we will verify that all
+functional requirements and quality attribute requirements of the parent element
+have been allocated to one or more child elements in the decomposition.
+Secondly, all responsibilities that were assigned to child modules are
+translated into functional requirements for the individual items and finally,
+quality attribute scenarios for individual child elements are refined if
+necessary.
 
-% TODO
+\npar We will list all the child elements, together with their allocated use
+cases and quality attribute requirements. If a requirement is split or
+delegated, it is also mentioned in the list. 
 
-\npar Secondly, all responsibilities that were assigned to child modules are
-translated into functional requirements for the individual items. 
-
-% TODO
-
-\npar Finally, quality attribute scenarios for individual child elements are
-refined if necessary.
-
-% TODO 
-
-
-% \begin{itemize}
-% 	\item Communication Unit
-% 	\begin{itemize}
-% 		\item UC7: Send trame to remote device
-% 	\end{itemize}
-% 	\item Storage Scheduler
-% 	\begin{itemize}
-% 		\item UCx: Determine the operational mode (derived) 
-% 	\end{itemize}
-% 	\item Storage 
-% 	\begin{itemize}
-% 		\item UC14': Request consumption predictions (split)
-% 	  	\item UC15': Generate invoice (split)
-% 	  	\item UC17': Perform research (split)
-% 	  	\item P3': Requests to the measurement database (delegated)
-% 	\end{itemize} 
-% 	\item Anomaly Detection Scheduler
-% 	\begin{itemize}
-% 		\item UCx: Determine the operational mode (derived)
-% 	  	\item UC10': Detect Anomaly (split)
-% 	  	\item P2': Anomaly Detection (split)
-% 	\end{itemize}
-% 	\item Anomaly Detection
-% 	\begin{itemize}
-% 		\item UC10': Detect Anomaly (split) 
-% 		\item P2': Anomaly Detection (split)
-% 	\end{itemize}
-% 	\item Call Center
-% 	\begin{itemize}
-% 		\item UC9: Notify Customer 
-% 	\end{itemize}
-% 	\item Other functionality
-% 	\begin{itemize}
-% 	  	\item UC1: Log in 
-% 	  	\item UC2: Log off
-% 	  	\item UC3: Register customer
-% 	  	\item UC4: Unregister customer
-% 	  	\item UC5: Associate device to customer
-% 	  	\item UC6: Customize customer profile
-% 	  	\item UC11: Operate remote actuator remotely
-% 	  	\item UC12: Set alarm recipients
-% 	  	\item UC14': Request consumption predictions (split)
-% 	  	\item UC15': Generate invoice (split)
-% 	  	\item UC16: Mark invoice paid
-% 	  	\item UC17': Perform research (split)
-% 	  	\item Av2: Missing measurements 
-% 	  	\item Av3: Third Party Billing Service failure
-% 	  	\item M1: Dynamic pricing
-% 	  	\item M2: Fine-grained metering for enterprises
-% 	  	\item M3: Decentralized electricity generation
-% 	\end{itemize}
-% \end{itemize}
+\begin{itemize}
+	\item Communication Unit
+	\begin{itemize}
+		\item UC7: Send trame to remote device
+	\end{itemize}
+	\item Storage Scheduler
+	\begin{itemize}
+		\item UCx: Determine the operational mode (derived)
+	\end{itemize}
+	\item Storage
+	\begin{itemize}
+		\item UC14': Request consumption predictions (split)
+	  	\item UC15': Generate invoice (split)
+	  	\item UC17': Perform research (split)
+	  	\item P3': Requests to the measurement database (delegated)
+	\end{itemize}
+	\item Anomaly Detection Scheduler
+	\begin{itemize}
+		\item UCx: Determine the operational mode (derived)
+	  	\item UC10': Detect Anomaly (split)
+	  	\item P2': Anomaly Detection (split)
+	\end{itemize}
+	\item Anomaly Detection
+	\begin{itemize}
+		\item UC10': Detect Anomaly (split)
+		\item P2': Anomaly Detection (split)
+	\end{itemize}
+	\item Call Center
+	\begin{itemize}
+		\item UC9: Notify Customer
+	\end{itemize}
+	\item Other functionality
+	\begin{itemize}
+	  	\item UC1: Log in
+	  	\item UC2: Log off
+	  	\item UC3: Register customer
+	  	\item UC4: Unregister customer
+	  	\item UC5: Associate device to customer
+	  	\item UC6: Customize customer profile
+	  	\item UC11: Operate remote actuator remotely
+	  	\item UC12: Set alarm recipients
+	  	\item UC14': Request consumption predictions (split)
+	  	\item UC15': Generate invoice (split)
+	  	\item UC16: Mark invoice paid
+	  	\item UC17': Perform research (split)
+	  	\item Av2: Missing measurements
+	  	\item Av3: Third Party Billing Service failure
+	  	\item M1: Dynamic pricing
+	  	\item M2: Fine-grained metering for enterprises
+	  	\item M3: Decentralized electricity generation
+	\end{itemize}
+\end{itemize}
