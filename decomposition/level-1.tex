@@ -179,17 +179,41 @@ decomposition.
 processing. Schedulers will determine the order in which trames are received,
 processed and sent. These schedulers will have different scheduling policies,
 implemented with the \emph{Strategy} design pattern, in order to allow operation
-in different modes.
+in different modes. The main downside of the usage of the \emph{Active Object}
+pattern is the increased overhead in handling an incoming trame. 
 
 \npar The trames will have to be objectified. This will yield two advantages.
 Firstly, the scheduler can be implemented using the \emph{Command Processor}
-design pattern. Secondly, a unified language will exist for all vendor
-specific trame formats.
+design pattern. This means that scheduling can easily be realized as well as
+providing additional services (e.g. undo functionality). Secondly, a
+unified language will exist for all vendor specific trame formats.
 
 \npar To make the data highly available, the database will be replicated. This
 can be achieved by using the \emph{Replicated Component Group} design pattern.
 The database will be replaced with a front-end interface that replicates all
-requests to all the replicas. 
+requests to all the replicas. The gain of availability comes off course at a
+cost. This cost is paid in terms of performance. To keep all the replicas in a
+consistent state, there is extra communication on the network between the
+replicas to exchange information regarding changes. To minimize this network
+overhead one can use the \emph{Observer} pattern. Normally the internal
+bandwidth (i.e. the bandwidth of the communication channels between the
+replicas) is high enough and will not form a bottleneck.
+
+\npar Furthermore is all the data centralized in a shared repository according
+to the \emph{Shared Repository} pattern. This can be easily understood by
+looking at the core activity of ReMeS, namely collecting and processing of huge
+amounts of data sent by remote modules (field devices). So at it's core, ReMeS
+is data-driven. Furthermore in a shared repository it is easy to implement a
+notification service for application components when changes are made in the
+repository. This is particularly useful to notify the Processing scheduler when
+a new trame is available. However, the use of a shared repository has some
+downsides. The centralization of all the data introduces a single point of
+failure, which is not desirable. This potential problem is countered by the use
+of the \emph{Replicated Component Group} pattern. A shared repository can
+furthermore cause a performance and/or scalability bottleneck when many
+components need (write) access to it (and hence will be serialized).
+Fortunately, in this application there is no need for massive concurrent write
+access.
 
 \subsubsection{Other requirements}
 \label{others:whole-system}
