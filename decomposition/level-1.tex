@@ -215,6 +215,64 @@ components need (write) access to it (and hence will be serialized).
 Fortunately, in this application there is no need for massive concurrent write
 access.
 
+\subsubsection{Decomposition explanation}
+\label{expl:whole-system}
+
+\paragraph{Communication unit}
+
+\npar This module is responsible for all communication from and to remote
+modules (all types of communication and both valves and control devices).
+Incoming trames (from remote devices) are handed over to appropriate scheduler.
+Trames which need to be sent to to remote modules are dispatched to the correct
+module through the correct medium.
+
+\paragraph{Scheduler for incoming trames}
+
+\npar This scheduler gets all incoming trames from remote modules and schedules
+them for storage. Dependent to the active scheduling policy trames can be
+prioritized over other trames. For instance, an incoming alarm trame for a gas
+leak has top priority and has strict bounds on the delivery time (see the
+quality attribute scenarios). Furthermore serves this scheduler as a buffer.
+This is particularly useful when the storage unit is overloaded.
+
+\paragraph{Heartbeat monitor cluster}
+
+\npar The heartbeat monitor cluster is the result of the tactic to detect a
+fault, namely heartbeat. This component will monitor all other components to see
+if they are still alive (i.e. not crashed). Off course it is not unthinkable
+that the monitor component fails itself. Therefore this component has to monitor
+itself by for example an extra monitor that monitors the monitor.
+
+\paragraph{Storage of trames}
+
+\npar This component is the front end interface for database communication. This
+means that it communicates with all the instances of the physical storage to
+store a trame. Furthermore shall this unit notify the trame processing scheduler
+that a new trame entered the system. 
+
+\paragraph{Scheduler for trame processing}
+
+\npar When the storage unit has stored a new trame, this scheduler is notified
+and fetches the freshly stored trame. Analogous to the other scheduler this
+scheduler serves as a buffer to prevent overloading on the anomaly detection
+unit. Once again different scheduling policies can be switched on.
+
+\paragraph{Call Center}
+
+\npar This module is contacted by the anomaly detection. When the latter detects
+a anomaly in the usage of one the utilities of a customer, then that customer
+needs to notified. This is the responsibility of the call center.
+
+\paragraph{Anomaly Detection}
+
+\npar The Anomaly Detection unit is responsible for running the algorithms to
+discover anomalies. It is notified whenever new trames are stored in
+the data storage (so it can process it). Upon detecting an anomaly two possible
+actions (or both) can be undertaken. The first is sealing a valve if it is a
+severe leak (This action is represented by the depenency between the
+communication unit and the anomaly detection). The second is notifying the
+approriate parties (the customer and/or the emergency services).
+
 \subsubsection{Other requirements}
 \label{others:whole-system}
 
