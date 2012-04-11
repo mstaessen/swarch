@@ -191,6 +191,66 @@ can be achieved by using the \emph{Replicated Component Group} design pattern.
 The database will be replaced with a front-end interface that replicates all
 requests to all the replicas. 
 
+\subsubsection{Verify and refine}
+\label{vr:whole-system}
+
+\npar We will now list all components and assign more detailed use cases and
+quality attribute scenarios to them. They will be the drivers and constraints
+for further decomposition. 
+
+\begin{itemize}
+	\item Communication Unit
+	\begin{itemize}
+		\item UC7: Send trame to remote device
+	\end{itemize}
+	\item Storage Scheduler
+	\begin{itemize}
+		\item UCx: Determine the operational mode (derived) 
+	\end{itemize}
+	\item Storage 
+	\begin{itemize}
+		\item UC14': Request consumption predictions (split)
+	  	\item UC15': Generate invoice (split)
+	  	\item UC17': Perform research (split)
+	  	\item P3': Requests to the measurement database (delegated)
+	\end{itemize} 
+	\item Anomaly Detection Scheduler
+	\begin{itemize}
+		\item UCx: Determine the operational mode (derived)
+	  	\item UC10': Detect Anomaly (split)
+	  	\item P2': Anomaly Detection (split)
+	\end{itemize}
+	\item Anomaly Detection
+	\begin{itemize}
+		\item UC10': Detect Anomaly (split) 
+		\item P2': Anomaly Detection (split)
+	\end{itemize}
+	\item Call Center
+	\begin{itemize}
+		\item UC9: Notify Customer 
+	\end{itemize}
+	\item Other functionality
+	\begin{itemize}
+	  	\item UC1: Log in 
+	  	\item UC2: Log off
+	  	\item UC3: Register customer
+	  	\item UC4: Unregister customer
+	  	\item UC5: Associate device to customer
+	  	\item UC6: Customize customer profile
+	  	\item UC11: Operate remote actuator remotely
+	  	\item UC12: Set alarm recipients
+	  	\item UC14': Request consumption predictions (split)
+	  	\item UC15': Generate invoice (split)
+	  	\item UC16: Mark invoice paid
+	  	\item UC17': Perform research (split)
+	  	\item Av2: Missing measurements 
+	  	\item Av3: Third Party Billing Service failure
+	  	\item M1: Dynamic pricing
+	  	\item M2: Fine-grained metering for enterprises
+	  	\item M3: Decentralized electricity generation
+	\end{itemize}
+\end{itemize}
+
 \subsubsection{Other requirements}
 \label{others:whole-system}
 
