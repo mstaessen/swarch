@@ -1,10 +1,13 @@
-\section{Level 1 Decompositions}
-\label{sec:level-1}
+\section{Iteration 1: Decomposition of the whole system}
+\label{add:it1}
 
-\npar In the first level, the whole system, ReMeS is decomposed. 
+\npar In the first iteration, the whole system, ReMeS is decomposed. It takes
+all the requirements and quality attribute scenarios as input.
 
-\subsection{ReMeS (Whole System)}
-\label{dec:whole-system}
+\subsection{Step 0: Confirm there is sufficient requirements information} 
+
+% TODO de tekst in deze subsectie beschrijft niet helemaal wat in deze sectie
+% moet komen.
 
 \npar In the first step of the ADD process, the whole system is decomposed in
 two subsystems ``Remote Module Subsystem'' and ``Portal''. The decomposition is
@@ -19,8 +22,8 @@ shown in figure \ref{fig:dec/level-1}.
 	\end{centering}
 \end{figure}
 
-\subsubsection{Architectural Drivers}
-\label{drivers:whole-system}
+\subsection{Step 1: Identify candidate drivers}
+\label{add:it1/drivers}
 
 \npar For the first decomposition, two high priority quality attribute scenarios
 and their associated use cases are taken into account. 
@@ -63,8 +66,11 @@ in this level of decomposition.
 	\end{centering}
 \end{figure}
 
+\subsection{Step 2: Choose design concepts}
+\label{add:it1/concepts}
+
 \subsubsection{Tactics}
-\label{tactics:whole-system}
+\label{add:it1/tactics}
 
 \paragraph{Availability}
 
@@ -172,7 +178,7 @@ decomposition.
 \end{itemize}
 
 \subsubsection{Design Patterns}
-\label{dp:whole-system} %TODO verder uitwerken
+\label{add:it1/patterns} %TODO verder uitwerken
 
 \npar With respect to resource arbitration and resouce management, the
 \emph{Active Object} design pattern is chosen for trame communication and
@@ -191,70 +197,89 @@ can be achieved by using the \emph{Replicated Component Group} design pattern.
 The database will be replaced with a front-end interface that replicates all
 requests to all the replicas. 
 
-\subsubsection{Verify and refine}
-\label{vr:whole-system}
+\subsection{Step 3: Instantiate architectural elements and allocate responsibilities}
+\label{add:it1/elements}
 
-\npar We will now list all components and assign more detailed use cases and
-quality attribute scenarios to them. They will be the drivers and constraints
-for further decomposition. 
+% TODO
 
-\begin{itemize}
-	\item Communication Unit
-	\begin{itemize}
-		\item UC7: Send trame to remote device
-	\end{itemize}
-	\item Storage Scheduler
-	\begin{itemize}
-		\item UCx: Determine the operational mode (derived) 
-	\end{itemize}
-	\item Storage 
-	\begin{itemize}
-		\item UC14': Request consumption predictions (split)
-	  	\item UC15': Generate invoice (split)
-	  	\item UC17': Perform research (split)
-	  	\item P3': Requests to the measurement database (delegated)
-	\end{itemize} 
-	\item Anomaly Detection Scheduler
-	\begin{itemize}
-		\item UCx: Determine the operational mode (derived)
-	  	\item UC10': Detect Anomaly (split)
-	  	\item P2': Anomaly Detection (split)
-	\end{itemize}
-	\item Anomaly Detection
-	\begin{itemize}
-		\item UC10': Detect Anomaly (split) 
-		\item P2': Anomaly Detection (split)
-	\end{itemize}
-	\item Call Center
-	\begin{itemize}
-		\item UC9: Notify Customer 
-	\end{itemize}
-	\item Other functionality
-	\begin{itemize}
-	  	\item UC1: Log in 
-	  	\item UC2: Log off
-	  	\item UC3: Register customer
-	  	\item UC4: Unregister customer
-	  	\item UC5: Associate device to customer
-	  	\item UC6: Customize customer profile
-	  	\item UC11: Operate remote actuator remotely
-	  	\item UC12: Set alarm recipients
-	  	\item UC14': Request consumption predictions (split)
-	  	\item UC15': Generate invoice (split)
-	  	\item UC16: Mark invoice paid
-	  	\item UC17': Perform research (split)
-	  	\item Av2: Missing measurements 
-	  	\item Av3: Third Party Billing Service failure
-	  	\item M1: Dynamic pricing
-	  	\item M2: Fine-grained metering for enterprises
-	  	\item M3: Decentralized electricity generation
-	\end{itemize}
-\end{itemize}
+\subsection{Step 4: Define interfaces for instantiated elements}
+\label{add:it1/interfaces}
 
-\subsubsection{Other requirements}
-\label{others:whole-system}
+% TODO
+
+\subsection{Step 5: Verify and refine}
+\label{add:it1/verification}
+
+\npar In this step, we verifiy that that the element decomposition thus far
+meets the functional requirements and quality attribute requirements. Also,
+child elements are prepared for further decomposition.
+
+\npar First, we will verify that all functional requirements and quality
+attribute requirements of the parent element have been allocated to one or more
+child elements in the decomposition.
+
+% TODO
+
+\npar Secondly, all responsibilities that were assigned to child modules are
+translated into functional requirements for the individual items. 
+
+% TODO
+
+\npar Finally, quality attribute scenarios for individual child elements are
+refined if necessary.
+
+% TODO 
 
 
-
-
-
+% \begin{itemize}
+% 	\item Communication Unit
+% 	\begin{itemize}
+% 		\item UC7: Send trame to remote device
+% 	\end{itemize}
+% 	\item Storage Scheduler
+% 	\begin{itemize}
+% 		\item UCx: Determine the operational mode (derived) 
+% 	\end{itemize}
+% 	\item Storage 
+% 	\begin{itemize}
+% 		\item UC14': Request consumption predictions (split)
+% 	  	\item UC15': Generate invoice (split)
+% 	  	\item UC17': Perform research (split)
+% 	  	\item P3': Requests to the measurement database (delegated)
+% 	\end{itemize} 
+% 	\item Anomaly Detection Scheduler
+% 	\begin{itemize}
+% 		\item UCx: Determine the operational mode (derived)
+% 	  	\item UC10': Detect Anomaly (split)
+% 	  	\item P2': Anomaly Detection (split)
+% 	\end{itemize}
+% 	\item Anomaly Detection
+% 	\begin{itemize}
+% 		\item UC10': Detect Anomaly (split) 
+% 		\item P2': Anomaly Detection (split)
+% 	\end{itemize}
+% 	\item Call Center
+% 	\begin{itemize}
+% 		\item UC9: Notify Customer 
+% 	\end{itemize}
+% 	\item Other functionality
+% 	\begin{itemize}
+% 	  	\item UC1: Log in 
+% 	  	\item UC2: Log off
+% 	  	\item UC3: Register customer
+% 	  	\item UC4: Unregister customer
+% 	  	\item UC5: Associate device to customer
+% 	  	\item UC6: Customize customer profile
+% 	  	\item UC11: Operate remote actuator remotely
+% 	  	\item UC12: Set alarm recipients
+% 	  	\item UC14': Request consumption predictions (split)
+% 	  	\item UC15': Generate invoice (split)
+% 	  	\item UC16: Mark invoice paid
+% 	  	\item UC17': Perform research (split)
+% 	  	\item Av2: Missing measurements 
+% 	  	\item Av3: Third Party Billing Service failure
+% 	  	\item M1: Dynamic pricing
+% 	  	\item M2: Fine-grained metering for enterprises
+% 	  	\item M3: Decentralized electricity generation
+% 	\end{itemize}
+% \end{itemize}
