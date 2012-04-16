@@ -1,17 +1,50 @@
 \section{Iteration 3: Decomposition of the Storage Scheduler}
 \label{add:it3}
 
+\npar In this iteration, the Storage Scheduler is decomposed. 
+
 \subsection{Step 1: Identify candidate drivers}
 \label{add:it3/drivers}
+
+\npar The architectural drivers for this iteration were assigned in previous
+iterations. The main driver is P2': Timely closure of valves. The main
+functionality for this module is for the trames to be stored in a timely matter.
 
 \subsection{Step 2: Choose design concepts}
 \label{add:it3/concepts}
 
-\subsubsection{Tactics}
-\label{add:it3/tactics}
+\npar Trames of different kinds have different priorities. The scheduler should
+treat these frames according to their priorities. For that reason, the scheduler
+will keep track of multiple queues, one for each priority level. Four levels
+will be needed. 
+
+\begin{description}
+	\item[Highest Priority] This queue has the highest priority. If there are jobs
+	in this queue, they have to be taken care of first. Alarm trames for gas leaks
+	will be initially in this queue. 
+	\item[High Priority] This queue handles the normal priority alarm trames. For
+	instance, a water leak alarm trame is inserted here. Jobs in this queue can
+	only be executed if the highest priority queue is empty. If a job remains in
+	this queue for a long time, the job is promoted to the highest priority queue. 
+	\item[Normal Priority] This queue handles the low priority alarm trames. For
+	instance, a power leak alarm trame is inserted here. Jobs in this queue can
+	only be executed if the two above priority queues are empty. If a job remains
+	in this queue for a long time, the job is promoted to the high priority queue. 
+	\item[Low Priority] This queue has the lowest priority. Jobs in this queue can
+	only be processed if the above queues are empty. If a job remains in this queue
+	for a long time, the job is promoted to the normal priority queue.
+\end{description}
+
+\npar To prevent starvation, the priorities of the individual jobs will be
+increased periodically. This can cause a job to move from one queue to another
+as indicated in the above list. If a job is in the scheduler for quite a long
+time, the job will eventually end up in the highest priority queue and will be
+taken care of.
 
 \subsubsection{Design Patterns}
 \label{add:it3/patterns}
+
+\npar 
 
 \subsection{Step 3: Instantiate architectural elements and allocate responsibilities}
 \label{add:it3/elements}
