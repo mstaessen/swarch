@@ -29,19 +29,45 @@ all the requirements and quality attribute scenarios as input.
 
 % TODO verwijs naar step 0?
 
-\npar For the first decomposition, two high priority quality attribute scenarios
-and their associated use cases are taken into account. 
+\npar First of all when designing a decomposition for the whole system, the
+choice of the drivers is very imortant since it will shape the architecture the
+most. Therefore not only is the priority of the client for each quality
+attribute scenario taken into account to choose the drivers, but also the impact of
+that scenario on the architecure. These impacts are, together with the client
+priorities, summarized in table \ref{table:add/it1/priorities}.
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{| l | l | l | l | l | l | l | l | l | l |}
+		\hline
+		\textbf{Quality}			&	Av1	&	Av2	&	Av3	&	P1	&	P2	&	P3	&	M1	&	M2	&	M3	\\
+		\hline
+		\textbf{Client Priority}	&	H	&	M	&	L	&	H	&	M	&	M	&	H	&	L	&	M	\\
+		\hline
+		\textbf{Architecture Impact}&	L	&	L	&	L	&	H	&	H	&		&	M	&		&		\\
+		\hline
+		\end{tabular}
+		\caption{An overview of all priorities which are takn into account when
+		selecting the architectural drivers.}
+		\label{table:add/it1/priorities}
+	\end{center}
+\end{table}
+
+\npar Off course one wants to maximize the priority in both cases. Based on the
+priorities in table \ref{table:add/it1/priorities}, one high priority and one medium
+priority quality attribute scenarios are selected as architectural driver. An
+overview of the selected drivers and their use cases is given below.
 
 \begin{itemize}
- 	\item Av1 (High): Measurement database Failure
- 	\begin{itemize}
- 		\item UC8 (High): Send measurement
- 		\item UC13 (High): Send alarm 
- 	\end{itemize}
   	\item P1 (High): Timely closure of valves
   	\begin{itemize}
+  	  	\item UC8 (High) : send measurement
   		\item UC13 (High): Send alarm 
   	\end{itemize}
+  	\item P2 (Medium) : Anomaly detection
+  	\begin{itemize}
+  	  \item UC10 (Medium) : Detect anomaly %TODO
+  	\end{itemize} 
 \end{itemize}
 
 \npar The considered use cases includes the use cases listed below. 
@@ -51,6 +77,14 @@ and their associated use cases are taken into account.
 	\item UC9 (High): Notify customer
 	\item UC10 (Medium): Detect anomaly
 \end{itemize}
+
+\npar The choice of P1 is because it has the highest priority available (both a
+high client priority and impact on the architecture). The reasons for selecting
+P2 are more subtle since there are still combinations available (e.g. Av1) which
+precede P2 in the prioriy hierarchy. The choice is twofold. First of all P2 is
+very easy to combine with P1 because they both place constraints on the database
+access in the two different operate modi (normal and overload). Second, 
+%TODO waarom geen av1 of m1 ?
 
 \npar Based on the architectural drivers, the remote module subsystem has to
 provide functionality for remote module communication (receiving and sending
@@ -76,7 +110,7 @@ in this level of decomposition.
 \subsubsection{Tactics}
 \label{add:it1/tactics}
 
-\paragraph{Availability}
+\paragraph{Availability} %TODO verplaatsen naar iteratie van storage.
 
 \npar After selecting the drivers for the current decomposition, one has to
 choose the tactics to achieve them. Recall from section
@@ -196,10 +230,17 @@ Firstly, the scheduler can be implemented using the \emph{Command Processor}
 design pattern. Secondly, a unified language will exist for all vendor
 specific trame formats.
 
-\npar To make the data highly available, the database will be replicated. This
-can be achieved by using the \emph{Replicated Component Group} design pattern.
-The database will be replaced with a front-end interface that replicates all
-requests to all the replicas. 
+%TODO verplaatsen naar storage.
+% \npar To make the data highly available, the database will be replicated. This
+% can be achieved by using the \emph{Replicated Component Group} design pattern.
+% The database will be replaced with a front-end interface that replicates all
+% requests to all the replicas. 
+
+\npar To allow load balancing (and hence increase the performance) multiple
+instances of the anomaly detection are created . This can be achieved by using
+the \emph{Replicated Component Group} design pattern. To make this replication
+transparant to the users of the anomaly detection the \emph{Business Delegate}
+is used.
 
 \subsection{Step 3: Instantiate architectural elements and allocate responsibilities}
 \label{add:it1/elements}
@@ -210,56 +251,71 @@ requests to all the replicas.
 
 \npar This module is responsible for all communication from and to remote
 modules (all types of communication and both valves and control devices).
-Incoming trames (from remote devices) are handed over to appropriate scheduler.
+Incoming trames (from remote devices) are handed over to the storage scheduler.
 Trames which need to be sent to to remote modules are dispatched to the correct
 module through the correct medium.
 
-\subsubsection{Scheduler for incoming trames}
+\subsubsection{Storage Scheduler}
 
 \npar This scheduler gets all incoming trames from remote modules and schedules
-them for storage. Dependent to the active scheduling policy trames can be
+them for storage. Dependent on the active scheduling policy trames can be
 prioritized over other trames. For instance, an incoming alarm trame for a gas
 leak has top priority and has strict bounds on the delivery time (see the
 quality attribute scenarios). Furthermore serves this scheduler as a buffer.
 This is particularly useful when the storage unit is overloaded.
 
-\subsubsection{Heartbeat monitor cluster}
-
-\npar The heartbeat monitor cluster is the result of the tactic to detect a
-fault, namely heartbeat. This component will monitor all other components to see
-if they are still alive (i.e. not crashed). Off course it is not unthinkable
-that the monitor component fails itself. Therefore this component has to monitor
-itself by for example an extra monitor that monitors the monitor.
+% \subsubsection{Heartbeat monitor cluster}
+%  TODO: verplaatsen of weggooien.
+% \npar The heartbeat monitor cluster is the result of the tactic to detect a
+% fault, namely heartbeat. This component will monitor all other components to see
+% if they are still alive (i.e. not crashed). Off course it is not unthinkable
+% that the monitor component fails itself. Therefore this component has to monitor
+% itself by for example an extra monitor that monitors the monitor.
 
 \subsubsection{Storage of trames}
 
-\npar This component is the front end interface for database communication. This
-means that it communicates with all the instances of the physical storage to
-store a trame. Furthermore shall this unit notify the trame processing scheduler
-that a new trame entered the system. 
+\npar This component is responsible for all storage of measuremnts (and
+measurements only). It receives trames from the storage scheduler and notifies
+the Anomaly Detection scheduler when a new trame is available.
+%TODO: misschien geen notify maar een instant send ? zo ja dan ook aanpassen in
+% anomaly detection scheduler
 
-\subsubsection{Scheduler for trame processing}
+% \npar This component is the front end interface for database communication. This
+% means that it communicates with all the instances of the physical storage to
+% store a trame. Furthermore shall this unit notify the trame processing scheduler
+% that a new trame entered the system. 
+
+\subsubsection{Anomaly Detection Scheduler}
 
 \npar When the storage unit has stored a new trame, this scheduler is notified
 and fetches the freshly stored trame. Analogous to the other scheduler this
 scheduler serves as a buffer to prevent overloading on the anomaly detection
 unit. Once again different scheduling policies can be switched on.
 
-\subsubsection{Call Center}
+\subsubsection{Customer Communication Unit}
 
 \npar This module is contacted by the anomaly detection. When the latter detects
-a anomaly in the usage of one the utilities of a customer, then that customer
-needs to notified. This is the responsibility of the call center.
+an anomaly in the usage of one the utilities of a customer or a (non false)
+alarm, then that customer (and possibly the emergency services) needs to
+notified. This is the responsibility of the Customer Communication Unit.
 
 \subsubsection{Anomaly Detection}
 
 \npar The Anomaly Detection unit is responsible for running the algorithms to
-discover anomalies. It is notified whenever new trames are stored in
-the data storage (so it can process it). Upon detecting an anomaly two possible
-actions (or both) can be undertaken. The first is sealing a valve if it is a
-severe leak (This action is represented by the depenency between the
-communication unit and the anomaly detection). The second is notifying the
-approriate parties (the customer and/or the emergency services).
+discover anomalies. It receives trames from the anomaly detection scheduler so
+it can process them. Upon detecting an anomaly two possible actions (or both)
+can be undertaken. The first is sealing a valve if it is a severe leak (his
+action is represented by the depenency between the outgoing communication
+scheduler and the anomaly detection). The second is notifying the approriate
+parties (the customer and/or the emergency services).
+
+\subsubsection{Outgoing Communication Scheduler}
+
+\npar The outgoing communication scheduler has as duty the scheduling of
+trames which are sent to remote modules. There is a need for scheduling because
+control trames to shut a valve need to reach the specified module in certain
+time constraints according to P1. This scheduling can again be realized by the
+use of different policies.
 
 \subsection{Step 4: Define interfaces for instantiated elements}
 \label{add:it1/interfaces}
@@ -284,7 +340,8 @@ necessary.
 
 \npar We will list all the child elements, together with their allocated use
 cases and quality attribute requirements. If a requirement is split or
-delegated, it is also mentioned in the list. 
+delegated, it is also mentioned in the list. To conclude an overview is given of
+resolved requirements in this iteration.
 
 \begin{itemize}
 	\item Communication Unit
@@ -337,4 +394,7 @@ delegated, it is also mentioned in the list.
 	  	\item M2: Fine-grained metering for enterprises
 	  	\item M3: Decentralized electricity generation
 	\end{itemize}
+	\item Resolved requirements
+	\item 
+	\item 
 \end{itemize}
