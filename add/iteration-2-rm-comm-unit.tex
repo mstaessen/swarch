@@ -4,20 +4,128 @@
 \subsection{Step 1: Identify candidate drivers}
 \label{add:it2/drivers}
 
+\npar In the previous iteration, four requirements (UC7', Av2', M1' and M3')
+were assigned to the remote module communication unit and 2 use cases were
+created. These six requirement are the possible drivers for this iteration.
+
 \subsection{Step 2: Choose design concepts}
 \label{add:it2/concepts}
 
 \subsubsection{Tactics}
 \label{add:it2/tactics}
 
+\paragraph{Modifiability}
+
+\npar When opting for a modifiable solution 3 main (groups) of tactics can be
+used: localize modifications, prevent ripple effect and defer binding time.
+Two tactis are picked from the first group, namely abstraction of common
+services and anticipate expected changes.
+
+\npar To prevent rippling effects three tactics are employed. The first one,
+probably the most important one, is the hiding of information through the use of
+interfaces. Furthermore are communication paths restricted and an intermediary
+will be used.
+
+\paragraph{Availability}
+
+%TODO: hoe wordt Av2' eigenlijk gerealiseerd in deze module ? :s Was dat heel
+% die heartbeat kwestie ?
+
 \subsubsection{Design Patterns}
 \label{add:it2/patterns}
+
+\npar To realize the modifiability tactics and allow the coverage of UC7', the
+\emph{Message Translator} pattern is selected. The translator acts an
+intermediary between the remote module and ReMeS and all information remains
+hidden behind a simple interface. 
+
+\npar To push this information hiding even further a modified version of the
+\emph{Resource Pool} pattern is used. This will be enlightened in the next
+section.
+
+%TODO: misschien is dit niet helemaal waar, want resource pool is meer
+% performantie gericht.
 
 \subsection{Step 3: Instantiate architectural elements and allocate responsibilities}
 \label{add:it2/elements}
 
+\begin{figure}[H]
+	\begin{centering}
+		% TODO
+		%\includegraphics[width=0.6\textwidth]{figs/decomposition/rm-comm-unit/decomposition.pdf}
+		\caption{The subsystems of the ReMeS system}
+		\label{fig:add/it1/decomposition}
+	\end{centering}
+\end{figure}
+
+\npar The remote module communication unit has three main components: Input
+Translator, Output Translator and Translator Pool. Each of them will be
+discussed below. As one can see in the diagram there are only two communication
+paths in the system, one for incoming communication and one for outgoing. In
+this way another tactic is realized, namely the restriction of communication
+paths.
+
+\npar In the previous section there was the mentioning of a modified version of
+the \emph{Resource Pool} pattern. One can see this pattern in the usage of the
+Translator Pool. The translator pool component itself acts as a sort of manager
+of the pool and handles incoming requests for translators based on a
+certain module. The difference with the original pattern lies in the 
+diversity of the translators. Each translator is different whereas the
+resources normally should all be equal. 
+
+\subsubsection{Input Translator}
+
+\npar The input translator has as duty the translation of incoming trames into
+objectified trames. Therefore it must know what the incoming data format is.
+To realize this, it has a translator pool at its disposal where, based on the
+module a translator can be fetched. When the trames are translated they are
+pushed further into ReMeS for storage, etc.
+
+%TODO: getCustomerBySerialId 
+
+\subsubsection{Output Translator}
+
+\npar This component is analogous to the input translator off course. This
+component retrieves the right translator from the pool based on the module
+where the incoming trame should be send to. It is important to notice that all
+outgoing communication towards remote modules goes through this module.
+
+\subsubsection{Translator Pool}
+
+\npar The translator pool acts as the manager for the pool and all requests from
+both the translators will pass through this component. 
+
 \subsection{Step 4: Define interfaces for instantiated elements}
 \label{add:it2/interfaces}
 
+\npar The incoming translator offers one method \method{receiveTrame(\ldots)}
+which is invoked by remote modules whenever they want to send a trame towards
+ReMeS. The translator demands three interfaces for operating correctly. First of
+all it needs a \method{GetTranslatorFor(\ldots)} method to retrieve the correct
+translator. Furthermore does it need a \method{scheduleForStorage(\ldots)} to
+push the freshly translated trame further into ReMeS. 
+
+%TODO: methode getCustomer..
+
+\npar The output translator also offers only one method, \method{send(\ldots)}.
+This method can be invoked by components who need to communicate with one or
+more remote modules. It also needs a \method{getTranslatorFor(\ldots)} to
+be able to execute its translating function. Furthermore is a
+\method{receive(\ldots)} method required for remote modules to receive trames. 
+
+\npar The translator pool offers two methods.
+
+%TODO: hoe zit het met de interfaces tussen de pool en zijn instances ?
+%TODO: zijn de 2 aangeboden methodes eigelijk niet dezelfde ? 
+
 \subsection{Step 5: Verify and refine}
 \label{add:it2/verification}
+
+\npar By the use of the \emph{Message Translator} pattern five of the six
+drivers of this iteration were resolved (all except Av2). 
+
+%TODO: Av2
+
+\npar This means that no futher decomposition of any of these modules has to
+take place because there are no more requirements to divide amongst the
+components. 

@@ -337,7 +337,7 @@ customers, emergencyservices, etc.).
 \label{add:it1/interfaces}
 
 % TODO: fig
-% TODO: methodes die functionaliteit uit other nodig hebben 
+
 \npar All communication from and to remote modules goes through the remote
 module communication unit. To support this behaviour this module offers a
 \method{receiveTrame(\ldots)} method which is called by remote modules. Remote
@@ -406,7 +406,9 @@ resolved requirements in this iteration.
 \begin{itemize}
 	\item Communication Unit
 	\begin{itemize}
-	  	\item UCx : Retrieve Customer from remote module identification
+	  	\item UCx : Retrieve Customer from remote module identification %TODO dit
+	  	% wordt toegewezen aan communication unit, maar het is wel een oproep van
+	  	% een methode op other (``getCustomerby etc)
 	  	\item UCy : Retrieve Remote Module protocol
 		\item UC7': Send trame to remote device (split)
 		\item Av2': Missing measurements (split)
