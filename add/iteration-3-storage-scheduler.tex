@@ -1,64 +1,116 @@
 \section{Iteration 3: Decomposition of the Storage Scheduler}
 \label{add:it3}
 
-\npar In this iteration, the Storage Scheduler is decomposed. 
-
 \subsection{Step 1: Identify candidate drivers}
 \label{add:it3/drivers}
 
-\npar The architectural drivers for this iteration were assigned in previous
-iterations. The main driver is P2': Timely closure of valves. The main
-functionality for this module is for the trames to be stored in a timely matter.
+\npar Trame processing is the core business of the ReMeS system. Almost all
+components in the ReMeS system need access to the trames database.
+However, not all queries on that database should be treated equally. For
+instance, research queries have a lower priority than anomaly detection history
+queries (see P3). Therefore, queries to the measurements database need to be
+scheduled.
+
+\npar The decomposition of this iteration is driven by
+
+\begin{itemize}
+	\item P1': Timely closure of valves. Alarm trames should be processed with a
+	higher priority because valves have to be shut within a bounded time in case of
+	an alarm.
+	\item P2': Anomaly detection: Anomaly detection will be triggered for every
+	incoming measurement trame. Measurement trames will also have a higher
+	priority because incoming trames should be fully processed within a bounded
+	time.
+	\item P3': Requests to the measurements database: These queries are subjected
+	to a maximal execution time based on the SLA. 
+\end{itemize}
+
+% TODO: use cases nog oplijsten
 
 \subsection{Step 2: Choose design concepts}
 \label{add:it3/concepts}
 
-\npar Trames of different kinds have different priorities. The scheduler should
-treat these frames according to their priorities. For that reason, the scheduler
-will keep track of multiple queues, one for each priority level. Four levels
-will be needed. 
+\subsubsection{Tactics}
+\label{add:it3/tactics}
 
-\begin{description}
-	\item[Highest Priority] This queue has the highest priority. If there are jobs
-	in this queue, they have to be taken care of first. Alarm trames for gas leaks
-	will be initially in this queue. 
-	\item[High Priority] This queue handles the normal priority alarm trames. For
-	instance, a water leak alarm trame is inserted here. Jobs in this queue can
-	only be executed if the highest priority queue is empty. If a job remains in
-	this queue for a long time, the job is promoted to the highest priority queue. 
-	\item[Normal Priority] This queue handles the low priority alarm trames. For
-	instance, a power leak alarm trame is inserted here. Jobs in this queue can
-	only be executed if the two above priority queues are empty. If a job remains
-	in this queue for a long time, the job is promoted to the high priority queue. 
-	\item[Low Priority] This queue has the lowest priority. Jobs in this queue can
-	only be processed if the above queues are empty. If a job remains in this queue
-	for a long time, the job is promoted to the normal priority queue.
-\end{description}
+\npar The scheduler was introduced in iteration 1 (see section \ref{add:it1}) to
+improve performance. At the level of the scheduler, performance is determined by
+the scheduling policy. 
 
-\npar To prevent starvation, the priorities of the individual jobs will be
-increased periodically. This can cause a job to move from one queue to another
-as indicated in the above list. If a job is in the scheduler for quite a long
-time, the job will eventually end up in the highest priority queue and will be
-taken care of.
+\npar The scheduling policy is defined by the quality attributes but the
+scheduler itself can be implemented in different ways. One could use a single
+queue for the scheduler. Jobs are pushed on the queue and popped off when the
+scheduler can process a new job. 
+
+\npar A scheduler can also be implemented with multiple queues. For each kind of
+job, there is a seperate queue. In this case, you would end up with a number of
+queues for different priorities. Whenever a job resides in a queue for a long
+time, it is promoted to a higher priority queue. 
+
+\npar A scheduler must also guarantee that there will be no starvation among
+jobs. Starvation happens when a job cannot execute because there always is a
+job with a higher priority. When using a first in, first out policy, starvation
+will not occur. However, when the database goes into overload mode, this might
+become an issue. 
+
+\npar To address this issue, a dynamic priority scheme will be used. The
+priority of every job will be increased periodically. In this way, low priority
+jobs will eventually have a high priority. 
 
 \subsubsection{Design Patterns}
 \label{add:it3/patterns}
 
 \paragraph{Collections for States}
 
+\npar The collections for states design pattern describes a way to efficiently
+implement a scheduler with multiple queues. In a client, every state is
+represented by a collection of objects with that state. The collections for
+each state would be implemented with queues and the the states would represent
+priority levels.
+
 \paragraph{Message Router}
 
-\paragraph{Active Object}
+\npar A message router can be used to direct the messages (jobs in this case) to
+the right queues. To determine the queue in which a job should end up, a policy
+is used.
 
-\paragraph{}
+\paragraph{Strategy} 
+
+\npar If the scheduler allows for multiple policies, the strategy design pattern
+can be used to implement these policies. The behaviour of the message router
+will be determined by the policy.
+
+\paragraph{Monitor} 
+
+\npar Because the queues can be accessed by both the scheduler and the message
+router, monitors have to be put in place to provide synchronization. This is
+done to make sure that there aren't any concurrency issues within the scheduler. 
+
+\paragraph{PriorityQueue}
+
+\npar This is not a design pattern but a data type. This queue allows elements
+to be inserted with a given priority. This could simplify the design by merging
+all queues into one big queue.
+
+\npar There is not really an advantage in having multiple queues. There is only
+one instance that can process the jobs. The overhead of comparing the top
+entries of the queues might also be large, making this solution less efficient. 
 
 \subsection{Step 3: Instantiate architectural elements and allocate responsibilities}
 \label{add:it3/elements}
 
-\npar 
+\npar All incoming queries will be routed by a Message Router. The Message
+Router will insert the queries in the Queue with a certain priority. The chosen
+priority is determined by the policy, which can be switched dynamically, based
+on the the system load. Whenever the database becomes idle, the scheduler will
+dequeue a query from the Queue and run it on the measurements database. 
 
 \subsection{Step 4: Define interfaces for instantiated elements}
 \label{add:it3/interfaces}
 
+% TODO
+
 \subsection{Step 5: Verify and refine}
 \label{add:it3/verification}
+
+% TODO
