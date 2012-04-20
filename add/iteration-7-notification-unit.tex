@@ -1,4 +1,4 @@
-\section{Iteration 7: Decomposition of the Stakeholder Notification Unit}
+\section{Iteration 7: Decomposition of the Notification Unit}
 \label{add:it7}
 
 \subsection{Step 1: Identify candidate drivers}
@@ -29,8 +29,8 @@ separation of concerns taken into account as much as possible.
 \begin{figure}[H]
 	\begin{centering}
 		% TODO
-		%\includegraphics[width=0.6\textwidth]{figs/decomposition/stakeholder-notification-unit/decomposition.pdf}
-		\caption{The decomposition of the stakeholder notification unit. Iteration 7}
+		%\includegraphics[width=0.6\textwidth]{figs/decomposition/notification-unit/decomposition.pdf}
+		\caption{The decomposition of the notification unit. Iteration 7}
 		\label{fig:add/it7/decomposition}
 	\end{centering}
 \end{figure}
@@ -44,12 +44,12 @@ illustration is given in figure \ref{fig:add/it7/decomposition}.
 % ipv de overhead om nog eerst het communication channel op te zoeken ? 
 \npar This component gets the initial notification message. It's task is
 twofold. First of all this component has to fetch the communication channel
-through which it has to contact the stakeholder. Therefore it uses the
-\interface{CustomerProfile} interface of the database which contains all user
-information. Secondly, once the channel is acquired it has to contact the
-transport pool to ask for the right transport unit which can be used to send
-the notification. The transport pool offers therefore an \interface{Transport}
-interface.
+through which it has to contact the stakeholder (i.e. the emergency services
+and/or one or more customers). Therefore it uses the \interface{CustomerProfile}
+interface of the database which contains all user information. Secondly, once
+the channel is acquired it has to contact the transport pool to ask for the
+right transport unit which can be used to send the notification. The transport
+pool offers therefore an \interface{Transport} interface.
 
 \subsubsection{Transport Pool}
 
@@ -65,8 +65,8 @@ different communication channels).
 \label{add:it7/interfaces}
 
 \subsubsection{NotifyUnit}
-%TODO: gaat de prof niet zagen over wat die message nu juist is ? moet ik er
-% misschien nog expliciet bij zetten dat dit een formaat is dat gelijk moet zijn
+%TODO: gaat de prof niet zagen over wat die message parameter nu juist is ? moet
+% ik er misschien nog expliciet bij zetten dat dit een formaat is dat gelijk moet zijn
 % voor de AD, De communication scheduler en deze unit ? 
 \npar The interface this notification unit offers, has one method, namely a
 \method{send(message)}. Invoking this method results in the notification of the
