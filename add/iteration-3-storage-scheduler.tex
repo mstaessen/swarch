@@ -103,7 +103,9 @@ entries of the queues might also be large, making this solution less efficient.
 Router will insert the queries in the Queue with a certain priority. The chosen
 priority is determined by the policy, which can be switched dynamically, based
 on the the system load. Whenever the database becomes idle, the scheduler will
-dequeue a query from the Queue and run it on the measurements database. 
+dequeue a query from the Queue and run it on the measurements database.
+Furthermore will the scheduler increase the priority of trames periodically to
+prevent starvation.
 
 \subsection{Step 4: Define interfaces for instantiated elements}
 \label{add:it3/interfaces}

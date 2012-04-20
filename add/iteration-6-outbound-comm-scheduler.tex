@@ -4,20 +4,79 @@
 \subsection{Step 1: Identify candidate drivers}
 \label{add:it6/drivers}
 
+\npar It is crucial that ``shut down valve" trames are sent in time to the
+correct module considering that trames who arrive to late can ultimately
+lead to a potential disaster claiming the lifes of several people. Therefore the
+trames for outbound communication (i.e. towards modules) need to be
+scheduled. Therefore P1 was delegated to this scheduler and will be the
+(only) driver of this iteration.
+
 \subsection{Step 2: Choose design concepts}
 \label{add:it6/concepts}
 
-\subsubsection{Tactics}
-\label{add:it6/tactics}
-
-\subsubsection{Design Patterns}
-\label{add:it6/patterns}
+\npar The design concepts for this decomposition are exactly the same as those
+of the storage scheduler, see section \ref{add:it3/concepts}. This is logical
+considering that both schedulers are established with performance drivers in
+mind.
 
 \subsection{Step 3: Instantiate architectural elements and allocate responsibilities}
 \label{add:it6/elements}
 
+\begin{figure}[H]
+	\begin{centering}
+		% TODO
+		%\includegraphics[width=0.6\textwidth]{figs/decomposition/outbound-comm-scheduler/decomposition.pdf}
+		\caption{The decomposition of the Outbound Communicatin Scheduler. Iteration
+		6}
+		\label{fig:add/it6/decomposition}
+	\end{centering}
+\end{figure}
+
+\subsubsection{Message Router}
+%TODO: wat voor input formaat krijgt deze module, trames ?
+\npar The message router will dispatch incoming trames to the correct queue
+based on the importance of the trame and the current policy (the latter is
+determined by the system load). 
+
+\subsubsection{Scheduler}
+
+\npar This component its task is twofold. First of all it does the actual
+scheduling. This means that it pops elements out of the priorityqueue to
+redirect for further processing (this off course occurs only when the database
+is not processing another trame). Second of all, to prevent starvation
+priorities are periodically boosted.
+
+\subsubsection{PriorityQueue}
+
+\npar This component represents a multilevel queue. When one keeps the indeces
+of the last element of every possible priority, it is easy to insert new trames
+according to the current policy and the priority of the trame itself.
+
 \subsection{Step 4: Define interfaces for instantiated elements}
 \label{add:it6/interfaces}
 
+\subsubsection{Message Router}
+
+\paragraph{scheduleForOutgoingRemoteModuleCommunication} %TODO: naam ?
+
+\npar This interface offers only one method \method{schedule(trame)}. When one
+wants to send a trame, one can invoke this method. It will first schedule
+the trame to redirect it afterwards to the communication unit.
+
+\subsubsection{Scheduler}
+
+\npar This component offers no interface.
+
+\subsubsection{PriorityQueue}
+
+\paragraph{OutboundQueueu}
+
+\npar This interface is analogous to the priorityqueue interface of the storage
+scheduler, see section \ref{add:it3/interfaces}. It offers a \method{pop(trame)}
+and \method{push{trame}} method which will respectively pop and push a given
+trame from the priorityqueue.
+
 \subsection{Step 5: Verify and refine}
 \label{add:it6/verification}
+
+\npar The driver of this iteration, P1, is resolved.
