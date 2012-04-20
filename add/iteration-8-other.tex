@@ -102,12 +102,46 @@ ReMeS customer database (through the \interface{CustomerProfile} interface).
 Secondly, it needs to be able to contact the UIS. This is done through the
 \interface{CustomerInformation}.
 
-\subsubsection{UIS Communication}
+\subsubsection{UIS Communication Unit}
 
-\subsubsection{Billing Communication}
+\npar This unit is the first of two units responsible for communication with
+external actors in respect to billing and prediction. In section
+\ref{add:it8/patterns} we discussed the usage of a slight variant of the
+\emph{Facade} pattern. The deviation of the standard pattern lies firstly in the
+usage of two communication units instead of one single point of access.
+Secondoly there is no bypassing of this communication (not even in a limited
+number of scenarios).
+
+\npar This component uses three interfaces. The first one, \interface{UIS}, is
+used for all information needed by ReMeS that is stored by the utility
+company. The second one, \interface{Prediction}, is used to acquire prediction
+statistics for a certain utility company. Besides using interfaces the UIS
+communication unit off course offers interfaces itself. It offers two
+interfaces, one towards the billing unit (\interface{CustomerInformation}) and
+one towards the UIS (\interface{UISCommunication}). The former is used for the
+retrieval of customer data that is kept by the UIS. The latter one serves as a
+provider of different services for the UIS.
+
+\subsubsection{Billing Communication Unit}
+
+\npar The responsibility of this unit is the handling of all information between
+ReMeS and external actors regarding billing. It offers two interfaces:
+\interface{BillingSend} and \interface{BillingCommunication}. The first
+interface is provided to allow invoices to be sent towards the third party
+billing services after it has been constructed. The latter interface is
+provided for all notification that need to be sent towards ReMeS concerning the
+payment of invoices. 
+
+\npar The billing communication unit also uses functionality which is reflected
+in the usage of the \interface{BillingReceive} and \interface{TPBS} interfaces.
+The \interface{BillingReceive} simply has as goal to sent the notification of
+payment towards the billing unit. The other interface takes care of the
+communication towards the third party billing service.
 
 \subsection{Step 4: Define interfaces for instantiated elements}
 \label{add:it8/interfaces}
+
+\paragraph{}
 
 \subsection{Step 5: Verify and refine}
 \label{add:it8/verification}
