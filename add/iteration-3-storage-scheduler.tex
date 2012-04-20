@@ -108,9 +108,44 @@ dequeue a query from the Queue and run it on the measurements database.
 \subsection{Step 4: Define interfaces for instantiated elements}
 \label{add:it3/interfaces}
 
-% TODO incomplete
+\subsubsection{Message Router}
+
+\npar The Message Router provides the \interface{StorageScheduling} interface.
+This interface provides a method \method{schedule(Query)} for scheduling queries on
+the trame database.
+
+\subsubsection{Queue}
+
+\npar The Queue provides an interface \interface{StorageSchedulerQueue} with the
+methods \method{enqueue(Query, priority)} and \method{dequeue() : Query}. These
+methods are used to enqueue and repectively dequeue queries.
+
+\subsubsection{Scheduler}
+
+\npar The Scheduler itself does not provide an interface, but uses the
+\interface{Queue} to dequeue items and uses the interface of the trame storage
+database to execute the queries.
+
+\npar Figure \ref{fig:it3/interfaces} shows the components and the interfaces
+instantiated in this iteration.
+
+\begin{figure}[H]
+	\begin{centering}
+		\includegraphics[width=0.8\textwidth]{figs/add/it3/interfaces.pdf}
+		\caption{Overview of the interfaces and components of the storage scheduler.}
+		\label{fig:it3/interfaces}
+	\end{centering}
+\end{figure}
 
 \subsection{Step 5: Verify and refine}
 \label{add:it3/verification}
 
-% TODO incomplete
+\npar All quality and functionality is handled in this decomposition.  
+
+\begin{itemize}
+	\item P1': Timely propagation of alarm trames is handled by smart Queue
+	insertion by the Message Router. 
+	\item P2': Timely propagation of measurement trames is also handled by smart
+	Queue insertion by the Message Router. 
+	\item P3': Potential prioritization of certain database queries. 
+\end{itemize}
