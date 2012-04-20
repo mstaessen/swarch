@@ -1,0 +1,113 @@
+\section{Iteration 8: Decomposition of Other}
+\label{add:it8}
+
+\subsection{Step 1: Identify candidate drivers}
+\label{add:it8/drivers}
+
+\npar In the first iteration there were quite a lot of requirements delegated to
+this component. This requires some selection to take place. This selection is
+once again based on the priorities of the quality attributes. However since all
+the remaning quality attribute scenarios are (split versions from)
+modifiability, they can be easily combined. Therefore the drivers for this
+iteration are M1', M2 and M3'. 
+
+\npar M3' is linked with the following use cases:
+
+\begin{itemize}
+  \item UC14: Request consumption predictions
+  \item UC15: Generate invoide
+  \item UC16: Mark invoice paid
+\end{itemize}
+
+\npar Because of this relation between M3' and the listed use cases their
+functionality will all be adressed.
+
+\subsection{Step 2: Choose design concepts}
+\label{add:it8/concepts}
+
+\subsubsection{Tactics}
+\label{add:it8/tactics}
+
+\paragraph{Modifiability}
+
+\npar For the purpose of modifiability three tactics are selected: anticipate
+expected changes, the hiding of information and the use of an intermediary.
+
+\subsubsection{Design Patterns}
+\label{add:it8/patterns}
+
+\paragraph{Publisher - Subscriber}
+
+\npar The \emph{Publisher - Subscriber} pattern is in this context particularly useful due to
+the inherently unknown parties potentially interested in certain messages. E.g. When
+later in time dynamic pricing is introduced it is simply possible for the other
+interested parties (customers, HAS, etc.) to subscribe to these events. So this
+pattern aids in realizing the anticipate expected changes tactic.
+
+\paragraph{Facade}
+
+\npar To shield the system and it's external actors (i.e. The third party
+billing service and utility providers) the \emph{Facade} pattern is interesting.
+The pattern suggests a single point of access for both of the aforementioned
+actors to access but there is a possibility of bypassing this accesspoint in a
+number of sophisticated scenarios. In the context of this decomposition a slight
+variation of this pattern is used, this will be explained below. The shielding
+functionality of the facade reflects the use of an intermediary (and in a sense
+the hiding of information). Notice that there is no explicit design pattern used
+for the hiding of information but this is mainly realized in the use of
+interfaces for all different components.
+
+\subsection{Step 3: Instantiate architectural elements and allocate responsibilities}
+\label{add:it8/elements}
+
+\begin{figure}[H]
+	\begin{centering}
+		% TODO
+		%\includegraphics[width=0.6\textwidth]{figs/decomposition/processing-scheduler/decomposition.pdf}
+		\caption{The decomposition of the other component. Iteration
+		8}
+		\label{fig:add/it8/decomposition}
+	\end{centering}
+\end{figure}
+
+\npar The full decomposition of this iteration can be viewed in figure
+\ref{fig:add/it8/decomposition}. In the subsection below each of the components
+will be discussed. 
+
+\subsubsection{Event Channel}
+
+\npar This component is the instantiation of the \emph{Publisher - Subscriber}
+pattern's ``Change Propagation Infrastructure''. Its responsibilities are the
+handling of subscriptions and publications to certain events. Users of this
+channel can be invoke one of the methods of it's interface,
+\interface{BillingChannel}. These are discussed in \ref{add:it8/interfaces}.
+
+\subsubsection{Prediction Unit}
+
+\npar The prediction unit is responsible for fetching the consumption
+histories of all customers, processing (i.e. running all sorts of
+prediction algorithms on the fetched data)and exporting. Therefore it offers a
+\interface{Prediction} interface.
+
+\subsubsection{Billing Unit}
+
+\npar The responsibility of this unit is limited to the generation of invoices.
+Ths includes determining that an invoice should be constructed, fetching all the
+relevant consumption data and constructing the invoice. The constructed invoice
+is then sent towards the billing communication unit through the
+\interface{BillingReceive} interface. One more task is assigned to this
+component, namely the marking of paid invoices. To retrieve all data the
+billing unit needs, first of all it has to have access through the internal
+ReMeS customer database (through the \interface{CustomerProfile} interface).
+Secondly, it needs to be able to contact the UIS. This is done through the
+\interface{CustomerInformation}.
+
+\subsubsection{UIS Communication}
+
+\subsubsection{Billing Communication}
+
+\subsection{Step 4: Define interfaces for instantiated elements}
+\label{add:it8/interfaces}
+
+\subsection{Step 5: Verify and refine}
+\label{add:it8/verification}
