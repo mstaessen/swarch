@@ -202,13 +202,7 @@ in different modes.
 \npar The trames will have to be objectified. This will yield two advantages.
 Firstly, the scheduler can be implemented using the \emph{Command Processor}
 design pattern. Secondly, a unified language will exist for all vendor
-specific trame formats.
-
-%TODO verplaatsen naar storage.
-% \npar To make the data highly available, the database will be replicated. This
-% can be achieved by using the \emph{Replicated Component Group} design pattern.
-% The database will be replaced with a front-end interface that replicates all
-% requests to all the replicas. 
+specific trame formats. 
 
 \npar To allow load balancing (and hence increase the performance) multiple
 instances of the anomaly detection are created . This can be achieved by using
@@ -253,12 +247,6 @@ This is particularly useful when the storage unit is overloaded.
 \npar This component is responsible for all storage of measuremnts (and
 measurements only). It receives trames from the storage scheduler and notifies
 the Anomaly Detection scheduler when a new trame is available.
-
-%TODO: verplaatsen naar juiste iteratie
-% \npar This component is the front end interface for database communication. This
-% means that it communicates with all the instances of the physical storage to
-% store a trame. Furthermore shall this unit notify the trame processing scheduler
-% that a new trame entered the system. 
 
 \subsubsection{Anomaly Detection Scheduler}
 

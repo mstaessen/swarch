@@ -28,34 +28,48 @@ this, three things must be taken into consideration. It should be able to detect
 the problem, there should be a way to fix the problem and last but certainly not
 least, there should be preventive measures.
 
-\npar As was the case in the previous paragraph, there are many alternatives.
-The most frequently used ones are active redundancy, passive redundancy and
-spare. The main criterion to select one of these is the downtime of the system.
-These downtimes are respectively in the order of miliseconds, seconds and
+\npar There are many alternatives to address availability. The most frequently
+used ones are active redundancy, passive redundancy and spare. The main
+criterion to select one of these is the downtime of the system. For every
+scheme, the downtimes are respectively in the order of milliseconds, seconds and
 minutes. An uptime of 99.9\% corresponds to 0.72 hours (= 43.2 minutes) of
 permitted downtime on a monthly basis. This number reveals potential problems
-when a spare is used because there can be only less the 10 failures a month. For
-this reason, use of spares is eliminated.
+for when a spare is used because there can be only less than 10 failures a
+month. For this reason, use of spares is eliminated.
 
 \npar The difference between active and passive replication is rather subtle.
 In an active replication scheme, the system will recover faster then in a
-passive replication scheme. However, all replicas should be in a consistent
-state. This increases the communication overhead, compared to a passive
-replication scheme.
+passive replication scheme but all replicas should be in a consistent
+state. This will increases communication overhead in comparison with the
+passive replication scheme.
 
 \npar On the other hand, the active replication scheme can also provide load
-balancing. If one replica has a higher load than another, the replica with the
-lowest load can be used to process the query. For this reason, the active
-replication scheme is selected.
+balancing for read-only queries. If one replica has a lower load than any other,
+that replica can be used to process the query. Because of this advantage, the
+active replication scheme is selected.
 
 \subsubsection{Design Patterns}
 \label{add:it4/patterns}
 
+\paragraph{Replicated Component Group} 
+
+\npar To make the data highly available, the database will be replicated. This
+can be achieved by using the \emph{Replicated Component Group} design pattern.
+The database access will be replaced with a front-end interface that replicates
+all write queries to all the replicas and load balances read queries over all
+instances.
+
 \subsection{Step 3: Instantiate architectural elements and allocate responsibilities}
 \label{add:it4/elements}
 
+\npar A FrontEnd will provide an interface to execute queries on the
+measurements database. The FrontEnd will also manage all instances of the
+measurements database.
+
 \subsection{Step 4: Define interfaces for instantiated elements}
 \label{add:it4/interfaces}
+
+
 
 \subsection{Step 5: Verify and refine}
 \label{add:it4/verification}
