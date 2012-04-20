@@ -4,20 +4,32 @@
 \subsection{Step 1: Identify candidate drivers}
 \label{add:it5/drivers}
 
+\npar This iteration is driven by:
+
+\begin{itemize}
+	\item P1': Timely closure of valves
+	\item P2': Anomaly Detection
+\end{itemize}
+
 \subsection{Step 2: Choose design concepts}
 \label{add:it5/concepts}
 
-\subsubsection{Tactics}
-\label{add:it5/tactics}
-
-\subsubsection{Design Patterns}
-\label{add:it5/patterns}
+\npar The design concepts for this decomposition are completely analogous to the
+design concepts of iteration 3 (see section \ref{add:it3/concepts}). 
 
 \subsection{Step 3: Instantiate architectural elements and allocate responsibilities}
 \label{add:it5/elements}
 
+\npar Analogous to iteration 3 (see \ref{add:it3}), a Message Router will
+enqueue processing jobs with the right priorities in the Queue. The
+priorities are determined by the active policy in the Message Router. The
+Scheduler will dequeue jobs from the Queue en feed them to the Anomaly Detection
+Unit. 
+
 \subsection{Step 4: Define interfaces for instantiated elements}
 \label{add:it5/interfaces}
+
+
 
 \subsection{Step 5: Verify and refine}
 \label{add:it5/verification}
