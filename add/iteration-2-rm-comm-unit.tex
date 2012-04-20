@@ -6,7 +6,7 @@
 
 \npar In the previous iteration, four requirements (UC7', Av2', M1' and M3')
 were assigned to the remote module communication unit and 2 use cases were
-created. These six requirement are the possible drivers for this iteration.
+created. The three quality attributes will form the drivers for this iteration.
 
 \subsection{Step 2: Choose design concepts}
 \label{add:it2/concepts}
@@ -28,8 +28,8 @@ will be used.
 
 \paragraph{Availability}
 
-%TODO: hoe wordt Av2' eigenlijk gerealiseerd in deze module ? :s Was dat heel
-% die heartbeat kwestie ?
+\npar The chosen availability tactic is detection, more specific the heartbeat
+mechanism.
 
 \subsubsection{Design Patterns}
 \label{add:it2/patterns}
@@ -42,9 +42,11 @@ hidden behind a simple interface.
 \npar To push this information hiding even further a modified version of the
 \emph{Resource Pool} pattern is used. This will be enlightened in the next
 section.
-
-%TODO: misschien is dit niet helemaal waar, want resource pool is meer
+%TODO: misschien is dit niet helemaal waar, want resource pool is meer op
 % performantie gericht.
+
+\npar Finally the \emph{Publisher - Subscriber} pattern is used to allow
+multiple components to receive trames in parallel. 
 
 \subsection{Step 3: Instantiate architectural elements and allocate responsibilities}
 \label{add:it2/elements}
@@ -60,15 +62,15 @@ section.
 \end{figure}
 
 \npar The remote module communication unit has three main components: Input
-Translator, Output Translator and Translator Pool. Each of them will be
-discussed below. As one can see in diagram \ref{fig:add/it2/decomposition}
-there are only two communication paths in the system, one for incoming
-communication and one for outgoing. In this way another tactic is realized,
-namely the restriction of communication paths.
+Translator, Output Translator, Translator Pool, Event Channel, Deadline Monitor
+and Trame Consumer. Each of them will be discussed below. As one can see in
+diagram \ref{fig:add/it2/decomposition} there are only two communication paths
+in the system, one for incoming communication and one for outgoing. In this way
+another tactic is realized, namely the restriction of communication paths.
 
 \npar In the previous section there was the mentioning of a modified version of
 the \emph{Resource Pool} pattern. One can see this pattern in the usage of the
-Translator Pool. The translator pool component itself acts as a sort of manager
+translator pool. The translator pool component itself acts as a sort of manager
 of the pool and handles incoming requests for translators based on a
 certain module. The difference with the original pattern lies in the 
 diversity of the translators. Each translator is different whereas the
@@ -76,13 +78,13 @@ resources normally should all be equal.
 
 \subsubsection{Input Translator}
 
-\npar The input translator has as duty the translation of incoming trames into
-objectified trames. Therefore it must know what the incoming data format is.
-To realize this, it has a translator pool at its disposal where, based on the
-module a translator can be fetched. When the trames are translated they are
-pushed further into ReMeS for storage, etc.
-
-%TODO: getCustomerBySerialId 
+\npar The input translator has as duty the translation of incoming (raw) trames
+into objectified trames. Therefore it must know what the incoming data format
+is. To realize this, it has a translator pool at its disposal where, based on
+the module (type) a translator can be fetched. The translated trame is provided
+with extra information concerning the customer (i.e. the owner of the module where the
+trame came from). When the trames are translated they are published on the event
+channel for all interested parties.
 
 \subsubsection{Output Translator}
 
@@ -96,37 +98,87 @@ outgoing communication towards remote modules goes through this module.
 \npar The translator pool acts as the manager for the pool and all requests from
 both the translators will pass through this component. 
 
+\subsubsection{Event Channel}
+
+\npar The event channel is the communication entity where publishers can publish
+events on and subscribers can subscribe on.
+
+\subsubsection{Deadline Monitor}
+
+\npar The responsibility of this process is the monitoring of all bypassing
+measurements and guaranteeing that a missing measurement is detected within the
+demanded time limits. This monitor is subscribed to the event channel to receive
+trames. To guarantee these limits the monitor keeps a table with expected
+arrival times of all remote devices which is frenquently checked. Notice that to
+protect from failures, this table is made persistent. When a deadline is
+exceeded this is stored in the corresponding database. When a certain number of
+deadline violations is reached a ReMeS operator is notified. Notice that this
+component is in fact the realization of the heartbeat tactic. 
+
+\subsubsection{Trame Consumer}
+
+\npar The trame consumer is a simple forwarding unit which is subscribed to the
+event channel and receives all trames which are published on it. It simply
+forwards all trames to the storage scheduler.
+
 \subsection{Step 4: Define interfaces for instantiated elements}
 \label{add:it2/interfaces}
 
-\npar The incoming translator offers one method \method{receiveTrame(\ldots)}
-which is invoked by remote modules whenever they want to send a trame towards
-ReMeS. The translator demands three interfaces for operating correctly. First of
-all it needs a \method{GetTranslatorFor(\ldots)} method to retrieve the correct
-translator. Furthermore does it need a \method{scheduleForStorage(\ldots)} to
-push the freshly translated trame further into ReMeS. 
+\subsubsection{Input Translator}
 
-%TODO: methode getCustomer..
+\paragraph{InputTrame} %TODO: parameter van de receive
 
-\npar The output translator also offers only one method, \method{send(\ldots)}.
-This method can be invoked by components who need to communicate with one or
-more remote modules. It also needs a \method{getTranslatorFor(\ldots)} to
-be able to execute its translating function. Furthermore is a
-\method{receive(\ldots)} method required for remote modules to receive trames. 
+\npar this interface was already discussed in iteration 1, see section
+\ref{add:it1/interfaces}.
 
-\npar The translator pool offers two methods.
+\subsubsection{Output Translator}
+
+\paragraph{OutputTrame}
+
+\npar this interface was already discussed in iteration 1, see section
+\ref{add:it1/interfaces}.
+
+\subsubsection{Translator Pool}
+
+\paragraph{TranslatorManager}
+
+\npar The translator pool interface offers one method,
+\method{GetTranslatorFor(RemoteDevice)}. This method does nothing else than
+return the correct translator for the given remote device (there can be
+differences between remote module types, communication channels, etc.).
+
+\paragraph{Translator}
+
+\npar Each of the different translators implements the \interface{Translator}
+translator interface. This interface includes two methods:
+\method{translateFromDevice(RemoteModule)} and
+\method{translateToDevice(RemoteModule)}. The former serves as translate method
+for the input translator and vice versa for the latter one.
+
+\subsubsection{Trame Event Channel}
+
+\paragraph{TrameChannel}
+
+\npar This interface offers two methods as prescribed by the \emph{Publisher -
+Subriber} pattern, \method{publish(event)} and \method{subscribe(filter)}.
+
+\subsubsection{Deadline Monitor}
+
+\paragraph{TrameNotifiable}
+
+\npar This interface complements the \interface{TrameChannel} interface. When a
+component is subscribed to a certain event flow, the channel has to be able to
+notify the component when a new event is available.
+
+\subsubsection{Trame Consumer}
+
+\npar This unit offers the exact same interface as the deadline monitor.
 
 %TODO: hoe zit het met de interfaces tussen de pool en zijn instances ?
-%TODO: zijn de 2 aangeboden methodes eigelijk niet dezelfde ? 
 
 \subsection{Step 5: Verify and refine}
 \label{add:it2/verification}
 
-\npar By the use of the \emph{Message Translator} pattern five of the six
-drivers of this iteration were resolved (all except Av2). 
-
-%TODO: Av2
-
-\npar This means that no futher decomposition of any of these modules has to
-take place because there are no more requirements to divide amongst the
-components. 
+\npar All the drivers were resolved so no futher decomposition of any of these
+modules has to take place because there are no more requirements to divide
+amongst the components. 
