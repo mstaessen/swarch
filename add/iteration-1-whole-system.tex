@@ -141,32 +141,6 @@ administrators to replace the failing disk.
 \npar As a result, heartbeat seems the best solution to detect faults.
 
 % 
-% \npar Detecting a fault is insufficient, resolving the fault is at least equally
-% important. Once a fault has been detected, the faulting component must be taken
-% out of action and be repaired or replaced with a working version. However, in
-% order to guarantee an uptime of 99.9\%, there has to be a backup to take over in
-% case of a component fault.
-% 
-% \npar As was the case in the previous paragraph, there are many alternatives.
-% The most frequently used ones are active redundancy, passive redundancy and
-% spare. The main criterion to select one of these is the downtime of the system.
-% These downtimes are respectively in the order of miliseconds, seconds and
-% minutes. An uptime of 99.9\% corresponds to 0.72 hours (= 43.2 minutes) of
-% permitted downtime on a monthly basis. This number reveals potential problems
-% when a spare is used because there can be only less the 10 failures a month. For
-% this reason, use of spares is eliminated.
-% 
-% \npar The difference between active and passive replication is rather subtle.
-% In an active replication scheme, the system will recover faster then in a
-% passive replication scheme. However, all replicas should be in a consistent
-% state. This increases the communication overhead, compared to a passive
-% replication scheme. 
-% 
-% \npar On the other hand, the active replication scheme can also provide load
-% balancing. If one replica has a higher load than another, the replica with the
-% lowest load can be used to process the query. For this reason, the active
-% replication scheme is selected. 
-
 \paragraph{Performance} 
 
 \npar For performance tactics there are three categories: resource
@@ -227,13 +201,6 @@ Firstly, the scheduler can be implemented using the \emph{Command Processor}
 design pattern. Secondly, a unified language will exist for all vendor
 specific trame formats.
 
-%TODO verplaatsen naar storage.
-% \npar To make the data highly available, the database will be replicated. This
-% can be achieved by using the \emph{Replicated Component Group} design pattern.
-% The database will be replaced with a front-end interface that replicates all
-% requests to all the replicas. To make this replication transparant to the
-% users of the storage the \emph{Business Delegate} is used.
-
 \paragraph{Resource Pool}
 
 \npar To allow load balancing (and hence increase the performance) multiple
@@ -278,12 +245,6 @@ This is particularly useful when the storage unit is overloaded.
 \npar This component is responsible for all storage of measurements (and
 measurements only). It receives trames from the storage scheduler and notifies
 the Anomaly Detection scheduler when a new trame is available.
-
-%TODO: verplaatsen naar storage.
-% \npar This component is the front end interface for database communication. This
-% means that it communicates with all the instances of the physical storage to
-% store a trame. Furthermore shall this unit notify the trame processing scheduler
-% that a new trame entered the system. 
 
 \subsubsection{Anomaly Detection Scheduler}
 
@@ -486,8 +447,8 @@ resolved requirements in this iteration.
 	\end{itemize}
 	\item Storage
 	\begin{itemize}
-		\item Av1 : Measurement database failure (delegated)
-		\item Av2' : Missing measurements (split)
+		\item Av1: Measurement database failure (delegated)
+		\item Av2': Missing measurements (split)
 	  	\item P3': Requests to the measurement database (delegated)
 	\end{itemize}
 	\item Anomaly Detection Scheduler
