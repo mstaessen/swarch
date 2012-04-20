@@ -4,18 +4,6 @@
 \npar In the first iteration, the whole system, ReMeS is decomposed. It takes
 all the requirements and quality attribute scenarios as input.
 
-\npar Two subsystems are recognized: a ``Remote Module Subsystem'' and the
-``Portal''. This is shown in figure \ref{fig:add/it1/decomposition}.
-
-\begin{figure}[H]
-	\begin{centering}
-		% TODO
-		%\includegraphics[width=0.6\textwidth]{figs/decomposition/whole-system/decomposition.pdf}
-		\caption{The subsystems of the ReMeS system}
-		\label{fig:add/it1/decomposition}
-	\end{centering}
-\end{figure}
-
 \subsection{Step 0: Confirm there is sufficient requirements information} 
 
 % TODO de tekst in deze subsectie beschrijft niet helemaal wat in deze sectie
@@ -54,8 +42,8 @@ priorities, summarized in table \ref{table:add/it1/priorities}.
 \end{table}
 
 \npar Off course one wants to maximize the priority in both cases. Based on the
-priorities in table \ref{table:add/it1/priorities}, one high priority and one medium
-priority quality attribute scenarios are selected as architectural driver. An
+priorities in table \ref{table:add/it1/priorities}, one high priority and otwo
+medium priority quality attribute scenarios are selected as architectural driver. An
 overview of the selected drivers and their use cases is given below.
 
 \begin{itemize}
@@ -68,6 +56,7 @@ overview of the selected drivers and their use cases is given below.
   	\begin{itemize}
   	  \item UC10 (Medium) : Detect anomaly %TODO
   	\end{itemize} 
+  	\item Av2 (Medium) : Missing measurements %TODO use cases ?
 \end{itemize}
 
 \npar The considered use cases includes the use cases listed below. 
@@ -78,17 +67,19 @@ overview of the selected drivers and their use cases is given below.
 	\item UC10 (Medium): Detect anomaly
 \end{itemize}
 
-\npar The choice of P1 is because it has the highest priority available (both a
-high client priority and impact on the architecture). The reasons for selecting
-P2 are more subtle since there are still combinations available (e.g. Av1) which
-precede P2 in the prioriy hierarchy. The choice is twofold. First of all P2 is
-very easy to combine with P1 because they both place constraints on the database
-access in the two different operate modi (normal and overload). Second, 
-%TODO waarom geen av1 of m1 ?
+\npar The choice of P1 is logical because it has the highest priority available
+(both a high client priority and impact on the architecture). The reasons for
+selecting P2 and Av2 are more subtle since there are still combinations
+available (e.g. Av1) which precede P2 in the priority hierarchy. The choice is
+twofold. First of all P2 is very easy to combine with P1 because they both place
+constraints on the database access in the two different operate modi (normal and
+overload). Second, the impact on the architecture is very high in contradiction
+to other high (client) priority requirement such as Av1 or M1. Based on the
+second argument there was also opted to go for Av2.
 
 \npar Based on the architectural drivers, the remote module subsystem has to
 provide functionality for remote module communication (receiving and sending
-trames), trame storage, trame processing and customer communication. 
+trames), trame storage, trame processing and stakeholder communication. 
 
 \npar In order to obtain a better understanding of the relationships between
 these functionalities, a small domain model is drafted. Figure
@@ -110,45 +101,45 @@ in this level of decomposition.
 \subsubsection{Tactics}
 \label{add:it1/tactics}
 
-% \paragraph{Availability} %TODO verplaatsen naar iteratie van storage.
-% 
-% \npar After selecting the drivers for the current decomposition, one has to
-% choose the tactics to achieve them. Recall from section
-% \ref{drivers:whole-system} that the first driver was Av1. All approaches to
-% maintain availability involve either detection, recovery or prevention of
-% faults.
-% 
-% \npar First of all, a fault needs to be detected. For this, there are three
-% options: ping/echo, heartbeat and exceptions. It is important to notice that the
-% latter is not very practical. This can be illustrated with a simple example.
-% 
-% \npar Suppose that a component $c_1$ depends on another component $c_2$. For
-% some reason, $c_1$ does not need the services of $c_2$ for a duration longer
-% than the detection interval of 5 seconds (see Av1). Within this time, no
-% detection can occur, simply because there is no interaction between the
-% components. For this reason, we eliminate exceptions as a primary fault
-% detection system. However, exceptions will still have to be implemented in order
-% to make the system fail gracefully (a component being unavailable will not
-% cause the system to crash).
-% 
-% \npar Another detection method uses ping/echo. This primarily focusses on
-% network connectivity and will not check the availabillity of the service itself.
-% Again, this is not very practical. A server can be reachable, but the service on
-% a certain port number may be unavailable. In this case, the ping/echo
-% method would not detect the fault. 
-% 
-% \npar Heartbeat on the other hand, will be part of the system itself and will be
-% able to check whether the service is still up and running. It will periodically
-% (at most every 5 seconds) check the state of the system and send out a pulse
-% to a heartbeat monitor if everything is runnning fine.
-% 
-% \npar Another advantage of using heartbeat is that the pulse can contain data,
-% more specifically status data. For instance, a single failing disk in a RAID5
-% array can cause a warning but will not cause the system to crash. This
-% information can be included in the pulse of the heartbeat to inform the
-% administrators to replace the failing disk.
-% 
-% \npar As a result, heartbeat seems the best solution to detect faults. 
+\paragraph{Availability}
+ 
+\npar After selecting the drivers for the current decomposition, one has to
+choose the tactics to achieve them. Recall from section \ref{add:it1/drivers}
+that one of the drivers was Av2. All approaches to maintain availability
+involve either detection, recovery or prevention of faults.
+
+\npar First of all, a fault needs to be detected. For this, there are three
+options: ping/echo, heartbeat and exceptions. It is important to notice that the
+latter is not very practical. This can be illustrated with a simple example.
+
+\npar Suppose that a component $c_1$ depends on another component $c_2$. For
+some reason, $c_1$ does not need the services of $c_2$ for a duration longer
+than the detection interval of one minute (see Av2). Within this time,
+no detection can occur, simply because there is no interaction between the
+components. For this reason, we eliminate exceptions as a primary fault
+detection system. However, exceptions will still have to be implemented in order
+to make the system fail gracefully (a component being unavailable will not
+cause the system to crash).
+
+\npar Another detection method uses ping/echo. This primarily focusses on
+network connectivity and will not check the availabillity of the service itself.
+Again, this is not very practical. A server can be reachable, but the service on
+a certain port number may be unavailable. In this case, the ping/echo
+method would not detect the fault.
+
+\npar Heartbeat on the other hand, will be part of the system itself and will be
+able to check whether the service is still up and running. It will periodically
+(at most every one minute) check the state of the system and send out a pulse
+to a heartbeat monitor if everything is runnning fine.
+
+\npar Another advantage of using heartbeat is that the pulse can contain data,
+more specifically status data. For instance, a single failing disk in a RAID5
+array can cause a warning but will not cause the system to crash. This
+information can be included in the pulse of the heartbeat to inform the
+administrators to replace the failing disk.
+
+\npar As a result, heartbeat seems the best solution to detect faults.
+
 % 
 % \npar Detecting a fault is insufficient, resolving the fault is at least equally
 % important. Once a fault has been detected, the faulting component must be taken
@@ -216,14 +207,20 @@ decomposition.
 \end{itemize}
 
 \subsubsection{Design Patterns}
-\label{add:it1/patterns} %TODO verder uitwerken
+\label{add:it1/patterns}
+
+\paragraph{Active Object}
 
 \npar With respect to resource arbitration and resouce management, the
 \emph{Active Object} design pattern is chosen for trame communication and
 processing. Schedulers will determine the order in which trames are received,
-processed and sent. These schedulers will have different scheduling policies,
-implemented with the \emph{Strategy} design pattern, in order to allow operation
-in different modes.
+processed and sent. 
+
+\paragraph{Strategy}
+
+\npar The previously mentioned schedulers will have different scheduling
+policies, implemented with the \emph{Strategy} design pattern, in order to
+allow operation in different modes.
 
 \npar The trames will have to be objectified. This will yield two advantages.
 Firstly, the scheduler can be implemented using the \emph{Command Processor}
@@ -234,22 +231,24 @@ specific trame formats.
 % \npar To make the data highly available, the database will be replicated. This
 % can be achieved by using the \emph{Replicated Component Group} design pattern.
 % The database will be replaced with a front-end interface that replicates all
-% requests to all the replicas. 
+% requests to all the replicas. To make this replication transparant to the
+% users of the storage the \emph{Business Delegate} is used.
+
+\paragraph{Resource Pool}
 
 \npar To allow load balancing (and hence increase the performance) multiple
 instances of the anomaly detection are created . This can be achieved by using
 the \emph{Resource Pool} design pattern. 
 
-%TODO: verplaatsen naar storage iteratie
-To make this replication transparant to the users of the storage the
-\emph{Business Delegate} is used.
+\paragraph{Shared Repository}
+
+\npar Since several databases will be needed in this iteration, the
+\emph{Shared Repository} pattern will be employed to %TODO argumenten ?
 
 \subsection{Step 3: Instantiate architectural elements and allocate responsibilities}
 \label{add:it1/elements}
 
-% TODO fig
-
-\subsubsection{Communication unit}
+\subsubsection{Remote Module Communication unit}
 
 \npar This module is responsible for all communication from and to remote
 modules (all types of communication and both valves and control devices).
@@ -276,11 +275,11 @@ This is particularly useful when the storage unit is overloaded.
 
 \subsubsection{Storage of trames}
 
-\npar This component is responsible for all storage of measuremnts (and
+\npar This component is responsible for all storage of measurements (and
 measurements only). It receives trames from the storage scheduler and notifies
 the Anomaly Detection scheduler when a new trame is available.
 
-%TODO: verplaatsen naar juiste iteratie
+%TODO: verplaatsen naar storage.
 % \npar This component is the front end interface for database communication. This
 % means that it communicates with all the instances of the physical storage to
 % store a trame. Furthermore shall this unit notify the trame processing scheduler
@@ -289,42 +288,41 @@ the Anomaly Detection scheduler when a new trame is available.
 \subsubsection{Anomaly Detection Scheduler}
 
 \npar When the storage unit has stored a new trame, this scheduler is notified
-and fetches the freshly stored trame. Notice that this trame is not
-the real, physical, trame that is stored in the datbase. One can think of it as
-a kind of virtual trame, the actual trame will be fetched by the anomaly
-detection unit. Analogous to the other scheduler this scheduler serves as a
-buffer to prevent overloading on the anomaly detection unit. Once again
-different scheduling policies can be switched on.
+and fetches the freshly stored trame. Analogous to the other scheduler this
+scheduler serves as a buffer to prevent overloading on the anomaly detection
+unit. Once again different scheduling policies can be switched on.
 
-\subsubsection{Customer Communication Unit}
+\subsubsection{Notification Unit}
 
 \npar This module is contacted by the anomaly detection. When the latter detects
 an anomaly in the usage of one the utilities of a customer or a (non false)
 alarm, then that customer (and possibly the emergency services) needs to
-notified. This is the responsibility of the Customer Communication Unit.
+notified. This is the responsibility of the Notification Unit.
 
-\subsubsection{Anomaly Detection Instance Manager}
+\subsubsection{Anomaly Detection Unit}
 
 \npar The Anomaly Detection unit is responsible for running the algorithms to
-discover anomalies. It receives virtual trames from the anomaly detection
-scheduler so it can process them. After receiving such a virtual trame, the
-real trame is fetched by sending a read query to the storage scheduler. Notice
-that there are multiple instances of this anomaly detection unit. This allows
-load balancing, cf. P2. 
+discover anomalies. It receives trames from the anomaly detection scheduler so
+it can process them. After receiving such a trame, additional trames are fetched
+by sending a read query to the storage scheduler. These additional trames
+are from the same customer or utility company because the detection algorithms
+off course work based on data sets instead of single trames. Notice that there
+are multiple instances of this anomaly detection unit. This allows load
+balancing, cf. P2.
 
 \npar The task of this unit is the managing of all these instances. This
 includes monitoring the load of all the instances, performing the read queries
-and distributing the result (i.e. the trames). Upon detecting an anomaly two
-possible actions (or both) can be undertaken. The first is sealing a valve if
-it is a severe leak (this action is represented by the dependency between the
-outgoing communication scheduler and the anomaly detection). The second is
-notifying the approriate parties (the customer and/or the emergency services).
+and distributing the resulting trames. Upon detecting an anomaly two possible
+actions (or both) can be undertaken. The first is sealing a valve if it is a
+severe leak (this action is represented by the dependency between the outgoing
+communication scheduler and the anomaly detection). The second is notifying the
+approriate parties (the customer and/or the emergency services).
 
 \subsubsection{Outgoing Communication Scheduler}
 
 \npar The outgoing communication scheduler has as duty the scheduling of
 trames which are sent to remote modules. There is a need for scheduling because
-control trames to shut a valve need to reach the specified module in certain
+control trames to shut a valve need to reach the specified module within certain
 time constraints according to P1. This scheduling can again be realized by the
 use of different policies.
 
@@ -336,52 +334,118 @@ customers, emergencyservices, etc.).
 \subsection{Step 4: Define interfaces for instantiated elements}
 \label{add:it1/interfaces}
 
-% TODO: fig
+\begin{figure}[H]
+	\begin{centering}
+		% TODO
+		%\includegraphics[width=0.6\textwidth]{figs/decomposition/outbound-comm-scheduler/decomposition.pdf}
+		\caption{The decomposition of the Outbound Communicatin Scheduler. Iteration
+		6}
+		\label{fig:add/it6/decomposition}
+	\end{centering}
+\end{figure}
 
-\npar All communication from and to remote modules goes through the remote
-module communication unit. To support this behaviour this module offers a
-\method{receiveTrame(\ldots)} method which is called by remote modules. Remote
-modules in their part also offer a \method{receive(\ldots)} method which is called
-by the communication unit upon sending a trame towards the the module. Components
-who require a sending service (towards modules) can invoke the
-\method{sendingTrame(\ldots)} method. Finally to allow the further processing of
-incoming trames, a \method{scheduleForStorage(\ldots)} is needed where this
-module can deliver incoming trames to.
+\subsubsection{Remote Module Communication Unit}
 
-\npar The storage scheduler offers two methods, namely
-\method{scheduleForStorage(\ldots)} and \method{scheduleQuery(\ldots)}. The
-former method acts as a registering point where trames can be delivered for
-storage. The latter serves for the scheduling of components who want
-to read the database. Furthermore does this component requires one method
-\method{storeTrame(\ldots)} to permanently store a trame in storage.
+\paragraph{InputTrame} %TODO: parameter van de receive
 
-\npar To permanently store trames the storage component was introduced. Storage
-offes one method \method{storeTrame(\ldots)} to realize this functionality.
-Thereupon is the anomaly detection scheduler notified that a new trame is
-available for processing. Therefore the scheduler has to offer a
-\method{notify(\ldots)}, which can be called by the storage component.
+\npar The remote module communication unit offers one method
+\method{receive(\ldots)} which is invoked by remote modules whenever they want
+to send a trame towards ReMeS.
 
-\npar As said in the previous section the anomaly detection schedulers offers a
-\method{notify(\ldots)}, where the storage component can notify this scheduler
-when a new trame is ready for processing. Upon receiving a notification this
-scheduler can schedule this trame for processing. Afterwards the (virtual)
-trame is sent towards the anomaly detection unit for processing using the
-\method{processTrame(\ldots)} method.
+\paragraph{OutputTrame}
 
-%TODO: replicas
-\npar The anomaly detection unit fetches the trames by performing a read query
-and sending it to the storage scheduler. The scheduler therefore has a
-\method{scheduleQuery(\ldots)} which return the (real) trame. When the trame is
-returned this unit can process it. To seal a valve a trame can be constructed to
-send to the remote module (i.e. valve), therefore the outgoing
-communication scheduler offers the \method{scheduleForSend(\ldots)} method. The
-notification of third parties (i.e. emergency services, customers) can be done
-through invocation of \method{notify(\ldots)}.
+\npar The output translator also offers only one method, \method{send(trame)}.
+This method can be invoked by components who need to communicate with one or
+more remote modules.
 
-\npar The stakeholder notification unit offers one method
-\method{notifyThirdParty(\ldots)} which is to be invoked by any component who
-wishes to notify e.g. the emergency services and/or one or more customers. These
-third parties have to offer in their part a \method{receive(\ldots)} method.
+\subsubsection{Storage Scheduler}
+
+\paragraph{StorageQueryScheduler}
+
+\npar The \interface{StorageQueryScheduler} has one method,
+\method{schedule(query)}. This method will feed the given query into the
+scheduler. 
+
+\subsubsection{Storage}
+
+\paragraph{TrameCRUD}
+
+\npar This interface offers four methods, summarized CRUD. This abbreviation
+stands for : ``Create Read Update Delete'' and refers to the four basic
+operations possible on a database.
+ 
+\npar The first method, \method{create(query)}, can be used for the insertion of
+a new data table. The \method{read(query)} method serves to read a certain
+amount of trames (e.g. all measurements a of certain utility provider or
+customer). Third there is an \method{update(query)} method to change the
+content of a table (e.g. add a measurement for a certain customer). Finally a
+\method{delete(query)} method is provided to delete data.
+
+\subsubsection{Anomaly Detection Scheduler}
+
+\paragraph{DetectionScheduler}
+
+\npar The \interface{DetectionScheduler} interface offers a
+\method{schedule(trame)} method which will offer the given trame to the
+scheduler.
+
+\subsubsection{Anomaly Detection}
+
+\paragraph{AnomalyDetector}
+
+\npar This interface once again offers only one method \method{detect(trame)}.
+Invoking this method can trigger various anomaly detection algorithms to start
+running (or add the given trame to an already running algoritm). There can be an
+analysis for the utility provider or customer where the measurement belongs too.
+These algorithms typically take more than one trame as input so additional
+trames may be fetched. Therefore a read query be scheduled through the
+\interface{StorageQueryScheduler} by invoking the \method{read(query)} (where
+the query off course has to be constructed within the \method{detect} call).
+
+\npar When the outcome of one or more algorithms indicates that an anomaly is
+found (or when the initial trame was an alarm trame) the customer and/or emergency
+services may have to be notified. Therefore the \method{send(notification)}
+of the \interface{NotifyUnit} can be used. This method call will handle the
+notification.
+
+\subsubsection{Notification Unit}
+
+\paragraph{NotifyUnit}
+
+\npar The interface this notification unit offers, has one method, namely a
+\method{send(notification)}. Invoking this method results in the notification of
+the recipient (which is included in the notification parameter) with the actual
+message.
+
+\subsubsection{Outbound Remote Module Scheduler}
+
+\paragraph{OutboundTrameScheduler}
+
+\npar To fulfill the scheduling functionality a method is needed where
+components can send their trames to. This method is called
+\method{schedule(trame)} and feeds the given trame into the scheduler where it
+will wait to be sent.
+
+\subsubsection{Shared Repository} 
+
+\npar All interfaces offered by the shared repository are analogous to the
+\interface{TrameCRUD} to a great extent. After all the basis of all of these
+interfaces is the CRUD principle.
+
+\paragraph{CustomerProfileCRUD}
+%TODO: niet volgens CRUD principe
+\npar This interface includes a \method{getCustomerByDeviceId(deviceId)} to
+enable the remote communication module to retrieve the customer which belongs to
+a certain incoming trame. This customer information can then be used throughout
+the system whenever needed.
+
+\paragraph{RemoteModuleConfigurationCRUD}
+
+\npar 
+
+\paragraph{AlarmStorageCRUD}
+
+\npar 
 
 \subsection{Step 5: Verify and refine}
 \label{add:it1/verification}
