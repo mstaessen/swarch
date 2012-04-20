@@ -150,32 +150,6 @@ in this level of decomposition.
 % 
 % \npar As a result, heartbeat seems the best solution to detect faults. 
 % 
-% \npar Detecting a fault is insufficient, resolving the fault is at least equally
-% important. Once a fault has been detected, the faulting component must be taken
-% out of action and be repaired or replaced with a working version. However, in
-% order to guarantee an uptime of 99.9\%, there has to be a backup to take over in
-% case of a component fault.
-% 
-% \npar As was the case in the previous paragraph, there are many alternatives.
-% The most frequently used ones are active redundancy, passive redundancy and
-% spare. The main criterion to select one of these is the downtime of the system.
-% These downtimes are respectively in the order of miliseconds, seconds and
-% minutes. An uptime of 99.9\% corresponds to 0.72 hours (= 43.2 minutes) of
-% permitted downtime on a monthly basis. This number reveals potential problems
-% when a spare is used because there can be only less the 10 failures a month. For
-% this reason, use of spares is eliminated.
-% 
-% \npar The difference between active and passive replication is rather subtle.
-% In an active replication scheme, the system will recover faster then in a
-% passive replication scheme. However, all replicas should be in a consistent
-% state. This increases the communication overhead, compared to a passive
-% replication scheme. 
-% 
-% \npar On the other hand, the active replication scheme can also provide load
-% balancing. If one replica has a higher load than another, the replica with the
-% lowest load can be used to process the query. For this reason, the active
-% replication scheme is selected. 
-
 \paragraph{Performance} 
 
 \npar For performance tactics there are three categories: resource
@@ -421,8 +395,8 @@ resolved requirements in this iteration.
 	\end{itemize}
 	\item Storage
 	\begin{itemize}
-		\item Av1 : Measurement database failure (delegated)
-		\item Av2' : Missing measurements (split)
+		\item Av1: Measurement database failure (delegated)
+		\item Av2': Missing measurements (split)
 	  	\item P3': Requests to the measurement database (delegated)
 	\end{itemize}
 	\item Anomaly Detection Scheduler
