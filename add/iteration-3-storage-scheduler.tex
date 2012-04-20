@@ -1,11 +1,11 @@
-\section{Iteration 3: Decomposition of the Storage Scheduler}
+\section{Iteration 3: Decomposition of the Measurements Database Scheduler}
 \label{add:it3}
 
 \subsection{Step 1: Identify candidate drivers}
 \label{add:it3/drivers}
 
-\npar Trame processing is the core business of the ReMeS system. Almost all
-components in the ReMeS system need access to the trames database.
+\npar Remote measuring is the core business of the ReMeS system. Almost all
+components in the ReMeS system need access to the measurements database.
 However, not all queries on that database should be treated equally. For
 instance, research queries have a lower priority than anomaly detection history
 queries (see P3). Therefore, queries to the measurements database need to be
@@ -13,12 +13,11 @@ scheduled.
 
 \npar The decomposition of this iteration is driven by
 
+% TODO Drivers herzien en use cases oplijsten
+
 \begin{itemize}
   	\item Av1: Measurements database failure. In case the database goes down, at
   	least 3 hours of measurement data should be stored.
-	\item P1': Timely closure of valves. Alarm trames should be processed with a
-	higher priority because valves have to be shut within a bounded time in case of
-	an alarm.
 	\item P2': Anomaly detection: Anomaly detection will be triggered for every
 	incoming measurement trame. Measurement trames will also have a higher
 	priority because incoming trames should be fully processed within a bounded
@@ -27,13 +26,13 @@ scheduled.
 	to a maximal execution time based on the SLA. 
 \end{itemize}
 
-% TODO: use cases nog oplijsten
-
 \subsection{Step 2: Choose design concepts}
 \label{add:it3/concepts}
 
 \subsubsection{Tactics}
 \label{add:it3/tactics}
+
+% TODO detection?
 
 \npar The scheduler was introduced in iteration 1 (see section \ref{add:it1}) to
 improve performance. At the level of the scheduler, performance is determined by
@@ -41,7 +40,7 @@ the scheduling policy.
 
 \npar The scheduling policy is defined by the quality attributes but the
 scheduler itself can be implemented in different ways. One could use a single
-queue for the scheduler. Jobs are pushed on the queue and popped off when the
+queue for the scheduler. Jobs are pushed on a queue and popped off when the
 scheduler can process a new job. 
 
 \npar A scheduler can also be implemented with multiple queues. For each kind of
@@ -95,88 +94,100 @@ entries of the queues might also be large, making this solution less efficient.
 \subsection{Step 3: Instantiate architectural elements and allocate responsibilities}
 \label{add:it3/elements}
 
-\npar All requests to the Trame Storage are encapsulated as Query Objects. These
-objects are created in the Remote Module Communication Unit and are presented to
-the Trame Scheduler. A Callback is stored in the Query objects to return the
-result to the issuer. 
+%      |
+%      schedule(QueryCommand):void
+%      |
+%      v
+%    [Scheduler]
+%      |
+%      schedule(QueryCommand,PriorityQueue):void
+%      |
+%      v
+%    [PriorityQueue]
+%      |
+%      enqueue(QueryCommand):void
+%      |
+%      v
+%    [Policy]
+%      ^
+%      |
+%      pop() : Query
+%      |
+%   [QueueReader]
+%      |
+%      execute(QueryCommand):void
+%      |
+%      v
+%   [TrameStorage]
 
-\npar When presented, these Queries are temporarily stored in a Buffer, called
-TrameSchedulingBuffer. This buffer is capable of holding up to 3 hours of
-measurements data in case of a problem with scheduling or the database. 
+\npar The decomposition of this component is shown in figure
+\ref{fig:it3/elements}. 
 
-\npar A Scheduler will pop Queries of the buffer and store them in a
-PriorityQueue, called TrameSchedulingQueue. The Queries will be inserted with a
-certain priority, determined by a policy that is based on the load, types of
-trames, etc.
+\begin{figure}[H]
+	\begin{centering}
+		%\includegraphics[width=0.8\textwidth]{figs/add/it3/elements.pdf}
+		\caption{Overview of the instantiated child components of the Trame Storage
+		Scheduler.}
+		\label{fig:it3/elements}
+	\end{centering}
+\end{figure}
 
-\npar A QueueReader will pop of the Query with the highest priority and execute
-it on the database. 
+\npar All requests to the Measurements Database Scheduler are encapsulated as
+QueryCommand objects. These objects have already been created in another
+component and represent a query to the measurements database. Because the
+scheduling makes communication asynchronous, the QueryCommand contains a
+Callback to return the result of the query to the issuer.
 
-\npar In case the database becomes unavailable and the Scheduler can no longer
-schedule queries because the queue is full, the queries are collected in the
-buffer.
+\npar The scheduler (MeasurementsScheduler) handles every incoming command
+(QueryCommand) by inserting the command in a queue (MeasurementsQueue) with a
+certain priority using a policy (MeasurementsPolicy). The scheduling policy
+determines the priority of the command based on the nature of that command. The
+priorities of all other commands are increased every time a new command is
+inserted. This is done to prevent starvation.
+
+\npar An additional component (QueueReader) will pop the command with the
+highest priority off the queue and present it on the database for execution. 
 
 \subsection{Step 4: Define interfaces for instantiated elements}
 \label{add:it3/interfaces}
 
-%
-% --schedule(Query):void--> [Buffer] <--pop():Query--[Scheduler]
-%                                                         |
-%                                        schedule(Query,PriorityQueue):void
-%                                                         |
-%                                                         v
-%               [PriorityQueue]<--enqueue(Query):void--[Policy]
-%                      ^
-%                      |
-%                pop() : Query
-%                      |
-%                [QueueReader]--execute(Query):Result-->[[TrameStorage]]
+\subsubsection{MeasurementsScheduler}
 
+\npar The MeasurementsScheduler provides an interface
+\interface{MeasurementSchedulerAPI}. This interface contains a method
+\method{shedule(QueryCommand) : void} to schedule new commands.
 
-\subsubsection{TrameSchedulingBuffer}
+\subsubsection{MeasurementsPolicy}
 
-\npar The TrameSchedulingBuffer exposes an interface
-\interface{TrameSchedulingAPI} to the Communication Unit. This interface
-contains a method \method{schedule(Query) : void} and is used to add a Query to
-the Buffer.
+\npar The QueryCommand will be placed in the MeasurementsQueue by a Policy.
+Therefore, Policy provides an interface \interface{MeasurementsPolicyAPI} which
+contains a method \method{insertCommand(QueryCommand, PriorityQueue) : void}.
 
-\npar This component also provides an interface to the Scheduler. The Scheduler
-will invoke the method \method{pop() : Query} to pop a Query off the top of the
-buffer.
+\subsubsection{MeasurementsQueue}
 
-\subsubsection{Policy}
+\npar The MeasurementsQueue must provide methods for inserting items and
+removing items. These methods are contained in the
+\interface{MeasurementsQueueAPI} and are called
+\method{insertCommand(QueryCommand, priority : Double) : void} and
+\method{remove() : QueryCommand}. The first method is used by the
+MeasurementsPolicy and the last one is used by the MeasurementsQueueReader.
 
-\npar The Query will then be inserted in the PriorityQueue (scheduled) by
-invoking the \method{schedule(Query, PriorityQueue) : void} on the current
-Policy. 
-
-
-
-\subsubsection{Queue}
-
-\npar The Queue provides an interface \interface{StorageSchedulerQueue} with the
-methods \method{enqueue(Query, priority)} and \method{dequeue() : Query}. These
-methods are used to enqueue and repectively dequeue queries.
-
-\subsubsection{Scheduler}
-
-\npar The Scheduler itself does not provide an interface, but uses the
-\interface{Queue} to dequeue items and uses the interface of the trame storage
-database to execute the queries.
-
-\npar Figure \ref{fig:it3/interfaces} shows the components and the interfaces
-instantiated in this iteration.
+\npar Figure \ref{fig:it3/interfaces} summarizes the components and the
+interfaces instantiated in this iteration.
 
 \begin{figure}[H]
 	\begin{centering}
 		%\includegraphics[width=0.8\textwidth]{figs/add/it3/interfaces.pdf}
-		\caption{Overview of the interfaces and components of the storage scheduler.}
+		\caption{Overview of the interfaces and components of the Trame Storage
+		Scheduler.}
 		\label{fig:it3/interfaces}
 	\end{centering}
 \end{figure}
 
 \subsection{Step 5: Verify and refine}
 \label{add:it3/verification}
+
+% TODO Verify na herziening drivers.
 
 \npar All quality and functionality is handled in this decomposition.  
 

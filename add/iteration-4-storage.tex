@@ -62,6 +62,32 @@ instances.
 \subsection{Step 3: Instantiate architectural elements and allocate responsibilities}
 \label{add:it4/elements}
 
+%      |
+%      execute(QueryCommand):void
+%      |
+%      v
+%   [_______________________________FrontEnd_______________________________]
+%      |                            |                             |
+%      execute(Query):Result        execute(Query):Result         |
+%      |                            |                             |
+%      v                            v                             v
+%   [Replica]                    [Cache]                       [Buffer]
+%      |                            
+%      enqueue(Query):void          
+%      |
+%      v
+%   [Policy]
+%      ^
+%      |
+%      pop() : Query
+%      |
+%   [QueueReader]
+%      |
+%      execute(Query):Result
+%      |
+%      v
+%   [TrameStorage]
+
 \npar A FrontEnd will provide an interface to execute queries on the
 measurements database. This database will be replicated among different nodes,
 called TrameStorageInstances. The FrontEnd will coordinate interaction between
