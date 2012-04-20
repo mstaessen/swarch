@@ -63,13 +63,48 @@ instances.
 \label{add:it4/elements}
 
 \npar A FrontEnd will provide an interface to execute queries on the
-measurements database. The FrontEnd will also manage all instances of the
-measurements database.
+measurements database. This database will be replicated among different nodes,
+called TrameStorageInstances. The FrontEnd will coordinate interaction between
+all instances and the FrontEnd.
+
+% TODO Figure
 
 \subsection{Step 4: Define interfaces for instantiated elements}
 \label{add:it4/interfaces}
 
-% TODO
+\subsubsection{TrameStorageFrontEnd}
+
+\npar The TrameStorageFrontEnd component provides an interface
+\interface{TrameStorageAPI} to the Trame Storate Scheduler. This interface
+contains one method \method{execute(Query, Callback) : void} that offers a way
+to execute a query on the trames database. The Query is encapsulated as an
+object and a Callback is provided to forward the results to whenever the query
+is executed.
+
+\subsubsection{TrameStorageInstance}
+
+\npar The TrameStorageFrontEnd contains no data. It fetches the data from one
+or more TrameStorageInstances through the \interface{TrameQueryAPI}
+interface. This interface contains a single method \method{execute(Query) :
+Result}. The result of the query is encapsulated in a Result object and it is
+a synchronous method call.
+
+\npar The database instances itself provide an interface
+\interface{StorageInstance} that can be used to access managerial data (for
+instance the current load and other information the front end might need to
+know to delegate queries to the instances).
+
+\npar Every StorageInstance also provides an interface \interface{TrameQuery}.
+This interface is used to run queries on the database. 
+
+
+\begin{figure}[H]
+	\begin{centering}
+		%\includegraphics[width=0.8\textwidth]{figs/add/it4/interfaces.pdf}
+		\caption{Overview of the interfaces and components of the Storage Component.}
+		\label{fig:it4/interfaces}
+	\end{centering}
+\end{figure}
 
 \subsection{Step 5: Verify and refine}
 \label{add:it4/verification}
