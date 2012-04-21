@@ -1,8 +1,8 @@
-\section{Iteration 9: Decomposition of the Health Monitoring Unit}
-\label{add:it9}
+\section{Iteration 8: Decomposition of the Health Monitoring Unit}
+\label{add:it8}
 
 \subsection{Step 1: Identify candidate drivers}
-\label{add:it9/drivers}
+\label{add:it8/drivers}
 
 \npar Two quality attributes were assigned to the health monitoring unit:
 
@@ -19,10 +19,10 @@
 \end{itemize}
 
 \subsection{Step 2: Choose design concepts}
-\label{add:it9/concepts}
+\label{add:it8/concepts}
 
 \subsubsection{Tactics}
-\label{add:it9/tactics}
+\label{add:it8/tactics}
 
 \npar Since only the detection part of the availability attributes was assigned
 to the health monitoring unit, the tactics used in this iteration will be based
@@ -31,13 +31,13 @@ tactic and this resulted in the usage of a heartbeat. The usage of heartbeat
 will be the (only) tactic in this iteration.
 
 \subsubsection{Design Patterns}
-\label{add:it9/patterns}
+\label{add:it8/patterns}
 
 \npar There was no design pattern found to support the notification
 functionality in combination with the heartbeat tactic.
 
 \subsection{Step 3: Instantiate architectural elements and allocate responsibilities}
-\label{add:it9/elements}
+\label{add:it8/elements}
 
 \begin{figure}[H]
 	\begin{centering}
@@ -67,7 +67,7 @@ heartbeat signal, it is assumed that that component is crashed and approriate
 action is undertaken (i.e. a ReMeS operator is notified).
 
 \subsection{Step 4: Define interfaces for instantiated elements}
-\label{add:it9/interfaces}
+\label{add:it8/interfaces}
 
 \subsubsection{Operator Notification Unit}
 
@@ -87,7 +87,7 @@ still alive a method \method{pulse()} is included. This is the only method this
 interface offers.
 
 \subsection{Step 5: Verify and refine}
-\label{add:it9/verification}
+\label{add:it8/verification}
 
 \npar The assigned parts of Av1' and Av2' were resolved in this iteration
 through the use of the Heartbeat Monitor and the Operator Notification Unit.

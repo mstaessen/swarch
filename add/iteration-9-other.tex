@@ -1,8 +1,8 @@
-\section{Iteration 8: Decomposition of Other}
-\label{add:it8}
+\section{Iteration 9: Decomposition of Other}
+\label{add:it9}
 
 \subsection{Step 1: Identify candidate drivers}
-\label{add:it8/drivers}
+\label{add:it9/drivers}
 
 \npar In the first iteration there were quite a lot of requirements delegated to
 this component. This requires some selection to take place. This selection is
@@ -45,10 +45,10 @@ functionality will also be adressed. The remaining use cases are delegated to
 the other component. %TODO: juist ?
 
 \subsection{Step 2: Choose design concepts}
-\label{add:it8/concepts}
+\label{add:it9/concepts}
 
 \subsubsection{Tactics}
-\label{add:it8/tactics}
+\label{add:it9/tactics}
 
 \paragraph{Modifiability}
 
@@ -80,20 +80,20 @@ for the hiding of information but this is mainly realized in the use of
 interfaces for all different components.
 
 \subsection{Step 3: Instantiate architectural elements and allocate responsibilities}
-\label{add:it8/elements}
+\label{add:it9/elements}
 
 \begin{figure}[H]
 	\begin{centering}
 		% TODO
 		%\includegraphics[width=0.6\textwidth]{figs/decomposition/processing-scheduler/decomposition.pdf}
 		\caption{The decomposition of the other component. Iteration
-		8}
-		\label{fig:add/it8/decomposition}
+		9}
+		\label{fig:add/it9/decomposition}
 	\end{centering}
 \end{figure}
 
 \npar The full decomposition of this iteration can be viewed in figure
-\ref{fig:add/it8/decomposition}. In the subsection below each of the components
+\ref{fig:add/it9/decomposition}. In the subsection below each of the components
 will be discussed. 
 
 \subsubsection{Event Channel}
@@ -159,7 +159,7 @@ is used to sent the notification of a payment towards the billing unit. It uses
 the third party billing service in the sense of sending it the right documents.
 
 \subsection{Step 4: Define interfaces for instantiated elements}
-\label{add:it8/interfaces}
+\label{add:it9/interfaces}
 
 \subsubsection{Event Channel}
 
@@ -225,7 +225,7 @@ night rate discounts, etc.).
 dispatched to the \interface{Prediction} interface.
 
 \subsection{Step 5: Verify and refine}
-\label{add:it8/verification}
+\label{add:it9/verification}
 
 \npar All quality attribute drivers and assigned use cases were resolved in
 this iteration. There are still, however, a number of non resolved use cases and
