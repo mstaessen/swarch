@@ -8,8 +8,10 @@
 this component. This requires some selection to take place. This selection is
 once again based on the priorities of the quality attributes. However since all
 the remaning quality attribute scenarios are (split versions from)
-modifiability, they can be easily combined. Therefore the drivers for this
-iteration are M1', M2 and M3'. 
+modifiability, they can be easily combined. Furthermore is the remaining
+availability quality attribute heavily correlated with M1' concerning the
+billing aspect. Therefore the drivers for this iteration are M1', M2, M3' and
+Av3.
 
 \npar M3' is linked with the following use cases:
 
@@ -112,31 +114,29 @@ usage of two communication units instead of one single point of access.
 Secondoly there is no bypassing of this communication (not even in a limited
 number of scenarios).
 
-\npar This component uses three interfaces. The first one, \interface{UIS}, is
-used for all information needed by ReMeS that is stored by the utility
-company. The second one, \interface{Prediction}, is used to acquire prediction
-statistics for a certain utility company. Besides using interfaces the UIS
-communication unit off course offers interfaces itself. It offers two
-interfaces, one towards the billing unit (\interface{CustomerInformation}) and
-one towards the UIS (\interface{UISCommunication}). The former is used for the
-retrieval of customer data that is kept by the UIS. The latter one serves as a
-provider of different services for the UIS.
+\npar This component interacts with three other components. The first one,
+Utility information system, is used for all information needed by ReMeS that is
+stored by the utility company. The second one, prediction unit, is used to
+acquire prediction statistics for a certain utility company. Besides using interfaces the UIS
+communication unit off course offers interfaces itself. It offers two main
+services towards other components: one towards the billing unit
+and one towards the UIS. The former service includes the retrieval
+of customer data that is kept by the UIS. The latter one is more of a
+consultation service where the UIS can request predictions.
 
 \subsubsection{Billing Communication Unit}
 
 \npar The responsibility of this unit is the handling of all information between
-ReMeS and external actors regarding billing. It offers two interfaces:
-\interface{BillingSend} and \interface{BillingCommunication}. The first
-interface is provided to allow invoices to be sent towards the third party
-billing services after it has been constructed. The latter interface is
-provided for all notification that need to be sent towards ReMeS concerning the
-payment of invoices. 
+ReMeS and external actors regarding billing. It has two major duties. The first
+is to allow invoices to be sent towards the third party billing service after
+the invoice has been constructed off course. The second task is to provide a
+possibility for all notification that need to be sent towards ReMeS concerning
+the payment of invoices.
 
 \npar The billing communication unit also uses functionality which is reflected
-in the usage of the \interface{BillingReceive} and \interface{TPBS} interfaces.
-The \interface{BillingReceive} simply has as goal to sent the notification of
-payment towards the billing unit. The other interface takes care of the
-communication towards the third party billing service.
+in the usage of the billing unit and third party billing service. The former one
+is used to sent the notification of a payment towards the billing unit. It uses
+the third party billing service in the sense of sending it the right documents.
 
 \subsection{Step 4: Define interfaces for instantiated elements}
 \label{add:it8/interfaces}
