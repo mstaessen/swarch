@@ -14,93 +14,72 @@ attribute scenario taken into account to choose the drivers, but also the impact
 that scenario on the architecure. These impacts are, together with the client
 priorities, summarized in table \ref{table:add/it1/priorities}.
 
-\begin{table}
+\begin{table}[H]
 	\begin{center}
-		\begin{tabular}{| l | l | l | l | l | l | l | l | l | l |}
+		\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|}
 		\hline
 		\textbf{Quality}			&	Av1	&	Av2	&	Av3	&	P1	&	P2	&	P3	&	M1	&	M2	&	M3	\\
 		\hline
 		\textbf{Client Priority}	&	H	&	M	&	L	&	H	&	M	&	M	&	H	&	L	&	M	\\
 		\hline
-		\textbf{Architecture Impact}&	L	&	H	&	L	&	H	&	H	&	M	&	M	&	L	&	M	\\
+		\textbf{Architecture Impact}&	M	&	H	&	L	&	H	&	H	&	M	&	M	&	L	&	M	\\
 		\hline
 		\end{tabular}
-		\caption{An overview of all priorities which are takn into account when
-		selecting the architectural drivers.}
+		\caption{Overview of the priorities that are taken into account when
+		selecting the architectural drivers}
 		\label{table:add/it1/priorities}
 	\end{center}
 \end{table}
 
-\npar Off course one wants to maximize the priority in both cases. Based on the
-priorities in table \ref{table:add/it1/priorities}, one high priority and two
-medium priority quality attribute scenarios are selected as architectural driver. An
-overview of the selected drivers and their use cases is given below.
-
-\begin{itemize}
-  	\item P1 (High): Timely closure of valves
-  	\begin{itemize}
-  	  	\item UC8 (High) : send measurement
-  		\item UC13 (High): Send alarm 
-  	\end{itemize}
-  	\item P2 (Medium) : Anomaly detection
-  	\begin{itemize}
-  	  \item UC10 (Medium) : Detect anomaly %TODO
-  	\end{itemize} 
-  	\item Av2 (Medium) : Missing measurements %TODO use cases ?
-\end{itemize}
-
-\npar The considered use cases includes the use cases listed below. 
-
-\begin{itemize}
-	\item UC7 (High): Send trame to remote device
-	\item UC9 (High): Notify customer
-	\item UC10 (Medium): Detect anomaly
-\end{itemize}
+\npar Because this is the first iteration of the architecture design process,
+the quality atttributes that will have the most impact on the architecture
+are selected. This results in the selection of
+\begin{description}
+  	\item[Av1] The measurements database should be separated from other storage. 
+  	\item[Av2] Components must be able to detect problems autonomously.
+  	\item[P1] Valves must be shut in time (processing of alarms and remote
+  	actuation of valves).
+  	\item[P2] Process measurement trames in time. 
+\end{description}
 
 \npar The choice of P1 is logical because it has the highest priority available
 (both a high client priority and impact on the architecture). The reasons for
-selecting P2 and Av2 are more subtle since there are still combinations
-available (e.g. Av1) which precede P2 in the priority hierarchy. The choice is
-twofold. First of all P2 is very easy to combine with P1 because they both place
-constraints on the database access in the two different operate modi (normal and
-overload). Second, the impact on the architecture is very high in contradiction
-to other high (client) priority requirement such as Av1 or M1. Based on the
-second argument there was also opted to go for Av2.
+selecting P2, Av1 and Av2 are more subtle because these were mainly selected
+because of details in their quelity description.
+
+\npar Av1 is selected because it clearly states that the measurement storage
+should fail independently from other storage. 
+
+\npar Av2 is selected because it requires uptime monitoring of all internal
+components. This is a high impact on the architecture. 
+
+\npar P2 is selected because it is related to P1 (and vice versa) and because it
+has a high impact on the architecture. 
 
 \npar Based on the architectural drivers, the remote module subsystem has to
 provide functionality for remote module communication (receiving and sending
-trames), trame storage, trame processing and stakeholder communication. 
-
-\npar In order to obtain a better understanding of the relationships between
-these functionalities, a small domain model is drafted. Figure
-\ref{fig:add/it1/draft} This model can then be refined later on
-in this level of decomposition.
-
-\begin{figure}[H]
-	\begin{centering}
-		% TODO Figure
-		%\includegraphics[width=0.6\textwidth]{figs/decomposition/whole-system/domainmodel-draft.pdf}
-		\caption{Draft of the domain model used in the level 1 decomposition}
-		\label{fig:add/it1/draft}
-	\end{centering}
-\end{figure}
+trames), trame storage, trame processing and communication towards stakeholders
+(customers, alarm recipients, emergency services, ReMeS personnel).
 
 \subsection{Step 2: Choose design concepts}
 \label{add:it1/concepts}
 
 \subsubsection{Tactics}
 \label{add:it1/tactics}
-
-\paragraph{Availability}
  
 \npar After selecting the drivers for the current decomposition, one has to
 choose the tactics to achieve them. Recall from section \ref{add:it1/drivers}
-that one of the drivers was Av2. All approaches to maintain availability
-involve either detection, recovery or prevention of faults.
+that two categories of drivers were selected: availability and performance. All
+approaches to maintain availability involve either detection, recovery or
+prevention of faults. Approaches to maintain performance involve resource
+arbitration, resource management and resource demand.
+ 
+\paragraph{Availability}
 
 \npar First of all, a fault needs to be detected. For this, there are three
 options: ping/echo, heartbeat and exceptions. It is important to notice that the
-latter is not very practical. This can be illustrated with a simple example.
+latter is not very practical in this case. This can be illustrated with a simple
+example.
 
 \npar Suppose that a component $c_1$ depends on another component $c_2$. For
 some reason, $c_1$ does not need the services of $c_2$ for a duration longer
@@ -130,15 +109,14 @@ administrators to replace the failing disk.
 
 \npar As a result, heartbeat seems the best solution to detect faults.
 
-% 
-\paragraph{Performance} 
+\paragraph{Performance}
 
 \npar For performance tactics there are three categories: resource
 arbitration, resource management and resource demand.
 
 \npar If there is more than one request to gain control over a resource, there
-has to be some form of scheduling. By far the most used one is a priority
-scheduler where requests are served earlier when they have a higher priority.
+has to be some sort of scheduling put in place. By far the most used one is a
+priority scheduler where requests are served earlier when they have a higher priority.
 This is particulary useful for alarms to still reach the appropriate parties in
 time even when the system is in overload mode. 
 
@@ -151,24 +129,8 @@ of consideration.
 
 \npar On a lower level one could also try to minimize network overhead by
 only sending small amounts of data in each trame. This is achieved by
-limiting the size of the trames to 160 bytes.
-
-\npar To conclude a small overview is given of all selected tactics for this
-decomposition.
-
-\begin{itemize}
- 	\item Av1 (High): Measurement database Failure
- 	\begin{itemize}
- 		\item Detection: Heartbeat 
- 		\item Recovery : Active replication
- 	\end{itemize}
-  	\item P1 (High): Timely closure of valves
-  	\begin{itemize}
-  		\item Resource arbitration : Scheduling
-		\item Resource management  : concurrency
-		\item Resource demand      : limited tramesize
-  	\end{itemize}
-\end{itemize}
+limiting the size of the trames to 160 bytes. Compared to modern technology
+bandwidths, this size won't be a problem. 
 
 \subsubsection{Design Patterns}
 \label{add:it1/patterns}
@@ -177,31 +139,33 @@ decomposition.
 
 \npar With respect to resource arbitration and resouce management, the
 \emph{Active Object} design pattern \citep[see][p.~365q]{Buschmann:07} is chosen
-for trame communication and processing. Schedulers will determine the order in
-which trames are received, processed and sent.
+for trame storage and trame processing. Scheduler policies will determine the
+order in which trames are stored, processed and sent.
 
 \paragraph{Strategy}
 
 \npar The previously mentioned schedulers will have different scheduling
 policies, implemented with the \emph{Strategy} design pattern, in order to
-allow operation in different modes.
+allow replacement of policies at runtime.
 
-\npar The trames will have to be objectified. This will yield two advantages.
-Firstly, the scheduler can be implemented using the \emph{Command Processor}
-design pattern. Secondly, a unified language will exist for all vendor
-specific trame formats.
+\paragraph{Layers}
+
+\npar Because Remote Modules have vendor specific trame formats and interfaces,
+an abstraction layer should be placed between the Remote Modules and the ReMeS
+system, especially for the trame storage and processing.
 
 \paragraph{Resource Pool}
 
 \npar To allow load balancing (and hence increase the performance) multiple
 instances of the anomaly detection are created. This can be achieved by using
-the \emph{Resource Pool} design pattern. 
+the \emph{Resource Pool} design pattern \citep[see][p.~503]{Buschmann:07}. 
 
 \paragraph{Shared Repository}
 
-\npar Since several databases will be needed in this iteration, the
-\emph{Shared Repository} pattern will be employed to %TODO argumenten pro en
-% contra?
+\npar The measurements storage is separated from other storage because of Av1.
+Still, the remaining storage contains diverse data, user data, remote module
+configuration data, etc. Therefore, the \emph{Shared Repository} design pattern
+\citep[see][p.~202]{Buschmann:07} will be used to model the other storage.
 
 \subsection{Step 3: Instantiate architectural elements and allocate responsibilities}
 \label{add:it1/elements}
@@ -233,13 +197,14 @@ leak has top priority and has strict bounds on the delivery time (see the
 quality attribute scenarios). Furthermore serves this scheduler as a buffer.
 This is particularly useful when the storage unit is overloaded.
 
-% \subsubsection{Heartbeat monitor cluster}
-%  TODO: verplaatsen of weggooien.
-% \npar The heartbeat monitor cluster is the result of the tactic to detect a
-% fault, namely heartbeat. This component will monitor all other components to see
-% if they are still alive (i.e. not crashed). Off course it is not unthinkable
-% that the monitor component fails itself. Therefore this component has to monitor
-% itself by for example an extra monitor that monitors the monitor.
+\subsubsection{Health Monitoring Unit}
+
+\npar The heartbeat monitor cluster is the result of the tactic to detect a
+fault, namely heartbeat. This component will monitor all other component's
+heartbeat to see if they are still alive (i.e. not crashed). Off course it is
+not unthinkable that the monitor component fails itself. Therefore this
+component has to monitor itself by for example an extra monitor that monitors
+the monitor.
 
 \subsubsection{Storage of trames}
 
@@ -280,18 +245,13 @@ severe leak (this action is represented by the dependency between the outgoing
 communication scheduler and the anomaly detection). The second is notifying the
 approriate parties (the customer and/or the emergency services).
 
-\subsubsection{Outgoing Communication Scheduler}
+\subsubsection{Outbound Communication Scheduler}
 
 \npar The outgoing communication scheduler has as duty the scheduling of
 trames which are sent to remote modules. There is a need for scheduling because
 control trames to shut a valve need to reach the specified module within certain
 time constraints according to P1. This scheduling can again be realized by the
 use of different policies.
-
-\subsubsection{Stakeholder Communication unit}
-
-\npar This unit is responsible for all communication towards stakeholders (e.g.
-customers, emergencyservices, etc.). 
 
 \subsection{Step 4: Define interfaces for instantiated elements}
 \label{add:it1/interfaces}
@@ -414,76 +374,85 @@ translated into functional requirements for the individual items and finally,
 quality attribute scenarios for individual child elements are refined if
 necessary.
 
-\npar We will list all the child elements, together with their allocated use
-cases and quality attribute requirements. If a requirement is split or
-delegated, it is also mentioned in the list. To conclude an overview is given of
-resolved requirements in this iteration.
+\npar Below, we composed a list of all child elements and their allocated use
+cases and quality attribute scenarios. For every item, it is indicated whether
+the requirement is split, delegated or derived. Also, for split and derived
+elements a short description is provided.
 
 \begin{itemize}
 	\item Communication Unit
 	\begin{itemize}
-	  	\item UCx : Retrieve Customer from remote module identification %TODO dit
-	  	% wordt toegewezen aan communication unit, maar het is wel een oproep van
-	  	% een methode op other (``getCustomerby etc)
-	  	\item UCy : Retrieve Remote Module protocol
-		\item UC7': Send trame to remote device (split)
-		\item Av2': Missing measurements (split)
-		\item M1' : Dynamic pricing (split)
-		\item M2' : Fine-grained metering for enterprises (split)
-		\item M3' : Decentralized electricity generation (split)
+	  	\item UCx: Retrieve customer from trame (derived). Gets the customer's
+	  	profile based on a recieved trame (by using the device's identification)
+	  	\item UCy: Retrieve remote module protocol (derived). Gets the protocol in
+	  	order to select the right translator to be able to communicate with the device. 
+		\item UC7: Send trame to remote device (delegated). 
+		\item Av2': Missing measurements (split). The communication unit will monitor
+		the interarrival times of trames and will detect missing measurement trames.
+		Also, the health of the component is being monitored.
+		\item M1': Dynamic pricing (split). The communication module should support
+		new meters in the near future. 
+		\item M2': Fine-grained metering for enterprises (split). The communication
+		module should support new meters in the near future. 
+		\item M3': Decentralized electricity generation (split). The communication
+		module should support new meters in the near future. 
 	\end{itemize}
-	\item Storage Scheduler
+	\item Measurements Storage Scheduler
 	\begin{itemize}
-		\item P1' : Timely closure of valves (split)
+		\item Av2': Missing measurements (split). Monitor the health of the component.
+		\item P1': Timely closure of valves (split). The priorities for different
+		kinds of alarms.
 	\end{itemize}
-	\item Storage
+	\item Measurements Storage
 	\begin{itemize}
-		\item Av1: Measurement database failure (delegated)
-		\item Av2': Missing measurements (split)
-	  	\item P3': Requests to the measurement database (delegated)
+		\item Av1: Measurement database failure (delegated). Replicate the database.
+		\item Av2': Missing measurements (split). Monitor the health of the component.
+	  	\item P3': Requests to the measurement database (delegated). 
 	\end{itemize}
 	\item Anomaly Detection Scheduler
 	\begin{itemize}
-		\item UCz: Determine the operational mode (derived)
-		\item P1' : Timely closure of valves (split)
-	  	\item P2': Anomaly Detection (split)
+		\item UCz: Determine the operational mode (derived). Determine the load in
+		order to utilize the right policy.
+		\item Av2': Missing measurements (split). Monitor the health of the
+	  	component.
+		\item P1' : Timely closure of valves (split). Make sure alarms are processed
+		in time. 
+	  	\item P2': Anomaly Detection (split). Make sure measurements are processed
+	  	in time. 
 	\end{itemize}
 	\item Anomaly Detection
+	\begin{itemize}
+		\item UC10: Anomaly Detection (delegated). Perform the actual anomaly
+		detection.
+		\item P2': Anomaly Detection (split). Parallellize anomaly detection.
+	\end{itemize}
 	\item Customer Communication Unit
 	\begin{itemize}
-		\item UC9: Notify Customer
+		\item UC9: Notify Customer (delegated). Notify customers, alarm recipients,
+		call center and the emergency services. 
 	\end{itemize}
 	\item Outgoing Communication Scheduler
 	\begin{itemize}
-	  \item P1' : Timely closure of valves
+	  \item P1': Timely closure of valves (split). Make sure that control trames
+	  that originated from alarms are processed with high priority. 
 	\end{itemize}
 	\item Other functionality
 	\begin{itemize}
-	  	\item UC1: Log in
-	  	\item UC2: Log off
-	  	\item UC3: Register customer
-	  	\item UC4: Unregister customer
-	  	\item UC5: Associate device to customer
-	  	\item UC6: Customize customer profile
-	  	\item UC11: Operate remote actuator remotely
-	  	\item UC12: Set alarm recipients
-	  	\item UC14: Request consumption predictions
-	  	\item UC15: Generate invoice
-	  	\item UC16: Mark invoice paid
-	  	\item UC17: Perform research
-	  	\item Av3: Third Party Billing Service failure
-	  	\item M1': Dynamic pricing
-	  	\item M2: Fine-grained metering for enterprises
-	  	\item M3': Decentralized electricity generation
+	  	\item UC1: Log in (delegated)
+	  	\item UC2: Log off (delegated)
+	  	\item UC3: Register customer (delegated)
+	  	\item UC4: Unregister customer (delegated)
+	  	\item UC5: Associate device to customer (delegated)
+	  	\item UC6: Customize customer profile (delegated)
+	  	\item UC11: Operate remote actuator remotely (delegated)
+	  	\item UC12: Set alarm recipients (delegated)
+	  	\item UC14: Request consumption predictions (delegated)
+	  	\item UC15: Generate invoice (delegated)
+	  	\item UC16: Mark invoice paid (delegated)
+	  	\item UC17: Perform research (delegated)
+	  	\item Av3: Third Party Billing Service failure (delegated)
+	  	\item M1': Dynamic pricing (split)
+	  	\item M2: Fine-grained metering for enterprises (delegated)
+	  	\item M3': Decentralized electricity generation (split)
 	\end{itemize}
-	\item Resolved requirements
-	\begin{itemize}
-		\item UC7': Send trame to remote device (split)
-		\item UC8 : Send measurement
-		\item UC13: Send alarm
-		\item UC10: Detect anomaly
-		\item P1' : Timely closure of valves (split)
-		\item P2' : Anomaly detection (split)
-	\end{itemize}
-	\item 
 \end{itemize}
