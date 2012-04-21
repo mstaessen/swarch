@@ -4,13 +4,22 @@
 \subsection{Step 1: Identify candidate drivers}
 \label{add:it5/drivers}
 
-% TODO verify
 \npar This iteration is driven by:
 
 \begin{itemize}
-	\item P1': Timely closure of valves
-	\item P2': Anomaly Detection
+	\item P1': Timely closure of valves.
+	\begin{itemize}
+  		\item Alarm trames have to be handled within a bounded time. 
+    \end{itemize}
+	\item P2': Anomaly Detection.
+	\begin{itemize}
+	  \item When the system is in overload modus the processing order of trames
+	  occurs on a priority basis (premium service has a higher priority than
+	  normal service).
+	\end{itemize}
 \end{itemize}
+
+\npar No use cases were delegated to this component.
 
 \subsection{Step 2: Choose design concepts}
 \label{add:it5/concepts}

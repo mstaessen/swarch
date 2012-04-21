@@ -8,8 +8,18 @@
 correct module considering that trames who arrive to late can ultimately
 lead to a potential disaster claiming the lifes of several people. Therefore the
 trames for outbound communication (i.e. towards modules) need to be
-scheduled. Therefore P1 was delegated to this scheduler and will be the
-(only) driver of this iteration.
+scheduled. 
+
+\npar The (only) driver of this iteration is 
+
+\begin{itemize}
+  	\item P1': Timely closure of valves.
+  	\begin{itemize}
+  		\item Alarm trames have to be handled within a bounded time. 
+    \end{itemize}
+\end{itemize}
+
+\npar No use cases were delegated to this scheduler.
 
 \subsection{Step 2: Choose design concepts}
 \label{add:it6/concepts}

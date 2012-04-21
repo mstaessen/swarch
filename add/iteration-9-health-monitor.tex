@@ -4,9 +4,19 @@
 \subsection{Step 1: Identify candidate drivers}
 \label{add:it9/drivers}
 
-\npar The assigned requirements to this component are Av1' and Av2' with the
-intention of the making it responsible for the monitoring of other components.
-These two requirements will form the drivers for this iteration.
+\npar Two quality attributes were assigned to the health monitoring unit:
+
+\begin{itemize}
+  	\item Av1': Measurement database failure.
+  	\begin{itemize}
+  	  \item The failure is detected in less then five seconds.
+  	\end{itemize}
+  	\item Av2': Missing measurements.
+  	\begin{itemize}
+  	  \item Failure of an internal component should be detected within one
+  	  minute.
+  	\end{itemize}
+\end{itemize}
 
 \subsection{Step 2: Choose design concepts}
 \label{add:it9/concepts}
@@ -41,7 +51,6 @@ functionality in combination with the heartbeat tactic.
 
 \npar The design is relatively simple. There are only two components, they are
 together with all their associations depicted in figure
-\ref{add:it9/decomposition}. The components are each explained below.
 %TODO: gaat er geen commentaar komen op het feit dat ons notification gedrag
 % over 2 plaatsen verspreid is ?
 \subsubsection{Operator Notification Unit}

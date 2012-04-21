@@ -9,10 +9,21 @@
 \begin{itemize}
 	\item Av1: Measurement database failure. The measurements database should be up
 	and running 99.9\% of all time. 
-	\item Av2': Missing measurements. A failing internal communication component
-	should be detected autonomously. 
   	\item P3': Requests to the measurement database. The requests should be
   	handled within a bounded time. 
+\end{itemize}
+
+\npar There are two delegated (and split) use cases:
+
+\begin{itemize}
+  \item UC8' : Send measurement.
+  \begin{itemize}
+  	\item measurements need to be stored.
+  \end{itemize}
+  \item UC17' : Perform research.
+  \begin{itemize}
+  	\item researchers should be able to query the database. 
+  \end{itemize}
 \end{itemize}
 
 \subsection{Step 2: Choose design concepts}
