@@ -191,22 +191,21 @@ forwards all trames to the storage scheduler.
 else than return the correct translator for the given remote device (there can be
 differences between remote module types, communication channels, etc.).
 
-\paragraph{Translator} %TODO return parameters van translate methodes
+\paragraph{Translator}
 
 \npar Each of the different translators implements the \interface{Translator}
 translator interface. This interface includes two methods:
-\method{translateFromDevice(RemoteModule)} and
-\method{translateToDevice(RemoteModule)}. The former serves as translate method
-for the input translator and vice versa for the latter one.
+\method{translateFromDevice(RawTrame) : Message} and
+\method{translateToDevice(Message) : RawTrame}. The former serves as translate
+method for the input translator and vice versa for the latter one.
 
 \subsubsection{Trame Event Channel}
 
-\paragraph{TrameChannel} %TODO parameter en return type van publish methode
-% (moet dezelfde zijn als het return type van translateFromDevice)
+\paragraph{TrameChannel} %TODO CommunicationEvent = wrapper voor Message
 
 \npar This interface offers two methods as prescribed by the \emph{Publisher -
-Subriber} pattern, \method{publish(event)} and \method{subscribe(Filter) :
-Void}.
+Subriber} pattern, \method{publish(CommunicationEvent) : void} and
+\method{subscribe(Filter) : void}.
 
 \subsubsection{Deadline Monitor}
 
@@ -215,7 +214,7 @@ Void}.
 \npar This interface complements the \interface{TrameChannel} interface. When a
 component is subscribed to a certain event flow, the channel has to be able to
 notify the component when a new event is available. Therefore this interface
-offers a \method{notify() : Void}.
+offers a \method{notify() : void}.
 
 \subsubsection{Trame Consumer}
 

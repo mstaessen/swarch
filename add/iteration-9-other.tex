@@ -84,7 +84,7 @@ interfaces for all different components.
 
 \begin{figure}[H]
 	\begin{centering}
-		% TODO
+		% TODO Figure
 		%\includegraphics[width=0.6\textwidth]{figs/decomposition/processing-scheduler/decomposition.pdf}
 		\caption{The decomposition of the other component. Iteration
 		9}
@@ -163,47 +163,47 @@ the third party billing service in the sense of sending it the right documents.
 
 \subsubsection{Event Channel}
 
-\paragraph{BillingChannel}
-%TODO parameter van subscribe = juist?
+\paragraph{ProviderChannel}
+% TODO parameter van subscribe = juist?
 \npar This is a quite simple interface and offers only two methods. The first
-method is a \method{publish{event}} method which can be invoked by Publishers
-(in this context \method{publish} will be called by UIS communication unit to
-make price updates available to all interested parties). Callers the second
-method, \method{subscribe(filter)}, will receive events which match the
-specified filter.
+method is a \method{publish{PriceEvent} :void} method which can be invoked by
+Publishers (in this context \method{publish} will be called by UIS communication
+unit to make price updates available to all interested parties). Callers the
+second method, \method{subscribe(PriceFilter) : void}, will receive events which
+match the specified filter.
 
 \subsubsection{Prediction Unit}
 
-\paragraph{Prediction}
+\paragraph{PredictionAPI}
 
-\npar Only one method is included in the \interface{Prediction} interface,
-namely \method{getConsumptionPredictions(UtilityProvider)}. This method will
-fetch all the relevant data (i.e. the data from all the customers of the given
-utility provider). The next step is to run several (machine learning-based)
-prediction algorithms for analysis. When this is result is computed it is
-returned towards the invoker of the method.
+\npar Only one method is included in the \interface{PredictionAPI} interface,
+namely \method{getConsumptionPredictions(UtilityProvider) : Prediction}. This
+method will fetch all the relevant data (i.e. the data from all the customers of
+the given utility provider). The next step is to run several (machine
+learning-based) prediction algorithms for analysis. When this is result is
+computed it is returned towards the invoker of the method.
 
 \subsubsection{Billing Unit}
 
 \paragraph{BillingReceive}
 
-\npar This interface has only one method, namely \method{markPaid(invoice)}. It
-serves to notify the billing unit when an invoice is paid so it can be stored in
-the ReMeS database.
+\npar This interface has only one method, namely \method{markPaid(InvoiceId :
+String) : void}. It serves to notify the billing unit when an invoice is paid so
+it can be stored in the ReMeS database.
 
 \subsubsection{Billing Communication Unit}
 
 \paragraph{BillingSend}
 
-\npar This interface has once again only one method, \method{send(invoice)}.
-This method is to be invoked by the billing unit once it has constructed an
-invoice that needs to be sent to the third party billing service.
+\npar This interface has once again only one method, \method{send(Invoice) :
+void}. This method is to be invoked by the billing unit once it has constructed
+an invoice that needs to be sent to the third party billing service.
 
 \paragraph{BillingCommunication}
-%TODO dit is eigelijk helemaal hetzelfde als BillingReceive ..
-\npar This interface has only one method, namely \method{markPaid(invoice)}. It
-serves to notify the billing unit when an invoice is paid so it can be stored in
-the ReMeS database.
+
+\npar This interface has only one method, namely \method{markPaid(InvoiceId :
+String) : void}. It serves to notify the billing unit when an invoice is paid so
+it can be stored in the ReMeS database.
 
 \subsubsection{UIS Commmunication Unit}
 
@@ -221,8 +221,8 @@ night rate discounts, etc.).
 % dezelfde als die van Prediction (de communiation blokken zijn uiteindelijk
 % maar facades.)
 \npar This interface offers one method, namely
-\method{getConsumptionPrediction(UtilityProvider)}. A call to this method will
-dispatched to the \interface{Prediction} interface.
+\method{getConsumptionPrediction(UtilityProvider) : Prediction}. A call to this
+method will dispatched to the \interface{PredictionAPI} interface.
 
 \subsection{Step 5: Verify and refine}
 \label{add:it9/verification}
