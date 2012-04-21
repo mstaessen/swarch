@@ -4,18 +4,8 @@
 \npar In the first iteration, the whole system, ReMeS is decomposed. It takes
 all the requirements and quality attribute scenarios as input.
 
-\subsection{Step 0: Confirm there is sufficient requirements information} 
-
-% TODO de tekst in deze subsectie beschrijft niet helemaal wat in deze sectie
-% moet komen. Ofwel schrappen we dit, ofwel maken we hier nog eens een overzicht
-% van de requirements met prioritization door de opdrachtgever en invloed op de
-% architectuur. 
-% Referenced from: http://www.sei.cmu.edu/reports/06tr023.pdf
-
 \subsection{Step 1: Identify candidate drivers}
 \label{add:it1/drivers}
-
-% TODO verwijs naar step 0?
 
 \npar First of all when designing a decomposition for the whole system, the
 choice of the drivers is very imortant since it will shape the architecture the
@@ -88,7 +78,7 @@ in this level of decomposition.
 
 \begin{figure}[H]
 	\begin{centering}
-		% TODO
+		% TODO Figure
 		%\includegraphics[width=0.6\textwidth]{figs/decomposition/whole-system/domainmodel-draft.pdf}
 		\caption{Draft of the domain model used in the level 1 decomposition}
 		\label{fig:add/it1/draft}
@@ -186,9 +176,9 @@ decomposition.
 \paragraph{Active Object}
 
 \npar With respect to resource arbitration and resouce management, the
-\emph{Active Object} design pattern is chosen for trame communication and
-processing. Schedulers will determine the order in which trames are received,
-processed and sent. 
+\emph{Active Object} design pattern \citep[see][p.~365q]{Buschmann:07} is chosen
+for trame communication and processing. Schedulers will determine the order in
+which trames are received, processed and sent.
 
 \paragraph{Strategy}
 
@@ -204,7 +194,7 @@ specific trame formats.
 \paragraph{Resource Pool}
 
 \npar To allow load balancing (and hence increase the performance) multiple
-instances of the anomaly detection are created . This can be achieved by using
+instances of the anomaly detection are created. This can be achieved by using
 the \emph{Resource Pool} design pattern. 
 
 \paragraph{Shared Repository}
