@@ -64,26 +64,32 @@ different communication channels).
 \subsection{Step 4: Define interfaces for instantiated elements}
 \label{add:it7/interfaces}
 
-\subsubsection{NotifyUnit}
+\subsubsection{Communication Client}
+
+\paragraph{NotifyUnit}
 %TODO: gaat de prof niet zagen over wat die message parameter nu juist is ? moet
 % ik er misschien nog expliciet bij zetten dat dit een formaat is dat gelijk moet zijn
 % voor de AD, De communication scheduler en deze unit ? 
+%TODO: return type
 \npar The interface this notification unit offers, has one method, namely a
 \method{send(trame)}. Invoking this method results in the notification of the
 included recipient with the message also contains in the message parameter.
 
-\subsubsection{Transport}
+\subsubsection{Transport Pool}
 
-\npar The transport pool offers the \interface{Transport} interface. It contains
-only one method, \method{getTransport(CommunicationChannel)}. This method has to
-return the right transport entity based on the communicationChannel parameter.
+\paragraph{Transport Manager}
 
-\subsubsection{Notify}
+\npar The transport pool offers the \interface{Transport Manager} interface. It
+contains only one method, \method{getTransport(CommunicationChannel):
+Transport}. This method has to return the right transport entity based on the
+communicationChannel parameter.
+
+\paragraph{Transport}
 
 \npar This last interface also offers just one method, namely
 \method{send(message)}. Notice that this method has the same semantics as the
-method of the {NotifyUnit} interface, but now the communication channel is known
-so the notification can physically take place.
+method of the \interface{NotifyUnit} interface, but now the communication
+channel is known so the notification can physically take place.
 
 \subsection{Step 5: Verify and refine}
 \label{add:it7/verification}

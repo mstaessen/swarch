@@ -215,6 +215,16 @@ the \emph{Resource Pool} design pattern.
 \subsection{Step 3: Instantiate architectural elements and allocate responsibilities}
 \label{add:it1/elements}
 
+\begin{figure}[H]
+	\begin{centering}
+		% TODO
+		%\includegraphics[width=0.6\textwidth]{figs/decomposition/whole-system/decomposition.pdf}
+		\caption{The decomposition of the Outbound Communicatin Scheduler. Iteration
+		1}
+		\label{fig:add/it1/decomposition}
+	\end{centering}
+\end{figure}
+
 \subsubsection{Remote Module Communication unit}
 
 \npar This module is responsible for all communication from and to remote
@@ -294,16 +304,6 @@ customers, emergencyservices, etc.).
 
 \subsection{Step 4: Define interfaces for instantiated elements}
 \label{add:it1/interfaces}
-
-\begin{figure}[H]
-	\begin{centering}
-		% TODO
-		%\includegraphics[width=0.6\textwidth]{figs/decomposition/outbound-comm-scheduler/decomposition.pdf}
-		\caption{The decomposition of the Outbound Communicatin Scheduler. Iteration
-		6}
-		\label{fig:add/it6/decomposition}
-	\end{centering}
-\end{figure}
 
 \subsubsection{Remote Module Communication Unit}
 
@@ -385,7 +385,7 @@ message.
 \npar To fulfill the scheduling functionality a method is needed where
 components can send their trames to. This method is called
 \method{schedule(trame)} and feeds the given trame into the scheduler where it
-will wait to be sent.
+will wait to be redirected to the communication unit.
 
 \subsubsection{Shared Repository} 
 
