@@ -17,7 +17,7 @@
 \usepackage[table]{xcolor}
 \usepackage{hyphenat}
 \usepackage{lscape}
-\usepackage[square,numbers]{natbib}
+\usepackage[sectionbib,round]{natbib}
 \usepackage{hyperref}
 
 % Custome Page Headers 
@@ -35,10 +35,10 @@
 \newcommand{\interface}[1]{\texttt{#1}}
 
 \begin{document}
+\bibliographystyle{plainnat}
 
 \input{front-page.tex}
 
-\
 % Title details
 \title{Software Architecture -- Phase II: Architecture}
 \author{Kristof Peeters \and Michiel Staessen}
@@ -52,7 +52,6 @@
 \input{chapters/final-architecture.tex}
 \input{chapters/scenarios.tex}
 
-\bibliographystyle{plain}
 \renewcommand{\refname}{References}
 \bibliography{references}
 \nocite{*}
