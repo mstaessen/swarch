@@ -13,17 +13,24 @@ scheduled.
 
 \npar The decomposition of this iteration is driven by
 
-% TODO Drivers herzien en use cases oplijsten
-
 \begin{itemize}
-  	\item Av1: Measurements database failure. In case the database goes down, at
-  	least 3 hours of measurement data should be stored.
-	\item P2': Anomaly detection: Anomaly detection will be triggered for every
-	incoming measurement trame. Measurement trames will also have a higher
-	priority because incoming trames should be fully processed within a bounded
-	time.
 	\item P3': Requests to the measurements database: These queries are subjected
 	to a maximal execution time based on the SLA. 
+\end{itemize}
+
+\npar The use cases delegated to this component are
+
+\begin{itemize}
+  \item UC8':
+  \begin{itemize}
+  	\item measurements have to be stored.
+  \end{itemize}
+  \item UC17': 
+  \begin{itemize}
+  	\item researchers should be able to extract research data from the database
+  	(i.e. perform a read query).
+  \end{itemize}
+
 \end{itemize}
 
 \subsection{Step 2: Choose design concepts}

@@ -4,9 +4,53 @@
 \subsection{Step 1: Identify candidate drivers}
 \label{add:it2/drivers}
 
-\npar In the previous iteration, four requirements (UC7', Av2', M1' and M3')
-were assigned to the remote module communication unit and 2 use cases were
-created. The three quality attributes will form the drivers for this iteration.
+\npar In the previous iteration, four quality attributes (Av2', M1', M2' and
+M3') and three use cases (UC7, UC8' and UC13') were assigned to the remote
+module communication unit and 2 use cases (UCx and UCy) were created. 
+
+\npar There is no real coupling between the quality attributes and the use cases
+so the following quality attributes will form the drivers for this
+iteration:
+
+\begin{itemize}
+  \item Av2': Missing measurements.
+  \begin{itemize}
+    \item When a measurement did not arrive this should be logged, when
+  this happens for the third time a ReMes Operator should be notified. This
+  detection should occur in less than ten minutes.
+	\item Trames should be resent when their receival deadline is elapsed.
+  \end{itemize}
+  \item M1': Dynamic pricing.
+  \begin{itemize}
+    \item New types of remote devices will be introduced (with possibly new
+    data formats of the trames they send).
+  \end{itemize}
+  \item M2': Fine-grained metering for enterprises.
+  \begin{itemize}
+    \item The secondary meters can introduce new trame formats.
+  \end{itemize}
+  \item M3': Decentralized electricity generation
+  \begin{itemize}
+    \item The production meters could define a new trame format.
+  \end{itemize}
+\end{itemize}
+
+\npar The use cases delegated to this unit are given below.
+
+\begin{itemize}
+  \item UC7 : Send trame to remote device.
+  \item UC8': Send measurement.
+  \begin{itemize}
+    \item ReMeS is responsible for customer accounting information
+    \item Remote modules are marked as active when they send their first trame.
+  \end{itemize}
+  \item UC13': Send alarm.
+  \begin{itemize}
+    \item %TODO
+  \end{itemize}
+  \item UCx: Retrieve customer from trame.
+  \item UCy: Retrieve remote module protocol.
+\end{itemize}
 
 \subsection{Step 2: Choose design concepts}
 \label{add:it2/concepts}
