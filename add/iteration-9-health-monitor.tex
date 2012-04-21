@@ -29,6 +29,16 @@ functionality in combination with the heartbeat tactic.
 \subsection{Step 3: Instantiate architectural elements and allocate responsibilities}
 \label{add:it9/elements}
 
+\begin{figure}[H]
+	\begin{centering}
+		% TODO
+		%\includegraphics[width=0.6\textwidth]{figs/decomposition/health-monitoring-unit/decomposition.pdf}
+		\caption{The decomposition of the Health Monitoring Unit. Iteration
+		9}
+		\label{fig:add/it9/decomposition}
+	\end{centering}
+\end{figure}
+
 \npar The design is relatively simple. There are only two components, they are
 together with all their associations depicted in figure
 \ref{add:it9/decomposition}. The components are each explained below.
@@ -52,11 +62,20 @@ action is undertaken (i.e. a ReMeS operator is notified).
 
 \subsubsection{Operator Notification Unit}
 
-\paragraph{}
+\paragraph{Operator}
+%TODO: moet er uberhaupt een message zijn of is dit altijd gewoon hetzelfde
+% message (namelijk een crash) ?
+\npar This interface offers a \method{notify(message) : Void} method. The
+purpose of this method is notifying a ReMeS operator with the given message
+parameter. 
 
 \subsubsection{Heartbeat Monitor}
 
-\paragraph{Monitor}
+\paragraph{HealthMonitor}
+%TODO: parameter van de pulse methode
+\npar Since there is a need for other component to give a signal that they are
+still alive a method \method{pulse()} is included. This is the only method this
+interface offers.
 
 \subsection{Step 5: Verify and refine}
 \label{add:it9/verification}
