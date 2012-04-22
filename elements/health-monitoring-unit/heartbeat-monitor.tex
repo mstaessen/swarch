@@ -1,0 +1,19 @@
+\section{Heartbeat Monitor}
+\label{element:measurements-policy}
+
+\subsection{Roles and responsibilities}
+
+\npar This component acts as the registering point for heartbeats. The provided
+functionality allows that each component can register itself so the monitor
+knows it is still alive. Off course it is always possible that the monitor
+itself fails. Therefore this component is in fact a cluster of monitors where
+each monitor monitors every other monitor.
+
+\subsection{Provided interfaces}
+
+\begin{itemize}
+  \item HealthMonitorAPI, see \ref{api:health-monitoring-unit-api}.
+\end{itemize}
+
+
+
