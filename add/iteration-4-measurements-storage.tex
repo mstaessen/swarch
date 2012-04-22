@@ -85,32 +85,6 @@ replicated instances.
 \subsection{Step 3: Instantiate architectural elements and allocate responsibilities}
 \label{add:it4/elements}
 
-%      |
-%      execute(QueryCommand):void
-%      |
-%      v
-%   [_______________________________FrontEnd_______________________________]
-%      |                            |                             |
-%      execute(Query):Result        execute(Query):Result         add(),remove()
-%      |                            |                             |
-%      v                            v                             v
-%   [Replica]                    [Cache]                       [TemporaryBuffer]
-%      |                            
-%      enqueue(Query):void          
-%      |
-%      v
-%   [Policy]
-%      ^
-%      |
-%      pop() : Query
-%      |
-%   [QueueReader]
-%      |
-%      execute(Query):Result
-%      |
-%      v
-%   [TrameStorage]
-
 \npar A business delegate, called MeasurementStorageFrontEnd, will provide an
 interface to execute queries on the measurements database. This database will be
 replicated among different nodes, called MeasurementStorageInstances. The
@@ -187,4 +161,4 @@ QueryCommand from the buffer.
 \subsection{Step 5: Verify and refine}
 \label{add:it4/verification}
 
-% TODO
+% TODO verify & refine
