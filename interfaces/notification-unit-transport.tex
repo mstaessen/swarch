@@ -1,0 +1,50 @@
+\section{Transport}
+
+\subsection{Interface Identity}
+
+\subsection{\method{send(Alarm)}}
+
+\subsubsection{Resources Provided}
+
+\begin{quote}
+	\begin{description}
+		\item[Syntax] \
+		\begin{verbatim}
+send(Alarm alarm) : void
+    throws NullPointerException, IllegalAlarmException
+		\end{verbatim}
+		\item[Arguments] \
+		\begin{itemize}
+		  \item the contents of the alarm will be used to send the alarm (physically). 
+		\end{itemize}
+		\item[Effect] The contents of the alarm message are sent to the recipients
+		which are also contained in the alarm message.
+		\item[Restrictions] \
+		\begin{itemize}
+		  \item The given parameter can not be the null reference.
+		  \item There has to be at least one recipient in the Alarm.
+		  \item The message part of the Alarm can't be empty.
+		\end{itemize}
+	\end{description} 
+\end{quote}
+
+\subsubsection{Data Types Definition}
+
+\begin{quote}
+	\begin{description}
+		\item[Alarm] This class is a container for all sorts of information useful for
+		sending an alarm. This includes one or more recipients, the problem or reason,
+		etc.
+	\end{description} 
+\end{quote}
+
+\subsubsection{Exception Definition} 
+
+\begin{quote}
+	\begin{description}
+		\item[NullPointerException] This exception will be thrown when the given Alarm
+		is null.
+		\item[IllegalAlarmException] This exception will be thrown when there is no
+		recipient or reason incuded in the Alarm.
+	\end{description} 
+\end{quote}
