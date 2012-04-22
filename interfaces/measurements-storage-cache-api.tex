@@ -1,17 +1,31 @@
-\section{MeasurementsSchedulerAPI}
+\section{MeasurementsCacheAPI}
 
 \subsection{Interface Identity}
 
-\subsection{\method{methodX(ParamY)}}
+\npar \interface{MeasurementsCacheAPI} provides methods to execute
+QueryCommands on the measurements cache.
+
+\subsection{execute(Query)}
 
 \subsubsection{Resources Provided}
 
 \begin{quote}
 	\begin{description}
-		\item[Syntax]
-		\item[Arguments]
-		\item[Effect]
-		\item[Restrictions]
+		\item[Syntax] \ 
+		\begin{verbatim}
+Result execute(Query query) 
+    throws NullPointerException;
+		\end{verbatim}
+		\item[Arguments] \
+		\begin{itemize}
+			\item query: the query to be executed on the measurements cache. 
+		\end{itemize}
+		\item[Effect] The query is executed and the result is returned as a Result
+		object.
+		\item[Restrictions] \ 
+		\begin{itemize}
+			\item The given query is not null.
+		\end{itemize}
 	\end{description} 
 \end{quote}
 
@@ -19,16 +33,14 @@
 
 \begin{quote}
 	\begin{description}
-		\item[TypeX] Description
-		\item[TypeY] Description
+		\item[Query] This object wraps a query to the measurements database.
 	\end{description} 
 \end{quote}
 
-\subsubsection{Exception Definition} 
+\subsubsection{Exception Definition}
 
 \begin{quote}
 	\begin{description}
-		\item[ExceptionX] Description
-		\item[ExceptionY] Description
+		\item[NullPointerException] This exception is thrown if the query is null.
 	\end{description} 
 \end{quote}

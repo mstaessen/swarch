@@ -1,17 +1,33 @@
-\section{MeasurementsSchedulerAPI}
+\section{TemporaryBufferAPI}
 
 \subsection{Interface Identity}
 
-\subsection{\method{methodX(ParamY)}}
+\npar \interface{TemporaryBufferAPI} provides methods to temporarily store 
+QueryCommands (first in, first out) when the measurements database is
+unavailable.
+
+\subsection{add(QueryCommand)}
 
 \subsubsection{Resources Provided}
 
 \begin{quote}
 	\begin{description}
-		\item[Syntax]
-		\item[Arguments]
-		\item[Effect]
-		\item[Restrictions]
+		\item[Syntax] \ 
+		\begin{verbatim}
+void add(QueryCommand command) 
+    throws NullPointerException;
+		\end{verbatim}
+		\item[Arguments] \
+		\begin{itemize}
+			\item command: contains an encapsulated write query to be executed on the
+			measurements database.
+		\end{itemize}
+		\item[Effect] The command is added to the buffer. 
+		\item[Restrictions] \ 
+		\begin{itemize}
+			\item Only QueryCommands that represent write operations are accepted (read
+			queries can use the cache). 
+		\end{itemize}
 	\end{description} 
 \end{quote}
 
@@ -19,16 +35,53 @@
 
 \begin{quote}
 	\begin{description}
-		\item[TypeX] Description
-		\item[TypeY] Description
+		\item[QueryCommand] This object wraps a query to the measurements database. It
+		provides a Callback to return the results to the command issuer.
 	\end{description} 
 \end{quote}
 
-\subsubsection{Exception Definition} 
+\subsubsection{Exception Definition}
 
 \begin{quote}
 	\begin{description}
-		\item[ExceptionX] Description
-		\item[ExceptionY] Description
+		\item[NullPointerException] This exception is thrown if the command is null.
 	\end{description} 
 \end{quote}
+
+\subsection{remove()}
+
+\subsubsection{Resources Provided}
+
+\begin{quote}
+	\begin{description}
+		\item[Syntax] \ 
+		\begin{verbatim}
+QueryCommand remove() 
+    throws EmptyBufferException;
+		\end{verbatim}
+		\item[Arguments] This method takes no arguments.
+		\item[Effect] The QueryCommand at the front is popped of the buffer.
+		\item[Restrictions] \ 
+		\begin{itemize}
+			\item The buffer is not empty. 
+		\end{itemize}
+	\end{description} 
+\end{quote}
+
+\subsubsection{Data Types Definition}
+
+\begin{quote}
+	\begin{description}
+		\item[QueryCommand] This object wraps a query to the measurements database. It
+		provides a Callback to return the results to the command issuer.
+	\end{description} 
+\end{quote}
+
+\subsubsection{Exception Definition}
+
+\begin{quote}
+	\begin{description}
+		\item[EmptyBufferException] This exception is thrown if the buffer is empty.
+	\end{description} 
+\end{quote}
+
