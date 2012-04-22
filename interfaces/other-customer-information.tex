@@ -1,2 +1,102 @@
-\method{getContractInformation(Customer)} and
-\method{getPricingInformation(Date)}
+\section{CustomerInformationAPI}
+\label{api:other-customer-information}
+
+\subsection{Interface Identity}
+
+\npar \interface{CustomerInformationAPI} provides methods for the retrieval of
+customer data.
+
+\subsection{\method{getContractInformation(Customer)}}
+
+\subsubsection{Resources Provided}
+
+\begin{quote}
+	\begin{description}
+		\item[Syntax] \
+		\begin{verbatim}
+ContractInfo getContractInformation(Customer customer)
+    throws NullPointerException, IllegalCustomerException
+		\end{verbatim}
+		\item[Arguments] \
+		\begin{itemize}
+		  \item customer: contains information about the identity of a customer.
+		\end{itemize}
+		\item[Effect] A more elaborate object (in terms of the customer and his
+		contract with the utility provider) is returned based on the given customer. 
+		\item[Restrictions] \
+		\begin{itemize}
+		  \item The given customer can't be the null reference.
+		  \item All crucial information necessary for the retrieval of the
+		  ContractInfo object has to be present in the parameter.
+		\end{itemize}
+	\end{description} 
+\end{quote}
+
+\subsubsection{Data Types Definition}
+
+\begin{quote}
+	\begin{description}
+		\item[ContractInfo] This object contains detailed information about the
+		contract of a customer with his utility provider. This includes the full price
+		list and all possible discounts and exceptions on that list.
+	\end{description} 
+\end{quote}
+
+\subsubsection{Exception Definition} 
+
+\begin{quote}
+	\begin{description}
+		\item[NullPointerException] This exception is thrown when the given parameter
+		is the null reference.
+		\item[IllegalCustomerException] This exception is thrown when the given
+		parameter does not contain all the information which is needed to retrieve the
+		contract information.
+	\end{description} 
+\end{quote}
+
+\subsection{\method{getPricingInformation(Date)}}
+
+\subsubsection{Resources Provided}
+
+\begin{quote}
+	\begin{description}
+		\item[Syntax] \
+		\begin{verbatim}
+PriceInfo getPricingInformation(Date date, Utility utility)
+    throws NullPointerException
+		\end{verbatim}
+		\item[Arguments] \
+		\begin{itemize}
+		  \item date: the date for which one wants to retrieve price information
+		  \item utility: the utility for which one wants to retrieve the price
+		  information.
+		\end{itemize}
+		\item[Effect] An object is returned which contains detailed pricing
+		information for a specific date.
+		\item[Restrictions] \
+		\begin{itemize}
+		  \item The given date can't be the null reference.
+		  \item The given utility can't be the null reference.
+		\end{itemize}
+	\end{description} 
+\end{quote}
+
+\subsubsection{Data Types Definition}
+
+\begin{quote}
+	\begin{description}
+		\item[PriceInfo] This object contains detailed information about the
+		the full price list for one or more Utility(ies). Exceptionally discounts
+		could be included as well.
+		\item[Utility] This object represents a utility such as eletricty.
+	\end{description} 
+\end{quote}
+
+\subsubsection{Exception Definition} 
+
+\begin{quote}
+	\begin{description}
+		\item[NullPointerException] This exception is thrown when one of the given
+		parameters is the null reference.
+	\end{description} 
+\end{quote}

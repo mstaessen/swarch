@@ -1,0 +1,61 @@
+\section{BillingSendAPI}
+\label{api:other-billing-send-api}
+
+\subsection{Interface Identity}
+
+\npar \interface{BillingSendAPI} provides methods to send an invoice.
+
+\subsection{\method{send(Invoice)}}
+
+\subsubsection{Resources Provided}
+
+\begin{quote}
+	\begin{description}
+		\item[Syntax] \ 
+		\begin{verbatim}
+void send(Invoice invoice)
+    throws NullPointerException, IllegalInvoiceException,
+    BillingServiceUnavailableException;
+		\end{verbatim}
+		\item[Arguments] \
+		\begin{itemize}
+			\item invoice: contains a consumed amount of a certain customer together with
+			the owed payment. Additional information regarding the payment method is
+			also included.
+		\end{itemize}
+		\item[Effect] The invoice is sent towards the customer included in the
+		invoice.
+		\item[Restrictions] \ 
+		\begin{itemize}
+			\item The given invoice is not null.
+			\item The invoice contains customer information about where to sent the
+			invoice to.
+			\item The third party billing service is available (i.e. the network the
+			billing service itself are up and running).
+		\end{itemize}
+	\end{description} 
+\end{quote}
+
+\subsubsection{Data Types Definition}
+
+\begin{quote}
+	\begin{description}
+		\item[Invoice] This object contains all the necessary information for the
+		customer to gain insight in the consumed amount and to be able to pay the
+		invoice. 
+	\end{description} 
+\end{quote}
+
+\subsubsection{Exception Definition}
+
+\begin{quote}
+	\begin{description}
+		\item[NullPointerException] This exception is thrown if the given parameter is
+		null.
+		\item[IllegalInvoiceException] This exception is thrown when one or more of
+		the crucial attributes of the Invoice are not present. This includes
+		information to pay for the invoice or information to send the invoice.
+		\item[BillingServiceUnavailableException] This exception is thrown when the
+		third party billing service or the network is unavailable.
+	\end{description} 
+\end{quote}
