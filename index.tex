@@ -27,6 +27,7 @@
 \fancyhf[HL]{\nouppercase{\textit{\leftmark}}}
 \fancyhf[FC]{\thepage}
 
+
 % Custom Paragraphs
 \setlength{\parindent}{0pt}
 \setlength{\headheight}{14pt}
@@ -34,8 +35,10 @@
 \newcommand{\method}[1]{\texttt{#1}}
 \newcommand{\interface}[1]{\texttt{#1}}
 
-\begin{document}
 \bibliographystyle{plainnat}
+\renewcommand{\bibname}{References}
+
+\begin{document}
 
 \input{front-page.tex}
 
@@ -64,7 +67,6 @@
 \input{chapters/interface-catalog.tex}
 
 \newpage
-\renewcommand{\refname}{References}
 \bibliography{references}
 \nocite{*}
 
