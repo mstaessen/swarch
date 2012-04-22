@@ -1,12 +1,12 @@
-\section{HealthMonitoringUnitAPI}
+\section{HealthMonitorAPI}
 \label{api:health-monitoring-unit-api}
 
 \subsection{Interface Identity}
 
-\npar The \interface{HealthMonitorAPI} interface provides methods for notifying
-ones heartbeat.
+\npar The \interface{HealthMonitorAPI} interface provides methods for
+receiving heartbeats of other components.
 
-\subsection{\method{pulse(String,ComponentInfo)}}
+\subsection{\method{pulse(String, ComponentInfo)}}
 
 \subsubsection{Resources Provided}
 
@@ -21,18 +21,18 @@ void pulse(String componentId, ComponentInfo info)
 		\begin{itemize}
 		  \item componentId: is a unique identifier for a component in the system.
 		  \item info: is an object with additional information concerning the
-		  component with the given id. This information is optional
+		  component. This information is optional.
 		\end{itemize}
-		\item[Effect] The last registered heartbeat of the component with the given id
-		is increased to the date of invoking. Besides that, additional information can
-		be processed (e.g. the storage component confirms it is alive but one of its
-		replicas has failed).
+		\item[Effect] The heartbeat of the component with the given id is registered
+		and the date and time for the latest heartbeat is also updated. Besides that,
+		additional information can be processed (e.g. the storage component confirms
+		it is alive but one of its replicas has failed).
 		\item[Restrictions] \
 		\begin{itemize}
-		  \item The given id can not be the null reference.
+		  \item The given id cannot must be valid.
 		  \item The given id has to refer to an existing component.
-		  \item A component can only call the \method{pulse} method with itself as
-		  first argument. 
+		  \item A component can only call the \method{pulse()} method with its own
+		  identifier as first argument. 
 		\end{itemize}
 	\end{description} 
 \end{quote}
@@ -42,7 +42,9 @@ void pulse(String componentId, ComponentInfo info)
 \begin{quote}
 	\begin{description}
 		\item[ComponentInfo] This object is a wrapper for additional information
-		regarding the component who confirms that it is alive.
+		regarding the component that confirms it is alive. The information can for
+		instance contain warnings about failing hardware that does not make the
+		component fail. Think for instance about a failing disk in a RAID array.
 	\end{description} 
 \end{quote}
 
@@ -50,8 +52,6 @@ void pulse(String componentId, ComponentInfo info)
 
 \begin{quote}
 	\begin{description}
-		\item[NullPointerException] This exception is thrown when the first argument
-		is null. 
 		\item[IllegalComponentIdException] This exception is thrown when the
 		componentId doest not match the id number of any component in the system.
 	\end{description} 
