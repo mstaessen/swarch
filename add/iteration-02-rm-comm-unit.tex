@@ -38,18 +38,19 @@ iteration:
 \npar The use cases delegated to this unit are given below.
 
 \begin{itemize}
-  \item UC7 : Send trame to remote device.
-  \item UC8': Send measurement.
-  \begin{itemize}
-    \item ReMeS is responsible for customer accounting information
-    \item Remote modules are marked as active when they send their first trame.
-  \end{itemize}
-  \item UC13': Send alarm.
-  \begin{itemize}
-    \item %TODO
-  \end{itemize}
-  \item UCx: Retrieve customer from trame.
-  \item UCy: Retrieve remote module protocol.
+	\item UC7 : Send trame to remote device.
+	\item UC8': Send measurement.
+	\begin{itemize}
+    	\item ReMeS is responsible for customer accounting information
+    	\item Remote modules are marked as active when they send their first
+    	trame.
+  	\end{itemize}
+  	\item UC13': Send alarm.
+  	\begin{itemize}
+		\item %TODO
+  	\end{itemize}
+  	\item UCx: Retrieve customer from trame.
+  	\item UCy: Retrieve remote module protocol.
 \end{itemize}
 
 \subsection{Step 2: Choose design concepts}
@@ -187,7 +188,7 @@ forwards all trames to the storage scheduler.
 \paragraph{TranslatorManager}
 
 \npar The translator pool interface offers one method,
-\method{GetTranslatorFor(RemoteDevice) : Translator}. This method does nothing
+\method{GetTranslatorFor(RemoteDevice)}. This method does nothing
 else than return the correct translator for the given remote device (there can be
 differences between remote module types, communication channels, etc.).
 
@@ -195,8 +196,8 @@ differences between remote module types, communication channels, etc.).
 
 \npar Each of the different translators implements the \interface{Translator}
 translator interface. This interface includes two methods:
-\method{translateFromDevice(RawTrame) : Message} and
-\method{translateToDevice(Message) : RawTrame}. The former serves as translate
+\method{translateFromDevice(RawTrame)} and
+\method{translateToDevice(Message)}. The former serves as translate
 method for the input translator and vice versa for the latter one.
 
 \subsubsection{Trame Event Channel}
@@ -204,8 +205,8 @@ method for the input translator and vice versa for the latter one.
 \paragraph{TrameChannel} %TODO CommunicationEvent = wrapper voor Message
 
 \npar This interface offers two methods as prescribed by the \emph{Publisher -
-Subriber} pattern, \method{publish(CommunicationEvent) : void} and
-\method{subscribe(Filter) : void}.
+Subriber} pattern, \method{publish(CommunicationEvent)} and
+\method{subscribe(Filter)}.
 
 \subsubsection{Deadline Monitor}
 
@@ -214,7 +215,7 @@ Subriber} pattern, \method{publish(CommunicationEvent) : void} and
 \npar This interface complements the \interface{TrameChannel} interface. When a
 component is subscribed to a certain event flow, the channel has to be able to
 notify the component when a new event is available. Therefore this interface
-offers a \method{notify() : void}.
+offers a \method{notify()}.
 
 \subsubsection{Trame Consumer}
 

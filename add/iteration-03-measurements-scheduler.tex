@@ -136,22 +136,22 @@ with the highest priority off the queue and present it on the database for execu
 
 \npar The MeasurementsScheduler provides an interface
 \interface{MeasurementSchedulerAPI}. This interface contains a method
-\method{shedule(QueryCommand) : void} to schedule new commands.
+\method{shedule(QueryCommand)} to schedule new commands.
 
 \subsubsection{MeasurementsPolicy}
 
 \npar The QueryCommand will be placed in the MeasurementsQueue by a policy.
 Therefore, MeasurementsPolicy provides an interface
 \interface{MeasurementsPolicyAPI} which contains a method
-\method{insertCommand(QueryCommand) : void}.
+\method{insertCommand(QueryCommand)}.
 
 \subsubsection{MeasurementsQueue}
 
 \npar The MeasurementsQueue must provide methods for inserting items and
 removing items. These methods are contained in the
 \interface{MeasurementsQueueAPI} and are called
-\method{insertCommand(QueryCommand, priority : Double) : void} and
-\method{remove() : QueryCommand}. The first method is used by the
+\method{insertCommand(QueryCommand, double)} and
+\method{remove()}. The first method is used by the
 MeasurementsPolicy and the last one is used by the MeasurementsQueueReader.
 
 \npar Figure \ref{fig:it3/interfaces} summarizes the components and the

@@ -64,21 +64,20 @@ device. This data will be used to determine whether an alarm is a false positive
 
 \npar The ADScheduler provides an interface
 \interface{ADSchedulerAPI}. This interface contains a method
-\method{shedule(ADCommand) : void} to schedule new commands.
+\method{shedule(ADCommand)} to schedule new commands.
 
 \subsubsection{ADPolicy}
 
 \npar The ADCommand will be placed in the ADQueue by a policy. Therefore,
 ADPolicy provides an interface \interface{ADPolicyAPI} which contains a method
-\method{insertCommand(ADCommand, ADQueue) : void}.
+\method{insertCommand(ADCommand, ADQueue)}.
 
 \subsubsection{ADQueue}
 
 \npar The ADQueue must provide methods for inserting items and removing items.
 These methods are contained in the \interface{ADQueueAPI} and are called
-\method{insertCommand(ADCommand, priority : Double) : void} and \method{remove()
-: ADCommand}. The first method is used by ADPolicy and the last one is used by
-ADQueueReader.
+\method{insertCommand(ADCommand, double)} and \method{remove()}. The first
+method is used by ADPolicy and the last one is used by ADQueueReader.
 
 \npar Figure \ref{fig:it5/interfaces} summarizes the components and the
 interfaces instantiated in this iteration.

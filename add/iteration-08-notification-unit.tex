@@ -69,22 +69,22 @@ different communication channels).
 \paragraph{NotifyUnit}
 
 \npar The interface this notification unit offers, has one method, namely a
-\method{send(Alarm) : void}. Invoking this method results in the notification of
-the included recipient with the message also contains in the message parameter.
+\method{send(Alarm)}. Invoking this method results in the notification of the
+included recipient with the message also contains in the message parameter.
 
 \subsubsection{Transport Pool}
 
 \paragraph{TransportManager}
 
 \npar The transport pool offers the \interface{Transport Manager} interface. It
-contains only one method, \method{getTransport(CommunicationChannel):
-Transport}. This method has to return the right transport entity based on the
+contains only one method, \method{getTransport(CommunicationChannel)}. This
+method has to return the right transport entity based on the
 communicationChannel parameter.
 
 \paragraph{Transport}
 
 \npar This last interface also offers just one method, namely
-\method{send(Alarm) : void}. Notice that this method has the same semantics as
+\method{send(Alarm)}. Notice that this method has the same semantics as
 the method of the \interface{NotifyUnit} interface, but now the communication
 channel is known so the notification can physically take place.
 
