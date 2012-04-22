@@ -1,8 +1,8 @@
-\section{Iteration 6: Decomposition of the Outbound Communication Scheduler}
-\label{add:it6}
+\section{Iteration 7: Decomposition of the Outbound Communication Scheduler}
+\label{add:it7}
 
 \subsection{Step 1: Identify candidate drivers}
-\label{add:it6/drivers}
+\label{add:it7/drivers}
 
 \npar It is crucial that ``shut down valve" trames are sent in time to the
 correct module considering that trames that arrive too late can ultimately
@@ -21,7 +21,7 @@ outbound trames (i.e. towards modules) need to be scheduled.
 \npar No use cases were delegated to this scheduler.
 
 \subsection{Step 2: Choose design concepts}
-\label{add:it6/concepts}
+\label{add:it7/concepts}
 
 \npar The design concepts for this decomposition are exactly the same as those
 of the storage and anomaly detection scheduler, see sections
@@ -30,14 +30,15 @@ This is a logical result considering that both schedulers are established with
 performance drivers in mind.
 
 \subsection{Step 3: Instantiate architectural elements and allocate responsibilities}
-\label{add:it6/elements}
+\label{add:it7/elements}
 
 \begin{figure}[H]
 	\begin{centering}
 		% TODO Figure
-		%\includegraphics[width=0.6\textwidth]{figs/decomposition/outbound-comm-scheduler/decomposition.pdf}
-		\caption{The decomposition of the Outbound Communication Scheduler}
-		\label{fig:add/it6/decomposition}
+		\includegraphics[width=\textwidth]{figs/add-it7-elements.pdf}
+		\caption{Overview of the instantiated child elements in the Outbound
+		Communication Scheduler}
+		\label{fig:it7/elements}
 	\end{centering}
 \end{figure}
 
@@ -61,7 +62,7 @@ Again, this is done to prevent starvation.
 highest priority off the queue and present it on the database for execution.
 
 \subsection{Step 4: Define interfaces for instantiated elements}
-\label{add:it6/interfaces}
+\label{add:it7/interfaces}
 
 \subsubsection{OutboundCommScheduler}
 
@@ -83,7 +84,17 @@ scheduler, see section \ref{add:it3/interfaces}. It offers a \method{pop(trame)}
 and \method{push{trame}} method which will respectively pop and push a given
 trame from the priorityqueue.
 
+\begin{figure}[H]
+	\begin{centering}
+		% TODO Figure
+		\includegraphics[width=\textwidth]{figs/add-it7-interfaces.pdf}
+		\caption{Overview of the interfaces and components in the
+		Outbound Communication Scheduler}
+		\label{fig:it7/interfaces}
+	\end{centering}
+\end{figure}
+
 \subsection{Step 5: Verify and refine}
-\label{add:it6/verification}
+\label{add:it7/verification}
 
 \npar The driver for this iteration, P1, is resolved.

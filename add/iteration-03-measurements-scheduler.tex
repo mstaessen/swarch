@@ -101,40 +101,14 @@ entries of the queues might also be large, making this solution less efficient.
 \subsection{Step 3: Instantiate architectural elements and allocate responsibilities}
 \label{add:it3/elements}
 
-%      |
-%      schedule(QueryCommand):void
-%      |
-%      v
-%    [Scheduler]
-%      |
-%      schedule(QueryCommand,PriorityQueue):void
-%      |
-%      v
-%    [PriorityQueue]
-%      |
-%      enqueue(QueryCommand):void
-%      |
-%      v
-%    [Policy]
-%      ^
-%      |
-%      pop() : Query
-%      |
-%   [QueueReader]
-%      |
-%      execute(QueryCommand):void
-%      |
-%      v
-%   [TrameStorage]
-
 \npar The decomposition of this component is shown in figure
 \ref{fig:it3/elements}. 
 
 \begin{figure}[H]
 	\begin{centering}
-		%\includegraphics[width=0.8\textwidth]{figs/add/it3/elements.pdf}
-		\caption{Overview of the instantiated child components of the Trame Storage
-		Scheduler.}
+		\includegraphics[width=\textwidth]{figs/add-it3-elements.pdf}
+		\caption{Overview of the instantiated child components in the Measurements
+		Storage Scheduler}
 		\label{fig:it3/elements}
 	\end{centering}
 \end{figure}
@@ -185,8 +159,8 @@ interfaces instantiated in this iteration.
 
 \begin{figure}[H]
 	\begin{centering}
-		%\includegraphics[width=0.8\textwidth]{figs/add/it3/interfaces.pdf}
-		\caption{Overview of the interfaces and components of the Measurements Storage
+		\includegraphics[width=\textwidth]{figs/add-it3-interfaces.pdf}
+		\caption{Overview of the interfaces and components in the Measurements Storage
 		Scheduler}
 		\label{fig:it3/interfaces}
 	\end{centering}
