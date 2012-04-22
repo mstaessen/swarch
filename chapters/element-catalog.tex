@@ -1,10 +1,34 @@
 \chapter{Element Catalog}
 \label{chap:element-catalog}
 
-\input{elements/measurements-scheduler.tex}
-\input{elements/rm-deadline-monitor.tex}
-\input{elements/rm-input-translator.tex}
-\input{elements/rm-output-translator.tex}
-\input{elements/rm-trame-consumer.tex}
-\input{elements/rm-trame-event-channel.tex}
-\input{elements/rm-translator.tex}
+%RM elements
+\input{elements/rm-comm/rm-deadline-monitor.tex}
+\input{elements/rm-comm/rm-input-translator.tex}
+\input{elements/rm-comm/rm-output-translator.tex}
+\input{elements/rm-comm/rm-trame-consumer.tex}
+\input{elements/rm-comm/rm-trame-event-channel.tex}
+\input{elements/rm-comm/rm-translator.tex}
+
+%Measurement Scheduler elements
+\input{elements/measurement-scheduler/measurements-scheduler.tex}
+\input{elements/measurement-scheduler/measurements-policy.tex}
+\input{elements/measurement-scheduler/measurements-queue.tex}
+\input{elements/measurement-scheduler/measurements-queue-reader.tex}
+
+%Measurement Storage
+\input{elements/measurements-storage/measurements-storage-frontend.tex}
+\input{elements/measurements-storage/measurements-cache.tex}
+\input{elements/measurements-storage/temporary-buffer.tex}
+\input{elements/measurements-storage/measurements-storage-instance.tex}
+
+%Other
+\input{elements/other/billing-communication-unit.tex}
+\input{elements/other/billing-unit.tex}
+\input{elements/other/prediction-unit.tex}
+\input{elements/other/price-channel.tex}
+\input{elements/other/uis-communication-unit.tex}
+
+%Notification
+\input{elements/notification-unit/comm-client.tex}
+\input{elements/notification-unit/transport-pool.tex}
+\input{elements/notification-unit/transport.tex}
