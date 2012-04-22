@@ -1,4 +1,4 @@
-\documentclass[11pt,a4paper,oneside]{report}
+\documentclass[11pt,a4paper,oneside]{book}
 
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -39,6 +39,7 @@
 
 \input{front-page.tex}
 
+\frontmatter
 % Title details
 \title{Software Architecture -- Phase II: Architecture}
 \author{Kristof Peeters \and Michiel Staessen}
@@ -46,6 +47,11 @@
 
 % Table of Contents
 \tableofcontents
+
+\input{chapters/abstract.tex}
+\input{chapters/introduction.tex}
+
+\mainmatter
 
 % Content
 \input{chapters/add.tex}
