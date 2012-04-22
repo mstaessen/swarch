@@ -41,32 +41,24 @@ performance drivers in mind.
 	\end{centering}
 \end{figure}
 
-\subsubsection{OutboundCommScheduler}
+\npar The design of the outbound communication scheduler is analogous to that
+of the storage scheduler and the anomaly detection scheduler. This is rather
+locical because they all have the same purpose: schedule commands of some kind.
 
-% TODO paste from other sched
-\npar The message router will dispatch incoming trames to the correct queue
-based on the importance of the trame and the current policy (the latter is
-determined by the system load). 
+\npar All requests to the Outbound Communication Scheduler are encapsulated as
+OCCommand objects. These objects represent requests to send a certain control
+trame to a given remote device for some reason. 
 
-\subsubsection{OutboundCommPolicy}
+\npar The scheduler (OCScheduler) handles every incoming command
+(OCCommand) by inserting the command in a queue (OCQueue) with a
+certain priority using a policy (OCPolicy). The scheduling policy
+determines the priority of the command based on the nature of that command
+(in particular, the reason for the request). As before, priorities of commands
+already in the queue are increased every time a new command is inserted.
+Again, this is done to prevent starvation.
 
-% TODO paste from other sched
-\npar The task of this component is twofold. First of all it does the actual
-scheduling. This means that it pops elements out of the priorityqueue to
-redirect for further processing (this off course occurs only when the database
-is not processing another trame). Second of all, to prevent starvation
-priorities are periodically boosted.
-
-\subsubsection{OutboundCommQueue}
-
-% TODO paste from other sched
-\npar This component represents a multilevel queue. When one keeps the indeces
-of the last element of every possible priority, it is easy to insert new trames
-according to the current policy and the priority of the trame itself.
-
-\subsubsection{OutboundCommQueueReader}
-
-% TODO paste from other sched
+\npar An additional component (OCQueueReader) will pop the command with the
+highest priority off the queue and present it on the database for execution.
 
 \subsection{Step 4: Define interfaces for instantiated elements}
 \label{add:it6/interfaces}
