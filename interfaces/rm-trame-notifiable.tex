@@ -1,22 +1,31 @@
-\section{MeasurementsSchedulerAPI}
+\section{TrameNotifiable}
+\label{api:rm-trame-notifiable}
 
 \subsection{Interface Identity}
 
-\subsection{\method{}}
+\npar \interface{TrameNotifiable} provides methods for notifying the
+implementor.
+
+\subsection{\method{notify()}}
 
 \subsubsection{Resources Provided}
 
 \begin{quote}
 	\begin{description}
-		\item[Syntax] 
-		\item[Arguments] 
+		\item[Syntax] \
+		\begin{verbatim}
+notify() : void
+		\end{verbatim}
+		\item[Arguments] \
 		\begin{itemize}
-		  \item 
+		  \item This method has no arguments
 		\end{itemize}
-		\item[Effect]
-		\item[Restrictions] 
+		\item[Effect] When this method is invoked the implementor knows that there is
+		a new CommunicationEvent available.
+		\item[Restrictions] \
 		\begin{itemize}
-		  \item 
+		  \item This method should only be invoked when a new CommunicationEvent is
+		  available.
 		\end{itemize}
 	\end{description} 
 \end{quote}
@@ -25,7 +34,8 @@
 
 \begin{quote}
 	\begin{description}
-		\item[] 
+		\item[CommunicationEvent] This object is a wrapper for a Message object (see
+		section \label{api:rm-translator-api}).
 	\end{description} 
 \end{quote}
 
@@ -33,6 +43,6 @@
 
 \begin{quote}
 	\begin{description}
-		\item[ExceptionX] Description
+		\item[] This method throws no exceptions.
 	\end{description} 
 \end{quote}

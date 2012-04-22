@@ -1,22 +1,31 @@
-\section{MeasurementsSchedulerAPI}
+\section{TrameChannel}
+\label{api:rm-trame-channel}
 
 \subsection{Interface Identity}
 
-\subsection{\method{}}
+\npar The \interface{TrameChannel} provides methods for the communication of
+events as the \emph{Publisher-Subscriber} pattern prescribes.
+
+\subsection{\method{publish(CommunicationEvent)}}
 
 \subsubsection{Resources Provided}
 
 \begin{quote}
 	\begin{description}
-		\item[Syntax] 
-		\item[Arguments] 
+		\item[Syntax] \
+		\begin{verbatim}
+publish(CommunicationEvent communicationEvent) : void
+    throws NullPointerException
+		\end{verbatim}
+		\item[Arguments] \
 		\begin{itemize}
-		  \item 
+		  \item communicationEvent, this event will be published towards subscribers.
 		\end{itemize}
-		\item[Effect]
-		\item[Restrictions] 
+		\item[Effect] Subscribers to receiving CommunicationEvents will be notified of
+		the availability of a new event. 
+		\item[Restrictions] \
 		\begin{itemize}
-		  \item 
+		  \item The given parameter can not be the null reference.
 		\end{itemize}
 	\end{description} 
 \end{quote}
@@ -25,7 +34,8 @@
 
 \begin{quote}
 	\begin{description}
-		\item[] 
+		\item[CommunicationEvent] This object is a wrapper for a Message object (see
+		section \ref{api:rm-translator-api}).
 	\end{description} 
 \end{quote}
 
@@ -33,6 +43,50 @@
 
 \begin{quote}
 	\begin{description}
-		\item[ExceptionX] Description
+		\item[NullPointerException] This exception will be thrown when the given
+		CommunicationEvent is the null reference.
+	\end{description} 
+\end{quote}
+
+\subsection{\method{subscribe(Filter)}}
+
+\subsubsection{Resources Provided}
+
+\begin{quote}
+	\begin{description}
+		\item[Syntax] \
+		\begin{verbatim}
+subscribe(Filter filter) : void
+    throws NullPointerException
+		\end{verbatim}
+		\item[Arguments] \
+		\begin{itemize}
+		  \item The content of the given filter will be used for filtering
+		  notifications of arrivals of events.
+		\end{itemize}
+		\item[Effect] The subscribing object will be marked as a subscriber for
+		certain events (this is determined on the filter).
+		\item[Restrictions] \
+		\begin{itemize}
+		  \item The given parameter can not be the null reference.
+		\end{itemize}
+	\end{description} 
+\end{quote}
+
+\subsubsection{Data Types Definition}
+
+\begin{quote}
+	\begin{description}
+		\item[Filter] This object offers functionality to indicate what type of events
+		one wants to receive.
+	\end{description} 
+\end{quote}
+
+\subsubsection{Exception Definition} 
+
+\begin{quote}
+	\begin{description}
+		\item[NullPointerException] This exception will be thrown when the given
+		Filter is the null reference.
 	\end{description} 
 \end{quote}
