@@ -48,7 +48,7 @@ publish(CommunicationEvent communicationEvent) : void
 	\end{description} 
 \end{quote}
 
-\subsection{\method{subscribe(Filter)}}
+\subsection{\method{subscribe(CommunicationFilter)}}
 
 \subsubsection{Resources Provided}
 
@@ -56,7 +56,7 @@ publish(CommunicationEvent communicationEvent) : void
 	\begin{description}
 		\item[Syntax] \
 		\begin{verbatim}
-subscribe(Filter filter) : void
+subscribe(CommunicationFilter filter) : void
     throws NullPointerException
 		\end{verbatim}
 		\item[Arguments] \
@@ -77,8 +77,8 @@ subscribe(Filter filter) : void
 
 \begin{quote}
 	\begin{description}
-		\item[Filter] This object offers functionality to indicate what type of events
-		one wants to receive.
+		\item[CommunicationFilter] This object offers functionality to indicate what
+		type of events one wants to receive.
 	\end{description} 
 \end{quote}
 
