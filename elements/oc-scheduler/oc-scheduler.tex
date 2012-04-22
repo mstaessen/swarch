@@ -1,0 +1,16 @@
+\section{OCScheduler}
+\label{element:oc-scheduler}
+
+\subsection{Roles and responsibilities}
+
+\npar The OCScheduler serves as entry point for the OCCommand scheduling. Upon
+receiving a command the scheduler will place that command in an
+OCPolicy. When the system transitions between load modi (from normal
+to overload or vice versa) it is possible to change the current policy.
+This transition in policies is likewise the responsibility of this component.
+
+\subsection{Provided Interfaces}
+
+\begin{itemize}
+    \item OCSchedulerAPI, see \ref{api:oc-scheduler-api}
+\end{itemize}
