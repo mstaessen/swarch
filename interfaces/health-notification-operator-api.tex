@@ -1,8 +1,12 @@
-\section{HealthNotificationOperatorAPI}
+\section{OperatorNotificationAPI}
 
 \subsection{Interface Identity}
 
-\subsection{\method{}}
+\npar The \interface{OperatorNotificationAPI} provides ways to inform ReMeS
+operators about a certain event (errors, etc.) that has to be taken care
+of.
+
+\subsection{\method{report(Report)}}
 
 \subsubsection{Resources Provided}
 
@@ -10,16 +14,18 @@
 	\begin{description}
 		\item[Syntax] \
 		\begin{verbatim}
-
+void report(Report report)
 		\end{verbatim}
 		\item[Arguments] \
 		\begin{itemize}
-		  \item 
+			\item report: a report about a certain event that has to reported to ReMeS
+			operators
 		\end{itemize}
-		\item[Effect]
+		\item[Effect] The report is forwarded to ReMeS operators. Depending on the
+		report, it can be forwarded to a specific subset of ReMeS operators. 
 		\item[Restrictions] \
 		\begin{itemize}
-		  \item 
+			\item The given report must not be null.
 		\end{itemize}
 	\end{description} 
 \end{quote}
@@ -28,7 +34,8 @@
 
 \begin{quote}
 	\begin{description}
-		\item[] 
+		\item[Report] A data class that contains all relevant information about a
+		certain event. Reports about crashes can contain stack traces, etc.
 	\end{description} 
 \end{quote}
 
@@ -36,6 +43,6 @@
 
 \begin{quote}
 	\begin{description}
-		\item[ExceptionX] Description
+		\item[NullPointerException] This exception is thrown if the report is null.
 	\end{description} 
 \end{quote}
