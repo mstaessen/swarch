@@ -1,17 +1,33 @@
-\section{MeasurementsSchedulerAPI}
+\section{MeasurementsQueueAPI}
 
 \subsection{Interface Identity}
 
-\subsection{\method{methodX(ParamY)}}
+\npar \interface{MeasurementsQueueAPI} provides methods to enqueue and dequeue
+QueryCommands in a queue.
+
+\subsection{enqueue(QueryCommand, double)}
 
 \subsubsection{Resources Provided}
 
 \begin{quote}
 	\begin{description}
-		\item[Syntax]
-		\item[Arguments]
-		\item[Effect]
-		\item[Restrictions]
+		\item[Syntax] \ 
+		\begin{verbatim}
+void enqueue(QueryCommand command, double priority) 
+    throws NullPointerException;
+		\end{verbatim}
+		\item[Arguments] \
+		\begin{itemize}
+			\item command: contains an encapsulated query to be executed on the
+			measurements database.
+			\item priority: the priority this command will have in queue. 
+		\end{itemize}
+		\item[Effect] The command is inserted in the queue accoring to its priority.
+		\item[Restrictions] \ 
+		\begin{itemize}
+			\item The given command is not null.
+			\item A greater number corresponds to a higher priority. 
+		\end{itemize}
 	\end{description} 
 \end{quote}
 
@@ -19,16 +35,55 @@
 
 \begin{quote}
 	\begin{description}
-		\item[TypeX] Description
-		\item[TypeY] Description
+		\item[QueryCommand] This object wraps a query to the measurements database. It
+		provides a Callback to return the results to the command issuer.
 	\end{description} 
 \end{quote}
 
-\subsubsection{Exception Definition} 
+\subsubsection{Exception Definition}
 
 \begin{quote}
 	\begin{description}
-		\item[ExceptionX] Description
-		\item[ExceptionY] Description
+		\item[NullPointerException] This exception is thrown if the command is null.
 	\end{description} 
 \end{quote}
+
+\subsection{dequeue()}
+
+\subsubsection{Resources Provided}
+
+\begin{quote}
+	\begin{description}
+		\item[Syntax] \ 
+		\begin{verbatim}
+QueryCommand dequeue() 
+    throws EmptyQueueException;
+		\end{verbatim}
+		\item[Arguments] This method has no arguments.
+		\item[Effect] The QueryCommand with the highest priority is popped of the
+		Queue.
+		\item[Restrictions] \ 
+		\begin{itemize}
+			\item The queue is not empty. 
+		\end{itemize}
+	\end{description} 
+\end{quote}
+
+\subsubsection{Data Types Definition}
+
+\begin{quote}
+	\begin{description}
+		\item[QueryCommand] This object wraps a query to the measurements database. It
+		provides a Callback to return the results to the command issuer.
+	\end{description} 
+\end{quote}
+
+\subsubsection{Exception Definition}
+
+\begin{quote}
+	\begin{description}
+		\item[EmptyQueueException] This exception is thrown if the queue is
+		already/still empty.
+	\end{description} 
+\end{quote}
+
