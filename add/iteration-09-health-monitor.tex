@@ -1,8 +1,8 @@
-\section{Iteration 8: Decomposition of the Health Monitoring Unit}
-\label{add:it8}
+\section{Iteration 9: Decomposition of the Health Monitoring Unit}
+\label{add:it9}
 
 \subsection{Step 1: Identify candidate drivers}
-\label{add:it8/drivers}
+\label{add:it9/drivers}
 
 \npar Two quality attributes were assigned to the health monitoring unit:
 
@@ -19,10 +19,10 @@
 \end{itemize}
 
 \subsection{Step 2: Choose design concepts}
-\label{add:it8/concepts}
+\label{add:it9/concepts}
 
 \subsubsection{Tactics}
-\label{add:it8/tactics}
+\label{add:it9/tactics}
 
 \npar Since only the detection part of the availability attributes was assigned
 to the health monitoring unit, the tactics used in this iteration will be based
@@ -31,21 +31,21 @@ tactic and this resulted in the usage of a heartbeat. The usage of heartbeat
 will be the (only) tactic in this iteration.
 
 \subsubsection{Design Patterns}
-\label{add:it8/patterns}
+\label{add:it9/patterns}
 
 \npar There was no design pattern found to support the notification
 functionality in combination with the heartbeat tactic.
 
 \subsection{Step 3: Instantiate architectural elements and allocate responsibilities}
-\label{add:it8/elements}
+\label{add:it9/elements}
 
 \begin{figure}[H]
 	\begin{centering}
 		% TODO Figure
-		\includegraphics[width=\textwidth]{figs/add-it8-elements.pdf}
+		\includegraphics[width=\textwidth]{figs/add-it9-elements.pdf}
 		\caption{Overview of the instantiated child elements in the Health Monitoring
 		Unit}
-		\label{fig:it8/elements}
+		\label{fig:it9/elements}
 	\end{centering}
 \end{figure}
 
@@ -67,7 +67,7 @@ heartbeat signal, it is assumed that that component is crashed and approriate
 action is undertaken (i.e. a ReMeS operator is notified).
 
 \subsection{Step 4: Define interfaces for instantiated elements}
-\label{add:it8/interfaces}
+\label{add:it9/interfaces}
 
 \subsubsection{Operator Notification Unit}
 
@@ -89,15 +89,15 @@ interface offers.
 \begin{figure}[H]
 	\begin{centering}
 		% TODO Figure
-		\includegraphics[width=\textwidth]{figs/add-it8-interfaces.pdf}
+		\includegraphics[width=\textwidth]{figs/add-it9-interfaces.pdf}
 		\caption{Overview of the interfaces and components in the Health Monitoring
 		Unit}
-		\label{fig:it8/interfaces}
+		\label{fig:it9/interfaces}
 	\end{centering}
 \end{figure}
 
 \subsection{Step 5: Verify and refine}
-\label{add:it8/verification}
+\label{add:it9/verification}
 
 \npar The assigned parts of Av1' and Av2' were resolved in this iteration
 through the use of the Heartbeat Monitor and the Operator Notification Unit.

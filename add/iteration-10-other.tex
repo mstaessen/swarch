@@ -1,8 +1,8 @@
-\section{Iteration 9: Decomposition of Other}
-\label{add:it9}
+\section{Iteration 10: Decomposition of Other}
+\label{add:it10}
 
 \subsection{Step 1: Identify candidate drivers}
-\label{add:it9/drivers}
+\label{add:it10/drivers}
 
 \npar In the first iteration there were quite a lot of requirements delegated to
 this component. This requires some selection to take place. This selection is
@@ -45,10 +45,10 @@ functionality will also be adressed. The remaining use cases are delegated to
 the other component. %TODO: juist ?
 
 \subsection{Step 2: Choose design concepts}
-\label{add:it9/concepts}
+\label{add:it10/concepts}
 
 \subsubsection{Tactics}
-\label{add:it9/tactics}
+\label{add:it10/tactics}
 
 \paragraph{Modifiability}
 
@@ -56,7 +56,7 @@ the other component. %TODO: juist ?
 expected changes, the hiding of information and the use of an intermediary.
 
 \subsubsection{Design Patterns}
-\label{add:it9/patterns}
+\label{add:it10/patterns}
 
 \paragraph{Publisher - Subscriber}
 
@@ -80,20 +80,20 @@ for the hiding of information but this is mainly realized in the use of
 interfaces for all different components.
 
 \subsection{Step 3: Instantiate architectural elements and allocate responsibilities}
-\label{add:it9/elements}
+\label{add:it10/elements}
 
 \begin{figure}[H]
 	\begin{centering}
 		% TODO Figure
-		\includegraphics[width=\textwidth]{figs/add-it9-elements.pdf}
+		\includegraphics[width=\textwidth]{figs/add-it10-elements.pdf}
 		\caption{The decomposition of the other component. Iteration
 		9}
-		\label{fig:add/it9/decomposition}
+		\label{fig:add/it10/decomposition}
 	\end{centering}
 \end{figure}
 
 \npar The full decomposition of this iteration can be viewed in figure
-\ref{fig:add/it9/decomposition}. In the subsection below each of the components
+\ref{fig:add/it10/decomposition}. In the subsection below each of the components
 will be discussed. 
 
 \subsubsection{Event Channel}
@@ -159,7 +159,7 @@ is used to sent the notification of a payment towards the billing unit. It uses
 the third party billing service in the sense of sending it the right documents.
 
 \subsection{Step 4: Define interfaces for instantiated elements}
-\label{add:it9/interfaces}
+\label{add:it10/interfaces}
 
 \subsubsection{Event Channel}
 
@@ -227,14 +227,14 @@ method will dispatched to the \interface{PredictionAPI} interface.
 \begin{figure}[H]
 	\begin{centering}
 		% TODO
-		\includegraphics[width=\textwidth]{figs/add-it9-interfaces.pdf}
+		\includegraphics[width=\textwidth]{figs/add-it10-interfaces.pdf}
 		\caption{Overview of the interfaces and components in the Other Component}
-		\label{fig:it9/interfaces}
+		\label{fig:it10/interfaces}
 	\end{centering}
 \end{figure}
 
 \subsection{Step 5: Verify and refine}
-\label{add:it9/verification}
+\label{add:it10/verification}
 
 \npar All quality attribute drivers and assigned use cases were resolved in
 this iteration. There are still, however, a number of non resolved use cases and
