@@ -86,8 +86,7 @@ interfaces for all different components.
 	\begin{centering}
 		% TODO Figure
 		\includegraphics[width=\textwidth]{figs/add-it10-elements.pdf}
-		\caption{The decomposition of the other component. Iteration
-		9}
+		\caption{Overview of the instantiated child elements in the other component}
 		\label{fig:add/it10/decomposition}
 	\end{centering}
 \end{figure}
@@ -118,9 +117,9 @@ Ths includes determining that an invoice should be constructed, fetching all the
 relevant consumption data and constructing the invoice. The constructed invoice
 is then sent towards the billing communication unit through the
 \interface{BillingReceive} interface. One more task is assigned to this
-component, namely the marking of paid invoices. To retrieve all data the
-billing unit needs, first of all it has to have access through the internal
-ReMeS customer database (through the \interface{CustomerProfile} interface).
+component, namely the marking of paid invoices. To retrieve all data the billing
+unit needs, first of all it has to have access through the internal ReMeS
+customer database (through the \interface{CustomerProfile} interface).
 Secondly, it needs to be able to contact the UIS. This is done through the
 \interface{CustomerInformation}.
 
@@ -137,12 +136,12 @@ number of scenarios).
 \npar This component interacts with three other components. The first one,
 Utility information system, is used for all information needed by ReMeS that is
 stored by the utility company. The second one, prediction unit, is used to
-acquire prediction statistics for a certain utility company. Besides using interfaces the UIS
-communication unit off course offers interfaces itself. It offers two main
-services towards other components: one towards the billing unit
-and one towards the UIS. The former service includes the retrieval
-of customer data that is kept by the UIS. The latter one is more of a
-consultation service where the UIS can request predictions.
+acquire prediction statistics for a certain utility company. Besides using
+interfaces the UIS communication unit off course offers interfaces itself. It
+offers two main services towards other components: one towards the billing unit
+and one towards the UIS. The former service includes the retrieval of customer
+data that is kept by the UIS. The latter one is more of a consultation service
+where the UIS can request predictions.
 
 \subsubsection{Billing Communication Unit}
 
@@ -166,10 +165,10 @@ the third party billing service in the sense of sending it the right documents.
 \paragraph{PriceChannel}
 % TODO parameter van subscribe = juist?
 \npar This is a quite simple interface and offers only two methods. The first
-method is a \method{publish{PriceEvent} :void} method which can be invoked by
+method is a \method{publish{PriceEvent}} method which can be invoked by
 Publishers (in this context \method{publish} will be called by UIS communication
 unit to make price updates available to all interested parties). Callers the
-second method, \method{subscribe(PriceFilter) : void}, will receive events which
+second method, \method{subscribe(PriceFilter)}, will receive events which
 match the specified filter.
 
 \subsubsection{Prediction Unit}
@@ -177,33 +176,33 @@ match the specified filter.
 \paragraph{PredictionAPI}
 
 \npar Only one method is included in the \interface{PredictionAPI} interface,
-namely \method{getConsumptionPredictions(UtilityProvider) : Prediction}. This
-method will fetch all the relevant data (i.e. the data from all the customers of
-the given utility provider). The next step is to run several (machine
-learning-based) prediction algorithms for analysis. When this is result is
-computed it is returned towards the invoker of the method.
+namely \method{getConsumptionPredictions(UtilityProvider)}. This method will
+fetch all the relevant data (i.e. the data from all the customers of the given
+utility provider). The next step is to run several (machine learning-based)
+prediction algorithms for analysis. When this is result is computed it is
+returned towards the invoker of the method.
 
 \subsubsection{Billing Unit}
 
 \paragraph{BillingReceive}
 
-\npar This interface has only one method, namely \method{markPaid(InvoiceId :
-String) : void}. It serves to notify the billing unit when an invoice is paid so
-it can be stored in the ReMeS database.
+\npar This interface has only one method, namely \method{markPaid(String)}. It
+serves to notify the billing unit when an invoice is paid so it can be stored in
+the ReMeS database.
 
 \subsubsection{Billing Communication Unit}
 
 \paragraph{BillingSend}
 
-\npar This interface has once again only one method, \method{send(Invoice) :
-void}. This method is to be invoked by the billing unit once it has constructed
-an invoice that needs to be sent to the third party billing service.
+\npar This interface has once again only one method, \method{send(Invoice)}.
+This method is to be invoked by the billing unit once it has constructed an
+invoice that needs to be sent to the third party billing service.
 
 \paragraph{BillingCommunication}
 
-\npar This interface has only one method, namely \method{markPaid(InvoiceId :
-String) : void}. It serves to notify the billing unit when an invoice is paid so
-it can be stored in the ReMeS database.
+\npar This interface has only one method, namely \method{markPaid(String)}. It
+serves to notify the billing unit when an invoice is paid so it can be stored in
+the ReMeS database.
 
 \subsubsection{UIS Commmunication Unit}
 
@@ -221,12 +220,12 @@ night rate discounts, etc.).
 % dezelfde als die van Prediction (de communiation blokken zijn uiteindelijk
 % maar facades.)
 \npar This interface offers one method, namely
-\method{getConsumptionPrediction(UtilityProvider) : Prediction}. A call to this
+\method{getConsumptionPrediction(UtilityProvider)}. A call to this
 method will dispatched to the \interface{PredictionAPI} interface.
 
 \begin{figure}[H]
 	\begin{centering}
-		% TODO
+		% TODO Figure 
 		\includegraphics[width=\textwidth]{figs/add-it10-interfaces.pdf}
 		\caption{Overview of the interfaces and components in the Other Component}
 		\label{fig:it10/interfaces}

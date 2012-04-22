@@ -114,7 +114,7 @@ case to load is high.
 
 \npar The MeasurementStorageFrontEnd component provides an interface
 \interface{MeasurementStorageAPI} to the Measurements Scheduler. This interface
-contains one method \method{execute(QueryCommand) : void} that offers a way
+contains one method \method{execute(QueryCommand)} that offers a way
 to execute a query on the measurements database. The Query is encapsulated as an
 object. A Callback is provided within that object in order to present the
 results of the query to the issuer when the query is executed.
@@ -124,7 +124,7 @@ results of the query to the issuer when the query is executed.
 \npar The MeasurementStorageFrontEnd does not contain the data. It delegates
 the queries to one or more MeasurementStorageInstances through the
 \interface{MeasurementStorageInstanceAPI} interface. This interface contains a
-a synchronous method \method{execute(Query) : Result}. Both the query and the
+a synchronous method \method{execute(Query)}. Both the query and the
 result are encapsulated in objects.
 
 \npar Apart from the \method{execute()} method, additional methods are provided
@@ -142,8 +142,8 @@ executing queries.
 \npar The TemporaryBuffer offers an \interface{TemporaryBufferAPI} interface
 which contains methods for adding and removing QueryCommands. 
 
-\npar The method \method{add(QueryCommand) : void} add a QueryCommand to the end
-of the buffer and the method \method{remove() : QueryCommand} removes the first
+\npar The method \method{add(QueryCommand)} add a QueryCommand to the end
+of the buffer and the method \method{remove()} removes the first
 QueryCommand from the buffer.
 
 \npar An overview of all child components and their interfaces is shown in
