@@ -1,11 +1,12 @@
-\section{MeasurementsStorageAPI}
+\section{OCPolicyAPI}
 
 \subsection{Interface Identity}
 
-\npar \interface{MeasurementsStorageAPI} provides methods to execute
-QueryCommands on the measurements database.
+\npar \interface{OCPolicyAPI} provides methods to enqueue
+OCCommands based on the type of command (closing valves as a result
+of an alarm will get a higher priority).
 
-\subsection{execute(QueryCommand)}
+\subsection{insertCommand(OCCommand)}
 
 \subsubsection{Resources Provided}
 
@@ -13,17 +14,16 @@ QueryCommands on the measurements database.
 	\begin{description}
 		\item[Syntax] \ 
 		\begin{verbatim}
-void execute(QueryCommand command) 
+void insertCommand(OCCommand command) 
     throws NullPointerException;
 		\end{verbatim}
 		\item[Arguments] \
 		\begin{itemize}
-			\item command: contains an encapsulated query to be executed on the
-			measurements database.
+			\item command: contains an encapsulated request send out a control trame to
+			a certain device.
 		\end{itemize}
-		\item[Effect] The command is translated to a Query that can be executed on
-		MeasurementsStorageInstances. When the Query is executed, the results are
-		forwarded to the issuer using a Callback.
+		\item[Effect] The priority of the command is calculated and presented to the
+		OCQueue to be inserted with that priority.
 		\item[Restrictions] \ 
 		\begin{itemize}
 			\item The given command is not null.
@@ -35,8 +35,8 @@ void execute(QueryCommand command)
 
 \begin{quote}
 	\begin{description}
-		\item[QueryCommand] This object wraps a query to the measurements database. It
-		provides a Callback to return the results to the command issuer.
+		\item[OCCommand] This object wraps a request to send a control
+		trame to a given remote device.
 	\end{description} 
 \end{quote}
 

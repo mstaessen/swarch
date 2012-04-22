@@ -1,25 +1,32 @@
 \section{MeasurementsSchedulerAPI}
+\label{api:measurements-scheduler-api}
 
 \subsection{Interface Identity}
 
-\subsection{\method{}}
+\npar \interface{MeasurementsSchedulerAPI} provides methods to schedule
+QueryCommands to be executed on the measurements database.
+
+\subsection{shedule(QueryCommand)}
 
 \subsubsection{Resources Provided}
 
 \begin{quote}
 	\begin{description}
-		\item[Syntax] \
+		\item[Syntax] \ 
 		\begin{verbatim}
-
+void shedule(QueryCommand command)
+    throws NullPointerException;
 		\end{verbatim}
 		\item[Arguments] \
 		\begin{itemize}
-		  \item 
+			\item command: contains an encapsulated query to be executed on the
+			measurements database.
 		\end{itemize}
-		\item[Effect]
-		\item[Restrictions] \
+		\item[Effect] The command is fed to the MeasurementsPolicy to be enqueued in
+		the MeasurementsQueue.
+		\item[Restrictions] \ 
 		\begin{itemize}
-		  \item 
+			\item The given command is not null.
 		\end{itemize}
 	\end{description} 
 \end{quote}
@@ -28,14 +35,15 @@
 
 \begin{quote}
 	\begin{description}
-		\item[] 
+		\item[QueryCommand] This object wraps a query to the measurements database. It
+		provides a Callback to return the results to the command issuer.
 	\end{description} 
 \end{quote}
 
-\subsubsection{Exception Definition} 
+\subsubsection{Exception Definition}
 
 \begin{quote}
 	\begin{description}
-		\item[ExceptionX] Description
+		\item[NullPointerException] This exception is thrown if the command is null.
 	\end{description} 
 \end{quote}

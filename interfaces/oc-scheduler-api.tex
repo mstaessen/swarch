@@ -1,11 +1,11 @@
-\section{ADSchedulerAPI}
+\section{OCSchedulerAPI}
 
 \subsection{Interface Identity}
 
-\npar \interface{ADSchedulerAPI} provides methods to schedule
-ADCommands to be executed on the measurements database.
+\npar \interface{OCSchedulerAPI} provides methods to schedule
+OCCommands for trames to be sent out.
 
-\subsection{shedule(ADCommand)}
+\subsection{shedule(OCCommand)}
 
 \subsubsection{Resources Provided}
 
@@ -13,16 +13,16 @@ ADCommands to be executed on the measurements database.
 	\begin{description}
 		\item[Syntax] \ 
 		\begin{verbatim}
-void shedule(ADCommand command)
+void shedule(OCCommand command)
     throws NullPointerException;
 		\end{verbatim}
 		\item[Arguments] \
 		\begin{itemize}
-			\item command: contains an encapsulated request to perform anomaly detection
-			for the device that sent the trame.
+			\item command: contains an encapsulated request send out a control trame to
+			a certain device.
 		\end{itemize}
-		\item[Effect] The command is fed to the ADPolicy to be enqueued in the
-		ADQueue.
+		\item[Effect] The command is fed to the OCPolicy to be enqueued in the
+		OCQueue.
 		\item[Restrictions] \ 
 		\begin{itemize}
 			\item The given command is not null.
@@ -34,9 +34,9 @@ void shedule(ADCommand command)
 
 \begin{quote}
 	\begin{description}
-		\item[ADCommand] This object wraps a request to perform anomaly detection for
-		the device that sent the trame.	
-	\end{description} 
+		\item[OCCommand] This object wraps a request to send a control
+		trame to a given remote device.
+	\end{description}
 \end{quote}
 
 \subsubsection{Exception Definition}

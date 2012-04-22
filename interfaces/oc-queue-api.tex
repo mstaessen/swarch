@@ -1,12 +1,11 @@
-\section{TemporaryBufferAPI}
+\section{OCQueueAPI}
 
 \subsection{Interface Identity}
 
-\npar \interface{TemporaryBufferAPI} provides methods to temporarily store 
-QueryCommands (first in, first out) when the measurements database is
-unavailable.
+\npar \interface{OCQueueAPI} provides methods to enqueue and dequeue
+OCCommands in the OCQueue.
 
-\subsection{add(QueryCommand)}
+\subsection{enqueue(OCCommand, double)}
 
 \subsubsection{Resources Provided}
 
@@ -14,19 +13,20 @@ unavailable.
 	\begin{description}
 		\item[Syntax] \ 
 		\begin{verbatim}
-void add(QueryCommand command) 
+void enqueue(OCCommand command, double priority) 
     throws NullPointerException;
 		\end{verbatim}
 		\item[Arguments] \
 		\begin{itemize}
-			\item command: contains an encapsulated write query to be executed on the
-			measurements database.
+			\item command: contains an encapsulated request send out a control trame to
+			a certain device.
+			\item priority: the priority this command will have in queue. 
 		\end{itemize}
-		\item[Effect] The command is added to the buffer. 
+		\item[Effect] The command is inserted in the queue accoring to its priority.
 		\item[Restrictions] \ 
 		\begin{itemize}
-			\item Only QueryCommands that represent write operations are accepted (read
-			queries can use the cache). 
+			\item The given command is not null.
+			\item A greater number corresponds to a higher priority. 
 		\end{itemize}
 	\end{description} 
 \end{quote}
@@ -35,8 +35,8 @@ void add(QueryCommand command)
 
 \begin{quote}
 	\begin{description}
-		\item[QueryCommand] This object wraps a query to the measurements database. It
-		provides a Callback to return the results to the command issuer.
+		\item[OCCommand] This object wraps a request to send a control trame to a
+		given remote device.
 	\end{description} 
 \end{quote}
 
@@ -48,7 +48,7 @@ void add(QueryCommand command)
 	\end{description} 
 \end{quote}
 
-\subsection{remove()}
+\subsection{dequeue()}
 
 \subsubsection{Resources Provided}
 
@@ -56,14 +56,14 @@ void add(QueryCommand command)
 	\begin{description}
 		\item[Syntax] \ 
 		\begin{verbatim}
-QueryCommand remove() 
-    throws EmptyBufferException;
+OCCommand dequeue() 
+    throws EmptyQueueException;
 		\end{verbatim}
 		\item[Arguments] This method takes no arguments.
-		\item[Effect] The QueryCommand at the front is popped of the buffer.
+		\item[Effect] The OCCommand with the highest priority is popped of the queue.
 		\item[Restrictions] \ 
 		\begin{itemize}
-			\item The buffer is not empty. 
+			\item The queue is not empty. 
 		\end{itemize}
 	\end{description} 
 \end{quote}
@@ -72,8 +72,8 @@ QueryCommand remove()
 
 \begin{quote}
 	\begin{description}
-		\item[QueryCommand] This object wraps a query to the measurements database. It
-		provides a Callback to return the results to the command issuer.
+		\item[OCCommand] This object wraps a request to send a control trame to a
+		given remote device.
 	\end{description} 
 \end{quote}
 
@@ -81,7 +81,7 @@ QueryCommand remove()
 
 \begin{quote}
 	\begin{description}
-		\item[EmptyBufferException] This exception is thrown if the buffer is empty.
+		\item[EmptyQueueException] This exception is thrown if the queue is empty.
 	\end{description} 
 \end{quote}
 

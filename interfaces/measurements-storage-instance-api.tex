@@ -1,17 +1,31 @@
-\section{MeasurementsSchedulerAPI}
+\section{MeasurementsStorageInstanceAPI}
 
 \subsection{Interface Identity}
 
-\subsection{\method{methodX(ParamY)}}
+\npar \interface{MeasurementsStorageInstanceAPI} provides methods to execute
+QueryCommands on the measurements storage instances.
+
+\subsection{execute(Query)}
 
 \subsubsection{Resources Provided}
 
 \begin{quote}
 	\begin{description}
-		\item[Syntax]
-		\item[Arguments]
-		\item[Effect]
-		\item[Restrictions]
+		\item[Syntax] \ 
+		\begin{verbatim}
+Result execute(Query query) 
+    throws NullPointerException;
+		\end{verbatim}
+		\item[Arguments] \
+		\begin{itemize}
+			\item query: the query to be executed on the measurements storage instance. 
+		\end{itemize}
+		\item[Effect] The query is executed and the result is returned as a Result
+		object.
+		\item[Restrictions] \ 
+		\begin{itemize}
+			\item The given query is not null.
+		\end{itemize}
 	\end{description} 
 \end{quote}
 
@@ -19,16 +33,30 @@
 
 \begin{quote}
 	\begin{description}
-		\item[TypeX] Description
-		\item[TypeY] Description
+		\item[Query] This object wraps a query to the measurements database.
 	\end{description} 
 \end{quote}
 
-\subsubsection{Exception Definition} 
+\subsubsection{Exception Definition}
 
 \begin{quote}
 	\begin{description}
-		\item[ExceptionX] Description
-		\item[ExceptionY] Description
+		\item[NullPointerException] This exception is thrown if the query is null.
+	\end{description} 
+\end{quote}
+
+\subsection{getLoad()}
+
+\subsubsection{Resources Provided}
+
+\begin{quote}
+	\begin{description}
+		\item[Syntax] \ 
+		\begin{verbatim}
+double getLoad() 
+		\end{verbatim}
+		\item[Arguments] This method takes no arguments.
+		\item[Effect] The system load is returned. 
+		\item[Restrictions] There are no restrictions for this method.
 	\end{description} 
 \end{quote}
