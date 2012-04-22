@@ -5,10 +5,9 @@
 \label{add:it6/drivers}
 
 \npar It is crucial that ``shut down valve" trames are sent in time to the
-correct module considering that trames who arrive to late can ultimately
+correct module considering that trames that arrive too late can ultimately
 lead to a potential disaster claiming the lifes of several people. Therefore the
-trames for outbound communication (i.e. towards modules) need to be
-scheduled. 
+outbound trames (i.e. towards modules) need to be scheduled. 
 
 \npar The (only) driver of this iteration is 
 
@@ -25,9 +24,10 @@ scheduled.
 \label{add:it6/concepts}
 
 \npar The design concepts for this decomposition are exactly the same as those
-of the storage scheduler, see section \ref{add:it3/concepts}. This is logical
-considering that both schedulers are established with performance drivers in
-mind.
+of the storage and anomaly detection scheduler, see sections
+\ref{add:it3/concepts} and \ref{add:it5/concepts}.
+This is a logical result considering that both schedulers are established with
+performance drivers in mind.
 
 \subsection{Step 3: Instantiate architectural elements and allocate responsibilities}
 \label{add:it6/elements}
@@ -36,36 +36,42 @@ mind.
 	\begin{centering}
 		% TODO Figure
 		%\includegraphics[width=0.6\textwidth]{figs/decomposition/outbound-comm-scheduler/decomposition.pdf}
-		\caption{The decomposition of the Outbound Communicatin Scheduler. Iteration
-		6}
+		\caption{The decomposition of the Outbound Communication Scheduler}
 		\label{fig:add/it6/decomposition}
 	\end{centering}
 \end{figure}
 
-\subsubsection{Message Router}
+\subsubsection{OutboundCommScheduler}
 
+% TODO paste from other sched
 \npar The message router will dispatch incoming trames to the correct queue
 based on the importance of the trame and the current policy (the latter is
 determined by the system load). 
 
-\subsubsection{Scheduler}
+\subsubsection{OutboundCommPolicy}
 
+% TODO paste from other sched
 \npar The task of this component is twofold. First of all it does the actual
 scheduling. This means that it pops elements out of the priorityqueue to
 redirect for further processing (this off course occurs only when the database
 is not processing another trame). Second of all, to prevent starvation
 priorities are periodically boosted.
 
-\subsubsection{PriorityQueue}
+\subsubsection{OutboundCommQueue}
 
+% TODO paste from other sched
 \npar This component represents a multilevel queue. When one keeps the indeces
 of the last element of every possible priority, it is easy to insert new trames
 according to the current policy and the priority of the trame itself.
 
+\subsubsection{OutboundCommQueueReader}
+
+% TODO paste from other sched
+
 \subsection{Step 4: Define interfaces for instantiated elements}
 \label{add:it6/interfaces}
 
-\subsubsection{Message Router}
+\subsubsection{OutboundCommScheduler}
 
 \paragraph{OutboundTrameScheduler}
 
@@ -88,4 +94,4 @@ trame from the priorityqueue.
 \subsection{Step 5: Verify and refine}
 \label{add:it6/verification}
 
-\npar The driver of this iteration, P1, is resolved.
+\npar The driver for this iteration, P1, is resolved.
