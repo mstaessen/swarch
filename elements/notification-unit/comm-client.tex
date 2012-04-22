@@ -4,12 +4,14 @@
 \subsection{Roles and responsibilities}
 
 \npar This component offers functionality to send alarms. It's task is
-twofold. First of all this component has to fetch the communication channel
-through which it has to contact the stakeholder (i.e. the emergency services
-and/or one or more customers). Therefore it uses the \interface{CustomerProfile}
-interface of the database which contains all user information. Secondly, once
-the channel is acquired it has to contact the transport pool to ask for the
-right transport unit which can be used to send the notification.
+threefold. First of all this component has to fetch the alarm recipients of the
+module included in the Alarm. Furthermore the communication channel through
+which the stakeholder is to be contacted (i.e. the emergency services and/or one
+or more customers) has to be retrieved. Therefore it uses the
+\interface{CustomerProfile} interface of the database which contains all user
+information. Third, once the channel is acquired it has to contact the
+transport pool to ask for the right transport unit which can be used to send the
+notification.
 
 \subsection{Provided interfaces}
 

@@ -1,0 +1,19 @@
+\section{ADInstance}
+\label{element:ad-instance}
+
+\subsection{Roles and responsibilities}
+
+\npar This component executes the actual machine learning algorithms to detect
+an anomaly. This component is fetched by the front end to handle a certain
+command. This means that it needs to process the trame in the command together
+with previous consumption history of that same customer. When the algorithms are
+finished the result is returned to the front end.
+
+\subsection{Provided interfaces}
+
+\begin{itemize}
+  \item ADInstanceAPI, see \ref{api:ad-instance-api}.
+\end{itemize}
+
+
+

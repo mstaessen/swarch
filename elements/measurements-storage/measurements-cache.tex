@@ -1,12 +1,14 @@
 \section{MeasurementsCache}
-\label{element:measurements-policy}
+\label{element:measurements-cache-api}
 
 \subsection{Roles and responsibilities}
 
-\npar When the load on the database is to high
+\npar This component is a standard cache which contains the most recently used
+data. When the main storage is overloaded (and only then) this cache is used to
+execute some of the queries. 
 
 \subsection{Provided interfaces}
 
 \begin{itemize}
-  \item MeasurementsCache, see \ref{api:measurements-storage-cache-api}.
+  \item MeasurementsCacheAPI, see \ref{api:measurements-storage-cache-api}.
 \end{itemize}
