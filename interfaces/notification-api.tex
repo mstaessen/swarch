@@ -14,19 +14,20 @@ towards third parties.
 	\begin{description}
 		\item[Syntax] \
 		\begin{verbatim}
-send(Alarm alarm) : void
-    throws NullPointerException, IllegalAlarmException
+void send(Alarm alarm)
+    throws NullPointerException
 		\end{verbatim}
 		\item[Arguments] \
 		\begin{itemize}
 		  \item the contents of the alarm will be used to send the alarm (physically). 
 		\end{itemize}
 		\item[Effect] This method call will be dispatched to the \method{send(Alarm)}
-		of the interface in section \ref{api:notification-unit-transport-api}.
+		of the interface in section \ref{api:notification-unit-transport-api}. Before
+		dispatching, however, the alarm recipients are retrieved and added to the
+		Alarm.
 		\item[Restrictions] \
 		\begin{itemize}
 		  \item The given parameter can not be the null reference.
-		  \item There has to be at least one recipient in the Alarm.
 		  \item The message part of the Alarm can't be empty.
 		\end{itemize}
 	\end{description} 
@@ -48,7 +49,5 @@ send(Alarm alarm) : void
 	\begin{description}
 		\item[NullPointerException] This exception will be thrown when the given Alarm
 		is null.
-		\item[IllegalAlarmException] This exception will be thrown when there is no
-		recipient or reason incuded in the Alarm.
 	\end{description} 
 \end{quote}

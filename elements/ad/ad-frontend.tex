@@ -1,0 +1,21 @@
+\section{ADFrontEnd}
+\label{element:ad-frontend}
+
+\subsection{Roles and responsibilities}
+
+\npar This component acts as the manager of the ADInstances. When a new
+ADCommand enters the front end will fetch an instance of the instance pool which
+will execute the command and return the result. Based on the result the front
+end can determine whether it is a false alarm or a true alarm. In the latter
+case the notification unit is contacted to send an alarm and possibly an
+OCCommand is constructed and send to the OCScheduler to seal the
+corresponding valve.
+
+\subsection{Provided interfaces}
+
+\begin{itemize}
+  \item AnomalyDetectionAPI, see \ref{api:anomaly-detection-api}.
+\end{itemize}
+
+
+

@@ -1,5 +1,5 @@
-\section{MeasurementsPolicy}
-\label{element:measurements-policy}
+\section{MeasurementsStorageFrontEnd}
+\label{element:measurements-storage-front-end}
 
 \subsection{Roles and responsibilities}
 
@@ -9,7 +9,8 @@ FrontEnd will coordinate interaction between all (replicated) storage instances
 and will also manage references to a TemporaryBuffer, for temporary storage of
 measurement trames in case the database becomes unavailable. It also manages
 access to a MeasurementStorageCache, to speed up requests to the measurements
-database in case to load is high.
+database in case to load is high. Notice that the frontend also converts the
+incoming QueryCommands to actual Queries.
 
 \subsection{Provided interfaces}
 
