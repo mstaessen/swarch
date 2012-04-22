@@ -3,9 +3,10 @@
 \subsection{Interface Identity}
 
 \npar \interface{MeasurementsPolicyAPI} provides methods to enqueue
-QueryCommands based on different properties (system load, query type, \ldots).
+QueryCommands based on different properties (system load, query type, service
+level agreement with the issuer, \ldots).
 
-\subsection{insertCommand(QueryCommand, MeasurementsQueue)}
+\subsection{insertCommand(QueryCommand)}
 
 \subsubsection{Resources Provided}
 
@@ -22,7 +23,7 @@ void insertCommand(QueryCommand command)
 			measurements database.
 		\end{itemize}
 		\item[Effect] The priority of the command is calculated and presented to the
-		queue to be inserted in the MeasurementsQueue with that priority.
+		MeasurementsQueue to be inserted with that priority.
 		\item[Restrictions] \ 
 		\begin{itemize}
 			\item The given command is not null.
