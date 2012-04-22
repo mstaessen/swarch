@@ -71,16 +71,16 @@ action is undertaken (i.e. a ReMeS operator is notified).
 
 \subsubsection{Operator Notification Unit}
 
-\paragraph{Operator}
+\paragraph{OperatorNotificationAPI}
 %TODO: moet er uberhaupt een message zijn of is dit altijd gewoon hetzelfde
 % message (namelijk een crash) ?
-\npar This interface offers a \method{notify(message) : Void} method. The
+\npar This interface offers a \method{notify(Message) : void} method. The
 purpose of this method is notifying a ReMeS operator with the given message
 parameter. 
 
 \subsubsection{Heartbeat Monitor}
 
-\paragraph{HealthMonitor}
+\paragraph{HealthMonitorAPI}
 %TODO: parameter van de pulse methode
 \npar Since there is a need for other component to give a signal that they are
 still alive a method \method{pulse()} is included. This is the only method this
