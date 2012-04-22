@@ -1,0 +1,59 @@
+\section{OutboundCommAPI}
+\label{api:rm-outbound-comm-api}
+
+\subsection{Interface Identity}
+
+\npar \interface{OutboundCommAPI} provides methods for notifying the
+implementor.
+
+\subsection{\method{send(OCCommand)}}
+
+\subsubsection{Resources Provided}
+
+\begin{quote}
+	\begin{description}
+		\item[Syntax] \
+		\begin{verbatim}
+void send(OCCommand command)
+    throws NullPointerException, IllegalOCCommandException
+		\end{verbatim}
+		\item[Arguments] \
+		\begin{itemize}
+		  \item command: contains all the data required to send a trame towards a
+		  remote module.
+		\end{itemize}
+		\item[Effect] Invocation of this method has a twofolded result. First of
+		all is the given command translated into a (physical) trame and second the
+		trame is sent towards the remote module (using the information in the
+		command).
+		\item[Restrictions] \
+		\begin{itemize}
+		  \item The given command can not be the null reference.
+		  \item The given command has to contain all the data to allows the
+		  implementator of this interface to construct the trame and sent it towards
+		  the remote module. This means that it has to at least contain a recipient
+		  (i.e. remote module id) and an actual message.
+		\end{itemize}
+	\end{description} 
+\end{quote}
+
+\subsubsection{Data Types Definition}
+
+\begin{quote}
+	\begin{description}
+		\item[OCCommand] This object wraps a request to send a control
+		trame to a given remote device.
+	\end{description} 
+\end{quote}
+
+\subsubsection{Exception Definition} 
+
+\begin{quote}
+	\begin{description}
+		\item[NullPointerException] This exception is thrown when the given command is
+		the null reference.
+		\item[IllegalCommandException] This exception is thrown when there is not
+		enough information in the command to sent the trame. For example the lacking
+		of a recipient or actual data.
+	\end{description} 
+\end{quote}

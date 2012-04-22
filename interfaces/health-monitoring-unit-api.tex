@@ -1,0 +1,58 @@
+\section{HealthMonitoringUnitAPI}
+\label{api:health-monitoring-unit-api}
+
+\subsection{Interface Identity}
+
+\npar The \interface{HealthMonitorAPI} interface provides methods for notifying
+ones heartbeat.
+
+\subsection{\method{pulse(String,ComponentInfo)}}
+
+\subsubsection{Resources Provided}
+
+\begin{quote}
+	\begin{description}
+		\item[Syntax] \
+		\begin{verbatim}
+void pulse(String componentId, ComponentInfo info)
+    throws NullPointerException, IllegalComponentIdException;
+		\end{verbatim}
+		\item[Arguments] \
+		\begin{itemize}
+		  \item componentId: is a unique identifier for a component in the system.
+		  \item info: is an object with additional information concerning the
+		  component with the given id. This information is optional
+		\end{itemize}
+		\item[Effect] The last registered heartbeat of the component with the given id
+		is increased to the date of invoking. Besides that, additional information can
+		be processed (e.g. the storage component confirms it is alive but one of its
+		replicas has failed).
+		\item[Restrictions] \
+		\begin{itemize}
+		  \item The given id can not be the null reference.
+		  \item The given id has to refer to an existing component.
+		  \item A component can only call the \method{pulse} method with itself as
+		  first argument. 
+		\end{itemize}
+	\end{description} 
+\end{quote}
+
+\subsubsection{Data Types Definition}
+
+\begin{quote}
+	\begin{description}
+		\item[ComponentInfo] This object is a wrapper for additional information
+		regarding the component who confirms that it is alive.
+	\end{description} 
+\end{quote}
+
+\subsubsection{Exception Definition} 
+
+\begin{quote}
+	\begin{description}
+		\item[NullPointerException] This exception is thrown when the first argument
+		is null. 
+		\item[IllegalComponentIdException] This exception is thrown when the
+		componentId doest not match the id number of any component in the system.
+	\end{description} 
+\end{quote}

@@ -1,6 +1,10 @@
-\section{Transport}
+\section{NotificationAPI}
+\label{api:notifcation-api}
 
 \subsection{Interface Identity}
+
+\npar \interface{TransportAPI} provides methodes for the sending of an alarm
+towards third parties.
 
 \subsection{\method{send(Alarm)}}
 
@@ -17,8 +21,8 @@ send(Alarm alarm) : void
 		\begin{itemize}
 		  \item the contents of the alarm will be used to send the alarm (physically). 
 		\end{itemize}
-		\item[Effect] The contents of the alarm message are sent to the recipients
-		which are also contained in the alarm message.
+		\item[Effect] This method call will be dispatched to the \method{send(Alarm)}
+		of the interface in section \ref{api:notification-unit-transport-api}.
 		\item[Restrictions] \
 		\begin{itemize}
 		  \item The given parameter can not be the null reference.
