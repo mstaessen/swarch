@@ -1,0 +1,15 @@
+\section{Output Translator}
+\label{element:rm-output-translator}
+
+\subsection{Roles and responsibilities}
+
+\npar This component is analogous to the input translator off course. This
+component retrieves the right translator from the pool, based on the module
+where the incoming trame should be send to. It is important to notice that all
+outgoing communication towards remote modules goes through this translator.
+
+\subsection{Provided interfaces}
+
+\begin{itemize}
+  \item OutboundCommAPI, see \ref{api:rm-outbound-comm-api}.
+\end{itemize}

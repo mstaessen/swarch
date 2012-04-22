@@ -1,0 +1,15 @@
+\section{PredictionUnit}
+\label{element:prediction-unit}
+
+\subsection{Roles and responsibilities}
+
+\npar The prediction unit is responsible for fetching the consumption
+histories of all customers and processing them(i.e. running all sorts of
+prediction algorithms on the fetched data). The uis communication unit can
+afterwards contact this component to retrieve the computed predictions.
+
+\subsection{Provided interfaces}
+
+\begin{itemize}
+  \item PredictionAPI, see \ref{api:other-prediction-api}.
+\end{itemize}

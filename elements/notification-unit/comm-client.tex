@@ -1,0 +1,18 @@
+\section{CommunicationClient}
+\label{element:communication-client}
+
+\subsection{Roles and responsibilities}
+
+\npar This component offers functionality to send alarms. It's task is
+twofold. First of all this component has to fetch the communication channel
+through which it has to contact the stakeholder (i.e. the emergency services
+and/or one or more customers). Therefore it uses the \interface{CustomerProfile}
+interface of the database which contains all user information. Secondly, once
+the channel is acquired it has to contact the transport pool to ask for the
+right transport unit which can be used to send the notification.
+
+\subsection{Provided interfaces}
+
+\begin{itemize}
+  \item NotificatonAPI, see \ref{api:notifcation-api}.
+\end{itemize}

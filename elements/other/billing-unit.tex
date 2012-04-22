@@ -1,0 +1,21 @@
+\section{BillingUnit}
+\label{element:billing-unit}
+
+\subsection{Roles and responsibilities}
+
+\npar The responsibility of this unit is limited to the generation of invoices.
+Ths includes determining that an invoice should be constructed, fetching all the
+relevant consumption data and constructing the invoice. The constructed invoice
+is then sent towards the billing communication unit through the
+\interface{BillingReceive} interface. One more task is assigned to this
+component, namely the marking of paid invoices. To retrieve all data the
+billing unit needs, first of all it has to have access through the internal
+ReMeS customer database (through the \interface{CustomerProfile} interface).
+Secondly, it needs to be able to contact the UIS. This is done through the
+\interface{CustomerInformation}.
+
+\subsection{Provided interfaces}
+
+\begin{itemize}
+  \item BillingUnitAPI, see \ref{api:other-billing-unit-api}.
+\end{itemize}
