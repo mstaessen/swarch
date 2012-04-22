@@ -3,12 +3,17 @@
 
 \subsection{Roles and responsibilities}
 
-\npar The measurements queue does nothing else than provide a simple queue with
-accompanying pop and push functionality. The measurements policy pushes elements
-in the queue and the measurements queue reader pops elements out of the queue.
+\npar The measurements queue does nothing else than provide a priority queue for
+measurementsqueries with accompanying insert and retrieve functionality. Since
+it is a priority queue the queries can be placed in different places in the
+queue depending on their priority. More precisely, for each priority level will
+the index of the last element with that priority be kept in a list. When a new
+query needs to be inserted, the priority of that query is determined.
+Subsequently, the priority is used to retrieve the index of the last element and
+in this way the new query can be inserted.
 
 \subsection{Provided interfaces}
 
 \begin{itemize}
-  \item Queue, see \ref{api:measurements-queue-api}
+  \item MeasurementQueueAPI, see \ref{api:measurements-queue-api}
 \end{itemize}
