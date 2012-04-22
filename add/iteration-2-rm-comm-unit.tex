@@ -98,17 +98,17 @@ multiple components to receive trames in parallel.
 \begin{figure}[H]
 	\begin{centering}
 		% TODO Figure
-		%\includegraphics[width=0.6\textwidth]{figs/decomposition/rm-comm-unit/decomposition.pdf}
-		\caption{The decomposition of the remote module communication unit. Iteration
-		2}
-		\label{fig:add/it2/decomposition}
+		\includegraphics[width=\textwidth]{figs/add-it2-elements.pdf}
+		\caption{Overview of the instantiated child elements in the Remote Module
+		Communication Unit}
+		\label{fig:it2/elements}
 	\end{centering}
 \end{figure}
 
 \npar The remote module communication unit has three main components: Input
 Translator, Output Translator, Translator Pool, Event Channel, Deadline Monitor
 and Trame Consumer. Each of them will be discussed below. As one can see in
-diagram \ref{fig:add/it2/decomposition} there are only two communication paths
+diagram \ref{fig:it2/elements} there are only two communication paths
 in the system, one for incoming communication and one for outgoing. In this way
 another tactic is realized, namely the restriction of communication paths.
 
@@ -221,6 +221,16 @@ offers a \method{notify() : void}.
 \npar This unit offers the exact same interface as the deadline monitor.
 
 %TODO: hoe zit het met de interfaces tussen de pool en zijn instances ?
+
+\begin{figure}[H]
+	\begin{centering}
+		% TODO Figure
+		\includegraphics[width=\textwidth]{figs/add-it2-interfaces.pdf}
+		\caption{Overview of the interfaces and components in the remote
+		module communication unit}
+		\label{fig:it2/interfaces}
+	\end{centering}
+\end{figure}
 
 \subsection{Step 5: Verify and refine}
 \label{add:it2/verification}

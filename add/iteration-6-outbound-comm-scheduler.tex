@@ -35,9 +35,10 @@ performance drivers in mind.
 \begin{figure}[H]
 	\begin{centering}
 		% TODO Figure
-		%\includegraphics[width=0.6\textwidth]{figs/decomposition/outbound-comm-scheduler/decomposition.pdf}
-		\caption{The decomposition of the Outbound Communication Scheduler}
-		\label{fig:add/it6/decomposition}
+		\includegraphics[width=\textwidth]{figs/add-it6-elements.pdf}
+		\caption{Overview of the instantiated child elements in the Outbound
+		Communication Scheduler}
+		\label{fig:it6/elements}
 	\end{centering}
 \end{figure}
 
@@ -82,6 +83,16 @@ highest priority off the queue and present it on the database for execution.
 scheduler, see section \ref{add:it3/interfaces}. It offers a \method{pop(trame)}
 and \method{push{trame}} method which will respectively pop and push a given
 trame from the priorityqueue.
+
+\begin{figure}[H]
+	\begin{centering}
+		% TODO Figure
+		\includegraphics[width=\textwidth]{figs/add-it6-interfaces.pdf}
+		\caption{Overview of the interfaces and components in the
+		Outbound Communication Scheduler}
+		\label{fig:it6/interfaces}
+	\end{centering}
+\end{figure}
 
 \subsection{Step 5: Verify and refine}
 \label{add:it6/verification}

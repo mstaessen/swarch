@@ -28,16 +28,16 @@ separation of concerns taken into account as much as possible.
 
 \begin{figure}[H]
 	\begin{centering}
-		% TODO
-		%\includegraphics[width=0.6\textwidth]{figs/decomposition/notification-unit/decomposition.pdf}
-		\caption{The decomposition of the notification unit. Iteration 7}
-		\label{fig:add/it7/decomposition}
+		% TODO Figure
+		\includegraphics[width=\textwidth]{figs/add-it7-elements.pdf}
+		\caption{Overview of the instantiated child elements in the Notification Unit}
+		\label{fig:it7/elements}
 	\end{centering}
 \end{figure}
 
-\npar There are 2 main components in this decomposition, the communication
+\npar There are two main components in this decomposition, the communication
 client and the transport pool. Both of them will be explained below. A graphical
-illustration is given in figure \ref{fig:add/it7/decomposition}.
+illustration is given in figure \ref{fig:it7/elements}.
 
 \subsubsection{Communication Client} 
 %TODO: voor de emergency services moet er misschien een shortcut voorzien worden
@@ -90,6 +90,15 @@ communicationChannel parameter.
 \method{send(Alarm) : void}. Notice that this method has the same semantics as
 the method of the \interface{NotifyUnit} interface, but now the communication
 channel is known so the notification can physically take place.
+
+\begin{figure}[H]
+	\begin{centering}
+		% TODO Figure
+		\includegraphics[width=\textwidth]{figs/add-it7-interfaces.pdf}
+		\caption{Overview of the interfaces and components in the Notification Unit}
+		\label{fig:it7/interfaces}
+	\end{centering}
+\end{figure}
 
 \subsection{Step 5: Verify and refine}
 \label{add:it7/verification}
