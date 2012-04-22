@@ -1,22 +1,33 @@
-\section{MeasurementsSchedulerAPI}
+\section{TranslatorAPI}
+\label{api:rm-translator-api}
 
 \subsection{Interface Identity}
 
-\subsection{\method{}}
+\npar The \interface{TranslatorAPI} offers functionality for the translation of
+incoming and outgoing trames.
+
+\subsection{\method{translateFromDevice(RawTrame)}}
 
 \subsubsection{Resources Provided}
 
 \begin{quote}
 	\begin{description}
-		\item[Syntax] 
-		\item[Arguments] 
+		\item[Syntax] \
+		\begin{verbatim}
+translateFromDevice(byte[] rawTrame) : Message
+    throws IllegalFormatException
+		\end{verbatim}
+		\item[Arguments] \
 		\begin{itemize}
-		  \item 
+		  \item the rawTrame is the trame to be translated into a message for further
+		  usage in ReMeS.
 		\end{itemize}
-		\item[Effect]
-		\item[Restrictions] 
+		\item[Effect] The given parameter will be translated into a Message object.
+		This means that all information, relevant for further processing, will be
+		extracted of the parameter and placed into a new object.
+		\item[Restrictions] \
 		\begin{itemize}
-		  \item 
+		  \item The rawTrame should be in the right format.
 		\end{itemize}
 	\end{description} 
 \end{quote}
@@ -25,7 +36,9 @@
 
 \begin{quote}
 	\begin{description}
-		\item[] 
+		\item[Message] This object represents an objectified trame. It contains
+		information about the customer (i.e. the ``owner'' of the trame) and the data
+		of the trame.
 	\end{description} 
 \end{quote}
 
@@ -33,6 +46,55 @@
 
 \begin{quote}
 	\begin{description}
-		\item[ExceptionX] Description
+		\item[IllegalFormatException] This exception will be thrown when the bytes of
+		the incoming trame are not ordered (or filled in) as they should be.
+	\end{description} 
+\end{quote}
+
+\subsection{\method{translateToDevice(Message)}}
+
+\subsubsection{Resources Provided}
+
+\begin{quote}
+	\begin{description}
+		\item[Syntax] \
+		\begin{verbatim}
+translateToDevice(Message message) : byte[]
+    throws IllegalContentException, NullPointerException
+		\end{verbatim}
+		\item[Arguments] \
+		\begin{itemize}
+		  \item message, this is the message that will be translated.
+		\end{itemize}
+		\item[Effect] The given parameter will be translated into an array of bytes.
+		This means that all information, relevant for a trame, will be extracted of
+		the parameter and placed into the array according to a predefined format.
+		\item[Restrictions] \
+		\begin{itemize}
+		  \item All the fields required for constructing the array should be present
+		  in the message.
+		  \item The given object can't be the null reference.
+		\end{itemize}
+	\end{description} 
+\end{quote}
+
+\subsubsection{Data Types Definition}
+
+\begin{quote}
+	\begin{description}
+		\item[Message] This object represents an objectified trame. It contains
+		information about the customer (i.e. the ``owner'' of the trame) and the data
+		of the trame.
+	\end{description} 
+\end{quote}
+
+\subsubsection{Exception Definition} 
+
+\begin{quote}
+	\begin{description}
+		\item[IllegalContentException] This exception will be thrown when one or more
+		fields of a given message parameter are not filled in. 
+		\item[NullPointerException] This exception will be thrown when the null
+		reference is used as a parameter to this method call.
 	\end{description} 
 \end{quote}
