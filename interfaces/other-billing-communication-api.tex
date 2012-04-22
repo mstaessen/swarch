@@ -1,8 +1,10 @@
-\method{markPaid(InvoiceId : String) : void}
-
-\section{BillingCommunicator}
+\section{BillingCommunicationAPI}
+\label{api:billing-communication-api}
 
 \subsection{Interface Identity}
+
+\npar \interface{BillingCommunicationAPI} provides methods for the marking of a
+paid invoice.
 
 \subsection{\method{markPaid(InvoiceId)}}
 
@@ -43,7 +45,9 @@ void markPaid(String InvoiceId)
 
 \begin{quote}
 	\begin{description}
-		\item[NullPointerException] 
-		\item[IllegalInvoiceIdException] This exception is thrown when 
+		\item[NullPointerException] This exception is thrown when the given id is the
+		null reference.
+		\item[IllegalInvoiceIdException] This exception is thrown when the given
+		invoiceId does not point to an existing invoice
 	\end{description} 
 \end{quote}

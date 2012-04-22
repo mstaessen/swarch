@@ -1,3 +1,93 @@
-\method{publish{PriceEvent} :void}
+\section{PriceChannel}
+\label{api:other-pric-channel.tex}
 
-\method{subscribe(PriceFilter) : void}
+\subsection{Interface Identity}
+
+\npar The \interface{PriceChannel} provides methods for the communication of
+events as the \emph{Publisher-Subscriber} pattern prescribes.
+
+\subsection{\method{publish{PriceEvent}}}
+
+\subsubsection{Resources Provided}
+
+\begin{quote}
+	\begin{description}
+		\item[Syntax] \
+		\begin{verbatim}
+void publish{PriceEvent priceEvent}
+    throws NullPointerException;
+		\end{verbatim}
+		\item[Arguments] \
+		\begin{itemize}
+		  \item priceEvent: will be published to all subscribers.
+		\end{itemize}
+		\item[Effect] Subscribers to receiving PricEvents will be notified of
+		the availability of a new event. 
+		\item[Restrictions] \
+		\begin{itemize}
+		  \item The given parameter can not be the null reference.
+		\end{itemize}
+	\end{description}
+\end{quote}
+
+\subsubsection{Data Types Definition}
+
+\begin{quote}
+	\begin{description}
+		\item[PriceEvent] This object is a wrapper for price updates. These updates
+		could be relevant to only certain tariffs, customers or contracts.
+	\end{description} 
+\end{quote}
+
+\subsubsection{Exception Definition} 
+
+\begin{quote}
+	\begin{description}
+		\item[NullPointerException] This exception is thrown when the parameter
+		is the null reference.
+	\end{description} 
+\end{quote}
+
+\subsection{\method{subscribe(PriceFilter)}}
+
+\subsubsection{Resources Provided}
+
+\begin{quote}
+	\begin{description}
+		\item[Syntax] \
+		\begin{verbatim}
+subscribe(PriceFilter filter) : void
+    throws NullPointerException
+		\end{verbatim}
+		\item[Arguments] \
+		\begin{itemize}
+		  \item The content of the given filter will be used for filtering
+		  notifications of arrivals of events.
+		\end{itemize}
+		\item[Effect] The subscribing object will be marked as a subscriber for
+		certain events (this is determined on the filter).
+		\item[Restrictions] \
+		\begin{itemize}
+		  \item The given parameter can not be the null reference.
+		\end{itemize}
+	\end{description} 
+\end{quote}
+
+\subsubsection{Data Types Definition}
+
+\begin{quote}
+	\begin{description}
+		\item[PriceFilter] This object offers functionality to indicate what
+		type of events one wants to receive.
+	\end{description} 
+\end{quote}
+
+\subsubsection{Exception Definition} 
+
+\begin{quote}
+	\begin{description}
+		\item[NullPointerException] This exception will be thrown when the given
+		filter is the null reference.
+	\end{description} 
+\end{quote}
+
