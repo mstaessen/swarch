@@ -410,42 +410,45 @@ elements a short description is provided.
 	\end{itemize}
 	\item Measurements Storage Scheduler
 	\begin{itemize}
-		\item Av2': Missing measurements (split). Monitor the health of the component.
-		\item P1': Timely closure of valves (split). The priorities for different
-		kinds of alarms.
+		\item P3': Requests to the measurement database (split). Queries of different
+		types have different priorities.
+		\item UC8': Send Measurement (split). 
+		\item UC17': Perform Research (split). 
 	\end{itemize}
 	\item Measurements Storage
 	\begin{itemize}
-		\item Av1: Measurement database failure (delegated). Replicate the database.
-		\item Av2': Missing measurements (split). Monitor the health of the component.
-	  	\item P3': Requests to the measurement database (delegated). 
+		\item Av1': Measurement database failure (split). Replicate the database.
+	  	\item P3': Requests to the measurement database (split). Load balancing.
 	\end{itemize}
 	\item Anomaly Detection Scheduler
 	\begin{itemize}
-		\item UCz: Determine the operational mode (derived). Determine the load in
-		order to utilize the right policy.
-		\item Av2': Missing measurements (split). Monitor the health of the
-	  	component.
 		\item P1' : Timely closure of valves (split). Make sure alarms are processed
 		in time. 
 	  	\item P2': Anomaly Detection (split). Make sure measurements are processed
 	  	in time. 
+		\item UCz: Determine the operational mode (derived). Determine the load in
+		order to utilize the right policy.
 	\end{itemize}
 	\item Anomaly Detection
 	\begin{itemize}
+		\item P2': Anomaly Detection (split). Parallellize anomaly detection.
 		\item UC10: Anomaly Detection (delegated). Perform the actual anomaly
 		detection.
-		\item P2': Anomaly Detection (split). Parallellize anomaly detection.
 	\end{itemize}
-	\item Customer Communication Unit
+	\item Notification Unit
 	\begin{itemize}
 		\item UC9: Notify Customer (delegated). Notify customers, alarm recipients,
 		call center and the emergency services. 
 	\end{itemize}
-	\item Outgoing Communication Scheduler
+	\item Scheduler for Outbound Communication
 	\begin{itemize}
 	  \item P1': Timely closure of valves (split). Make sure that control trames
 	  that originated from alarms are processed with high priority. 
+	\end{itemize}
+	\item Health Monitoring Unit
+	\begin{itemize}
+		\item Av1': Measurement database failure (split). Notify ReMeS operators. 
+		\item Av2': Missing measurements (split). Notify ReMeS operators.
 	\end{itemize}
 	\item Other functionality
 	\begin{itemize}

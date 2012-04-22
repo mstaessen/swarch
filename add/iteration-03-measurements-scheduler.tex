@@ -39,8 +39,6 @@ scheduled.
 \subsubsection{Tactics}
 \label{add:it3/tactics}
 
-% TODO detection?
-
 \npar The scheduler was introduced in iteration 1 (see section \ref{add:it1}) to
 improve performance. At the level of the scheduler, performance is determined by
 the scheduling policy. 
@@ -150,9 +148,9 @@ Therefore, MeasurementsPolicy provides an interface
 \npar The MeasurementsQueue must provide methods for inserting items and
 removing items. These methods are contained in the
 \interface{MeasurementsQueueAPI} and are called
-\method{insertCommand(QueryCommand, double)} and
-\method{remove()}. The first method is used by the
-MeasurementsPolicy and the last one is used by the MeasurementsQueueReader.
+\method{insertCommand(QueryCommand, double)} and \method{remove()}. The first
+method is used by the MeasurementsPolicy and the last one is used by the
+MeasurementsQueueReader.
 
 \npar Figure \ref{fig:it3/interfaces} summarizes the components and the
 interfaces instantiated in this iteration.
@@ -169,14 +167,6 @@ interfaces instantiated in this iteration.
 \subsection{Step 5: Verify and refine}
 \label{add:it3/verification}
 
-% TODO Verify na herziening drivers.
-
-\npar All quality and functionality is handled in this decomposition.  
-
-\begin{itemize}
-	\item P1': Timely propagation of alarm trames is handled by smart Queue
-	insertion by the Message Router. 
-	\item P2': Timely propagation of measurement trames is also handled by smart
-	Queue insertion by the Message Router. 
-	\item P3': Potential prioritization of certain database queries. 
-\end{itemize}
+\npar The one and only driver, P3' is resolved in this decomposition. The
+scheduler and scheduling policy guarantee that QueryCommands are executed in the
+right order.
