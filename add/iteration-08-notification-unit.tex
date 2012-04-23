@@ -37,57 +37,56 @@ separation of concerns taken into account as much as possible.
 \end{figure}
 
 \npar There are two main components in this decomposition, the communication
-client and the transport pool. Both of them will be explained below. A graphical
+client and the transport map. Both of them will be explained below. A graphical
 illustration is given in figure \ref{fig:it8/elements}.
 
-\subsubsection{Communication Client} 
-%TODO: voor de emergency services moet er misschien een shortcut voorzien worden
-% ipv de overhead om nog eerst het communication channel op te zoeken ? 
+\subsubsection{CommunicationClient} 
+% TODO: voor de emergency services moet er misschien een shortcut voorzien
+% worden ipv de overhead om nog eerst het communication channel op te zoeken ?
 \npar This component gets the initial notification message. It's task is
 twofold. First of all this component has to fetch the communication channel
 through which it has to contact the stakeholder (i.e. the emergency services
-and/or one or more customers). Therefore it uses the \interface{CustomerProfile}
-interface of the database which contains all user information. Secondly, once
-the channel is acquired it has to contact the transport pool to ask for the
-right transport unit which can be used to send the notification. The transport
-pool offers therefore an \interface{Transport} interface.
+and/or one or more customers). Therefore it uses the
+\interface{CustomerProfileAPI} interface of the database which contains all user
+information. Secondly, once the channel is acquired it has to contact the
+transport map to ask for the right transport unit which can be used to send the
+notification. The transport map offers therefore an \interface{TransportMapAPI}
+interface.
 
-\subsubsection{Transport Pool}
+\subsubsection{Transport Map}
 
-\npar The transport pool is the manager of several transport components. The
-pool will return the right transport component based on the request. Each
+\npar The transport map is the manager of several transport components. The
+map will return the right transport component based on the request. Each
 transportcomponent is responsible for communication towards the stakeholders
 through a specific channel. To realize this, each of these transport components
-offers a \interface{Notify} interface. By splitting the transport into different
-components the sending of notifications can be parallelized (i.e. over
+offers a \interface{TransportAPI} interface. By splitting the transport into
+different components the sending of notifications can be parallelized (i.e. over
 different communication channels).
 
 \subsection{Step 4: Define interfaces for instantiated elements}
 \label{add:it8/interfaces}
 
-\subsubsection{Communication Client}
+\npar In this section each interface is explained in terms of the components
+which use and/or offer it together with information about what is exchanged. For
+detailed information with reference to the specific methods the interfaces
+implement, we refer to the interface catalog, see appendix
+\ref{chap:interface-catalog}.
 
-\paragraph{NotifyUnit}
+\subsubsection{NotificationAPI}
 
-\npar The interface this notification unit offers, has one method, namely a
-\method{send(Alarm)}. Invoking this method results in the notification of the
-included recipient with the message also contains in the message parameter.
+\npar The \interface{NotificationAPI} was already discussed in section
+\ref{add:it1/interfaces}.
 
-\subsubsection{Transport Pool}
+\subsubsection{TransportMapAPI}
 
-\paragraph{TransportManager}
+\npar The \interface{TransportMapAPI} interface is situated in between the
+CommunicationClient, which is the invoker, and TransportMap, which is the
+provider. This interface offers functionality to retrieve a Transport entity.
 
-\npar The transport pool offers the \interface{Transport Manager} interface. It
-contains only one method, \method{getTransport(CommunicationChannel)}. This
-method has to return the right transport entity based on the
-communicationChannel parameter.
+\paragraph{TransportAPI}
 
-\paragraph{Transport}
-
-\npar This last interface also offers just one method, namely
-\method{send(Alarm)}. Notice that this method has the same semantics as
-the method of the \interface{NotifyUnit} interface, but now the communication
-channel is known so the notification can physically take place.
+\npar This interface is offered by Transport components. It is used to transport
+notification towards stakeholders such as customers.
 
 \begin{figure}[H]
 	\begin{centering}
