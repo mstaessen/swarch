@@ -80,14 +80,43 @@ replicated instances.
 \subsection{Step 3: Instantiate architectural elements and allocate responsibilities}
 \label{add:it4/elements}
 
-\npar A business delegate, called MeasurementStorageFrontEnd, will provide an
-interface to execute queries on the measurements database. This database will be
-replicated among different nodes, called MeasurementStorageInstances. The
-FrontEnd will coordinate interaction between all storage instances and will also
-manage references to a buffer, called TemporaryBuffer, for temporary storage of
-measurement trames in case the database becomes unavailable and a cache, called
-MeasurementStorageCache, to speed up requests to the measurements database in
-case to load is high.
+% \npar A business delegate, called MeasurementStorageFrontEnd, will provide an
+% interface to execute queries on the measurements database. This database will be
+% replicated among different nodes, called MeasurementStorageInstances. The
+% FrontEnd will coordinate interaction between all storage instances and will also
+% manage references to a buffer, called TemporaryBuffer, for temporary storage of
+% measurement trames in case the database becomes unavailable and a cache, called
+% MeasurementStorageCache, to speed up requests to the measurements database in
+% case to load is high.
+
+\subsubsection{MeasurementsStorageFrontEnd}
+
+\npar The MeasurementStorageFrontEnd acts as a business delegate and will
+provide an interface to execute queries on the measurements database. The
+FrontEnd will coordinate interaction between all (replicated) storage instances
+and will also manage references to a TemporaryBuffer, for temporary storage of
+measurement trames in case the database becomes unavailable. It also manages
+access to a MeasurementStorageCache, to speed up requests to the measurements
+database in case to load is high. Notice that the frontend also converts the
+incoming QueryCommands to actual Queries.
+
+\subsubsection{MeasurementsStorageCache}
+
+\npar This component is a standard cache which contains the most recently used
+data. When the main storage is overloaded (and only then) this cache is used to
+execute some of the queries. 
+
+\subsubsection{MeasurementsStorageInstance}
+
+\npar This component carries out the queries (i.e. execute the query on the
+database). Notice that there is more than one instance (to replicate the data).
+
+\subsubsection{TemporaryBuffer}
+
+\npar The TemporaryBuffer component is introduced to provide 3 hours of storage
+in case a database failure occurs. The MeasurementsStorageFrontEnd will redirect
+all storage traffic (i.e. QueryCommands) towards this component. Notice that the
+commands will be stored in this buffer, they won't be executed.
 
 \npar An overview of the child components is shown in figure
 \ref{fig:it4/elements}.
@@ -105,41 +134,36 @@ case to load is high.
 \subsection{Step 4: Define interfaces for instantiated elements}
 \label{add:it4/interfaces}
 
-\subsubsection{MeasurementStorageFrontEnd}
+\npar In this section each interface is explained in terms of the components
+which use and/or offer it together with information about what is exchanged. For
+detailed information with reference to the specific methods the interfaces
+implement, we refer to the interface catalog, see appendix
+\ref{chap:interface-catalog}.
 
-\npar The MeasurementStorageFrontEnd component provides an interface
-\interface{MeasurementStorageAPI} to the Measurements Scheduler. This interface
-contains one method \method{execute(QueryCommand)} that offers a way
-to execute a query on the measurements database. The Query is encapsulated as an
-object. A Callback is provided within that object in order to present the
-results of the query to the issuer when the query is executed.
+\subsubsection{MeasurementStorageAPI}
 
-\subsubsection{MeasurementStorageInstance}
+\npar This interface was already discussed in iteration 1, see
+\ref{add:it1/interfaces}.
 
-\npar The MeasurementStorageFrontEnd does not contain the data. It delegates
-the queries to one or more MeasurementStorageInstances through the
-\interface{MeasurementStorageInstanceAPI} interface. This interface contains a
-a synchronous method \method{execute(Query)}. Both the query and the
-result are encapsulated in objects.
+\subsubsection{MeasurementStorageInstanceAPI}
 
-\npar Apart from the \method{execute()} method, additional methods are provided
-for monitoring the load on all instances.
+\npar The \interface{MeasurementStorageInstanceAPI} lies in between the
+MeasurementsStorageFrontEnd and the MeasurementsStorageInstance, who implements
+it. Through this interface queries are streamed from the frontend to the
+instance and in the other directions are the results (synchronously)
+and load information is returned.
 
-\subsubsection{MeasurementStorageCache}
+\subsubsection{MeasurementStorageCacheAPI}
 
 \npar The MeasurementStorageCache provides an interface
 \interface{MeasurementStorageCacheAPI}, similar to the
-\interface{MeasurementStorageInstanceAPI}. It has the same method definition for
-executing queries. 
+\interface{MeasurementStorageInstanceAPI}. The dataflows are equal except for
+the load information which is not present.
 
-\subsubsection{TemporaryBuffer}
+\subsubsection{TemporaryBufferAPI}
 
 \npar The TemporaryBuffer offers an \interface{TemporaryBufferAPI} interface
-which contains methods for adding and removing QueryCommands. 
-
-\npar The method \method{add(QueryCommand)} add a QueryCommand to the end
-of the buffer and the method \method{remove()} removes the first
-QueryCommand from the buffer.
+to the frontend. Through this interface QueryCommands are sent.
 
 \npar An overview of all child components and their interfaces is shown in
 \ref{fig:it4/interfaces}.

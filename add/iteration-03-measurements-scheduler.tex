@@ -105,46 +105,80 @@ entries of the queues might also be large, making this solution less efficient.
 	\end{centering}
 \end{figure}
 
-\npar All requests to the Measurements Database Scheduler are encapsulated as
-QueryCommand objects. These objects have already been created in another
-component and represent a query to the measurements database. Because the
-scheduling makes communication asynchronous, the QueryCommand contains a
-Callback to return the result of the query to the issuer.
+\subsubsection{MeasurementsScheduler}
 
-\npar The scheduler (MeasurementsScheduler) handles every incoming command
-(QueryCommand) by inserting the command in a queue (MeasurementsQueue) with a
-certain priority using a policy (MeasurementsPolicy). The scheduling policy
-determines the priority of the command based on the nature of that command. The
-priorities of all other commands are increased every time a new command is
-inserted. This is done to prevent starvation.
+\npar The MeasurementsScheduler serves as entry point for the measurements
+scheduling. Upon receiving a measurement the scheduler will place that
+measurement in a MeasurementsPolicy. When the system transitions between load
+modi (from normal to overload or vice versa) it is possible that another policy
+is used. This transition in policies is likewise the responsibility of this
+component.
 
-\npar An additional component (MeasurementsQueueReader) will pop the command
-with the highest priority off the queue and present it on the database for execution. 
+\subsubsection{MeasurementsPolicy}
+
+\npar A MeasurementsPolicy is responsible for inserting incoming
+measurementsqueries (received from the MeasurementsScheduler) into the
+MeasurementsQueue. To be able to do this, the policy first has to determine the
+priority of the incoming query (and this priority is different for the various
+policies).
+
+\subsubsection{MeasurementsQueue}
+
+\npar The MeasurementsQueue does nothing else than provide a priority queue for
+measurementscommands with accompanying insert and retrieve functionality. Since
+it is a priority queue the queries can be placed in different places in the
+queue depending on their priority. More precisely, for each priority level will
+the index of the last element with that priority be kept in a list. When a new
+query needs to be inserted, the priority of that query is determined.
+Subsequently, the priority is used to retrieve the index of the last element and
+in this way the new query can be inserted. To prevent starvation are the
+priorities of all other commands increased every time a new command is
+inserted.
+
+\subsubsection{MeasurementsQueueReader}
+
+\npar The purpose of this component is dequeueing the measurement queue and
+afterwards dispatch the popped query to the the MeasurementsStorage.
+
+% \npar All requests to the Measurements Database Scheduler are encapsulated as
+% QueryCommand objects. These objects have already been created in another
+% component and represent a query to the measurements database. Because the
+% scheduling makes communication asynchronous, the QueryCommand contains a
+% Callback to return the result of the query to the issuer.
+% 
+% \npar The scheduler (MeasurementsScheduler) handles every incoming command
+% (QueryCommand) by inserting the command in a queue (MeasurementsQueue) with a
+% certain priority using a policy (MeasurementsPolicy). The scheduling policy
+% determines the priority of the command based on the nature of that command. 
+% 
+% \npar An additional component (MeasurementsQueueReader) will pop the command
+% with the highest priority off the queue and present it on the database for execution. 
 
 \subsection{Step 4: Define interfaces for instantiated elements}
 \label{add:it3/interfaces}
 
-\subsubsection{MeasurementsScheduler}
+\npar In this section each interface is explained in terms of the components
+which use and/or offer it together with information about what is exchanged. For
+detailed information with reference to the specific methods the interfaces
+implement, we refer to the interface catalog, see appendix
+\ref{chap:interface-catalog}.
 
-\npar The MeasurementsScheduler provides an interface
-\interface{MeasurementSchedulerAPI}. This interface contains a method
-\method{shedule(QueryCommand)} to schedule new commands.
+\subsubsection{MeasurementsSchedulerAPI}
 
-\subsubsection{MeasurementsPolicy}
+\npar This interface was already discussed in iteration 1, see
+\ref{add:it1/interfaces}.
 
-\npar The QueryCommand will be placed in the MeasurementsQueue by a policy.
-Therefore, MeasurementsPolicy provides an interface
-\interface{MeasurementsPolicyAPI} which contains a method
-\method{insertCommand(QueryCommand)}.
+\subsubsection{MeasurementsPolicyAPI}
 
-\subsubsection{MeasurementsQueue}
+\npar The \interface{MeasurementsPolicyAPI} lies between the
+MeasurementsScheduler and the MeasurementsPolicy. Its goal is to pass through
+commands which have to be placed in a MeasurementQueue.
 
-\npar The MeasurementsQueue must provide methods for inserting items and
-removing items. These methods are contained in the
-\interface{MeasurementsQueueAPI} and are called
-\method{insertCommand(QueryCommand, double)} and \method{remove()}. The first
-method is used by the MeasurementsPolicy and the last one is used by the
-MeasurementsQueueReader.
+\subsubsection{MeasurementsQueueAPI}
+
+\npar This interface is offered by the MeasurementsQueue and used by both the
+MeasurementsPolicy and the MeasurementsQueueReader. The policy uses the
+interface to place commands in the queue and the reader pops them off.
 
 \npar Figure \ref{fig:it3/interfaces} summarizes the components and the
 interfaces instantiated in this iteration.
