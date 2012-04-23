@@ -101,133 +101,117 @@ interfaces for all different components.
 \ref{fig:add/it10/decomposition}. In the subsection below each of the components
 will be discussed. 
 
-\subsubsection{Price Channel}
+\subsubsection{PriceChannel}
 
-\npar This component is the instantiation of the \emph{Publisher - Subscriber}
-pattern's ``Change Propagation Infrastructure''. Its responsibilities are the
-handling of subscriptions and publications to certain events. Users of this
-channel can be invoke one of the methods of it's interface,
-\interface{BillingChannel}. These are discussed in \ref{add:it8/interfaces}.
+\npar The event channel is a communication entity where publishers can publish
+events on and subscribers can subscribe on. Its solely goal is to redirect
+incoming events to the right receivers. Notice that this component is only used
+for the propagation of pricing updates.
 
-\subsubsection{Prediction Unit}
+\subsubsection{PredictionUnit}
 
 \npar The prediction unit is responsible for fetching the consumption
-histories of all customers, processing (i.e. running all sorts of
-prediction algorithms on the fetched data)and exporting. Therefore it offers a
-\interface{Prediction} interface.
+histories of all customers and processing them (i.e. running all sorts of
+prediction algorithms on the fetched data). The UISCommunicationUnit can
+afterwards contact this component to retrieve the computed predictions.
 
-\subsubsection{Billing Unit}
+\subsubsection{BillingUnit}
 
 \npar The responsibility of this unit is limited to the generation of invoices.
 Ths includes determining that an invoice should be constructed, fetching all the
 relevant consumption data and constructing the invoice. The constructed invoice
 is then sent towards the billing communication unit through the
-\interface{BillingReceive} interface. One more task is assigned to this
-component, namely the marking of paid invoices. To retrieve all data the billing
-unit needs, first of all it has to have access through the internal ReMeS
-customer database (through the \interface{CustomerProfile} interface).
+\interface{BillingSendAPI} interface. One more task is assigned to this
+component, namely the marking of paid invoices. To retrieve all the data the
+billing unit needs, first of all it has to have access through the internal ReMeS
+customer database (through the \interface{CustomerProfileAPI} interface).
 Secondly, it needs to be able to contact the UIS. This is done through the
 \interface{CustomerInformation}.
 
-\subsubsection{UIS Communication Unit}
+\subsubsection{UISCommunicationUnit}
 
 \npar This unit is the first of two units responsible for communication with
 external actors in respect to billing and prediction. In section
 \ref{add:it8/patterns} we discussed the usage of a slight variant of the
 \emph{Facade} pattern. The deviation of the standard pattern lies firstly in the
 usage of two communication units instead of one single point of access.
-Secondoly there is no bypassing of this communication (not even in a limited
-number of scenarios).
+Secondly there is no bypassing of this communication (not even in a limited
+number of scenarios) as it is the case in the \emph{Facade} pattern.
 
 \npar This component interacts with three other components. The first one,
 Utility information system, is used for all information needed by ReMeS that is
 stored by the utility company. The second one, prediction unit, is used to
 acquire prediction statistics for a certain utility company. Besides using
-interfaces the UIS communication unit off course offers interfaces itself. It
+interfaces the UISCommunicationUnit off course offers interfaces itself. It
 offers two main services towards other components: one towards the billing unit
 and one towards the UIS. The former service includes the retrieval of customer
 data that is kept by the UIS. The latter one is more of a consultation service
 where the UIS can request predictions.
 
-\subsubsection{Billing Communication Unit}
+\subsubsection{BillingCommunicationUnit}
 
 \npar The responsibility of this unit is the handling of all information between
 ReMeS and external actors regarding billing. It has two major duties. The first
 is to allow invoices to be sent towards the third party billing service after
 the invoice has been constructed off course. The second task is to provide a
-possibility for all notification that need to be sent towards ReMeS concerning
+possibility for all notifications that need to be sent towards ReMeS concerning
 the payment of invoices.
 
-\npar The billing communication unit also uses functionality which is reflected
-in the usage of the billing unit and third party billing service. The former one
-is used to sent the notification of a payment towards the billing unit. It uses
-the third party billing service in the sense of sending it the right documents.
+\npar The BillingCommunicationUnit also uses functionality which is reflected in
+the usage of the BillingUnit and third party billing service. The former one is
+used to sent the notification of a payment to. It uses the third party billing
+service for sending it the right documents.
 
 \subsection{Step 4: Define interfaces for instantiated elements}
 \label{add:it10/interfaces}
 
-\subsubsection{Event Channel}
+\npar In this section each interface is explained in terms of the components
+which use and/or offer it together with information about what is exchanged. For
+detailed information with reference to the specific methods the interfaces
+implement, we refer to the interface catalog, see appendix
+\ref{chap:interface-catalog}.
 
-\paragraph{PriceChannel}
-% TODO parameter van subscribe = juist?
-\npar This is a quite simple interface and offers only two methods. The first
-method is a \method{publish{PriceEvent}} method which can be invoked by
-Publishers (in this context \method{publish} will be called by UIS communication
-unit to make price updates available to all interested parties). Callers the
-second method, \method{subscribe(PriceFilter)}, will receive events which
-match the specified filter.
+\subsubsection{PriceChannelAPI}
 
-\subsubsection{Prediction Unit}
+\npar This interface is declared between the users of PriceChannel and the
+implementor, PriceChannel itself. Events are dispatched through the channel
+(and hence the interface) towards the subscribers.
 
-\paragraph{PredictionAPI}
+\subsubsection{PredictionAPI}
 
-\npar Only one method is included in the \interface{PredictionAPI} interface,
-namely \method{getConsumptionPredictions(UtilityProvider)}. This method will
-fetch all the relevant data (i.e. the data from all the customers of the given
-utility provider). The next step is to run several (machine learning-based)
-prediction algorithms for analysis. When this is result is computed it is
-returned towards the invoker of the method.
+\npar The \interface{PredictionAPI} interface is offered by the PredictionUnit
+towards the UISCommunicationUnit. The latter can use this to send predictions to however
+needs them.
 
-\subsubsection{Billing Unit}
+\subsubsection{BillingUnitAPI}
 
-\paragraph{BillingReceive}
+\npar \interface{BillingUnitAPI} is an interface between the BillingUnit and the
+BillingCommunicationUnit. It is used to notify the BillingUnit of payment of a
+certain invoice.
 
-\npar This interface has only one method, namely \method{markPaid(String)}. It
-serves to notify the billing unit when an invoice is paid so it can be stored in
-the ReMeS database.
+\subsubsection{BillingCommunicationAPI}
 
-\subsubsection{Billing Communication Unit}
+\npar This interface has exactly the same role as the \interface{BillingUnitAPI}
+but it is declared between the BillingCommunicationAPI on one side and the third
+party billing service on the other side.
 
-\paragraph{BillingSend}
+\subsubsection{CustomerInformation}
 
-\npar This interface has once again only one method, \method{send(Invoice)}.
-This method is to be invoked by the billing unit once it has constructed an
-invoice that needs to be sent to the third party billing service.
+\npar The \interface{CustomerInformation} is situated between the BillingUnit
+and the UISCommunicationUnit. Through this interface is customer information
+exchanged.
 
-\paragraph{BillingCommunication}
+\subsubsection{UISCommunicationAPI}
 
-\npar This interface has only one method, namely \method{markPaid(String)}. It
-serves to notify the billing unit when an invoice is paid so it can be stored in
-the ReMeS database.
+\npar This interface is declared between the UISCommunicationUnit, which
+also offers the interface, and the UIS. This interface provides several services
+to the UIS including prediction of utilities.
 
-\subsubsection{UIS Commmunication Unit}
+\subsubsection{BillingSendAPI}
 
-\paragraph{CustomerInformation}
-
-\npar The \interface{CustomerInformation} interface offers two methods:
-\method{getContractInformation(Customer)} and
-\method{getPricingInformation(Date)}. The former encloses the collection of all
-kind of information which is useful when drafting an invoice for a given
-customer. The latter encompasses information concerning the price (e.g.
-night rate discounts, etc.).
-
-\paragraph{UISCommunication}
-%zelfde probleem als bij billingCOmmunication, deze interface is praktisch
-% dezelfde als die van Prediction (de communiation blokken zijn uiteindelijk
-% maar facades.)
-\npar This interface offers one method, namely
-\method{getConsumptionPrediction(UtilityProvider)}. A call to this
-method will dispatched to the \interface{PredictionAPI} interface.
+\npar This interface is analogous to \interface{BillingCommunicationAPI}, but it
+is declared between different components, namely the BillingCommunicationUnit
+and the BillingUnit. The latter is the one who provides the interface.
 
 \begin{figure}[H]
 	\begin{centering}
