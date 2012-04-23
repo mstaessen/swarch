@@ -14,7 +14,7 @@ an alarm.
 	\begin{description}
 		\item[Syntax] \
 		\begin{verbatim}
-send(Alarm alarm) : void
+void send(Alarm alarm)
     throws NullPointerException, IllegalAlarmException
 		\end{verbatim}
 		\item[Arguments] \
@@ -36,8 +36,8 @@ send(Alarm alarm) : void
 
 \begin{quote}
 	\begin{description}
-		\item[Alarm] This class is a container for all sorts of information useful for
-		sending an alarm. This includes one or more recipients, the problem or reason,
+		\item[Alarm] This object is a container for all sorts of information useful
+		for sending an alarm. This includes one or more recipients, the problem or reason,
 		etc.
 	\end{description} 
 \end{quote}

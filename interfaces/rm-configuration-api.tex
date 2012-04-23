@@ -1,2 +1,58 @@
 \section{RMConfigurationAPI}
 \label{api:rm-configuration-api}
+
+\subsection{Interface Identity}
+
+\npar \interface{RMConfigurationAPI} provides methods for the retrieval of and
+storage of remote module configurations.
+
+\subsection{\method{execute(RMCOnfigurationQuery)}}
+
+\subsubsection{Resources Provided}
+
+\begin{quote}
+	\begin{description}
+		\item[Syntax] \
+		\begin{verbatim}
+RMConfigurationResult execute(RMConfigurationQuery query)
+    throws IllegalQuerySyntaxException, NullPointerException;
+		\end{verbatim}
+		\item[Arguments] \
+		\begin{itemize}
+		  \item query: the query to be executed on the database. 
+		\end{itemize}
+		\item[Effect] The query is executed on the database and the result is returned
+		as an RMConfigurationResult. When the given query is an update query the result is the
+		null reference.
+		\item[Restrictions] \
+		\begin{itemize}
+		  \item The query can't be the null reference.
+		  \item The syntax of the query has to be correct.
+		\end{itemize}
+	\end{description} 
+\end{quote}
+
+\subsubsection{Data Types Definition}
+
+\begin{quote}
+	\begin{description}
+		\item[RMConfigurationResult] This object is a container for one or more remote module
+		configurations.
+		\item[RMConfigurationQuery] This object is a wrapper for queries only executable on a
+		part of the shared repository, namely the remote module configuration storage.
+		\item[RMConfiguration] This object represents an a remote module
+		configuration. This includes the frequency of sending measurements, device id,
+		brand and model, location, extra comments of the installer, etc.
+	\end{description} 
+\end{quote}
+
+\subsubsection{Exception Definition} 
+
+\begin{quote}
+	\begin{description}
+		\item[NullPointerException] This exception is thrown when the given parameter
+		is the null reference.
+		\item[IllegalQuerySyntaxException] This exception is thrown when the syntax of
+		the given query is invalid.
+	\end{description} 
+\end{quote}

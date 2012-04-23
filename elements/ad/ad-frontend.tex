@@ -8,8 +8,10 @@ ADCommand enters the front end will fetch an instance of the instance pool which
 will execute the command and return the result. Based on the result the front
 end can determine whether it is a false alarm or a true alarm. In the latter
 case the notification unit is contacted to send an alarm and possibly an
-OCCommand is constructed and send to the OCScheduler to seal the
-corresponding valve.
+OCCommand is constructed and send to the OCScheduler to seal the corresponding
+valve. The machine learning algorithms typically work on datasets instead of a
+single datum. Therefore extra alarm or measurement data can be fetched from
+respectively the Shared Repository or the MeasureMentsStorage.
 
 \subsection{Provided interfaces}
 
