@@ -16,23 +16,29 @@ Av3.
 \npar A short overview of the drivers is given below.
 
 \begin{itemize}
+	\item Av3: Third Party Billing Service failure
+	\begin{itemize}
+		\item Detect failure of the billing service
+		\item Notify ReMeS operators after 5 failed attempts
+	\end{itemize}
  	\item M1': Dynamic pricing.
   	\begin{itemize}
-    	\item The communication between external actors (customer and UIS)
-    	and ReMeS concerning billing.
-    	\item 
+    	\item The communication between UIS and ReMeS is extended to support price
+    	updates.
+    	\item The communication between Customers and ReMeS is extended support
+    	price updates.
   	\end{itemize}
   	\item M2': Fine-grained metering for enterprises.
   	\begin{itemize}
-  	  \item %TODO
+  	  \item A B2B front-end is provided to business customers.
   	\end{itemize}
 	\item M3': Decentralized electricity generation
   	\begin{itemize}
-  	  \item %TODO
+  	  \item Be ready for dynamic pricing (cf. M1)
   	\end{itemize}
 \end{itemize}
 
-\npar M3' is linked with the following use cases:
+\npar M1' is linked with the following use cases:
 
 \begin{itemize}
   \item UC14: Request consumption predictions
@@ -240,22 +246,16 @@ this iteration. There are still, however, a number of non resolved use cases and
 one quality attribte which are listed below. The quality attribute is
 delegated to the billing communication unit. The use cases are all delegated to
 the Other component.
+
 %TODO: correct (dat van de use cases) ?
 
 \begin{itemize}
-  \item Billing Communication Unit:
-  \begin{itemize}
-    \item Av3 : Third Party Billing Service Failure
-  \end{itemize}
-  \item Other
-  \begin{itemize}
-  	\item UC1 : Log in
-  	\item UC2 : Log off
-  	\item UC3 : Register customer
-  	\item UC4 : Unregister customer
-  	\item UC5 : Associate device to customer
-  	\item UC6 : Customize customer profile
- 	\item UC11: Operate actuator remotely
-  	\item UC12: Set alarm recipients
-  \end{itemize}
+	\item UC1: Log in
+	\item UC2: Log off
+	\item UC3: Register customer
+	\item UC4: Unregister customer
+	\item UC5: Associate device to customer
+	\item UC6: Customize customer profile
+	\item UC11: Operate actuator remotely
+	\item UC12: Set alarm recipients
 \end{itemize}
