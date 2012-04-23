@@ -138,9 +138,9 @@ component retrieves the right translator from the pool based on the module
 where the incoming trame should be send to. It is important to notice that all
 outgoing communication towards remote modules goes through this module.
 
-\subsubsection{Translator Pool}
+\subsubsection{Translator Map}
 
-\npar The translator pool acts as the manager for the pool and all requests from
+\npar The translator map acts as the manager for the map and all requests from
 both the translators will pass through this component. 
 
 \subsubsection{Event Channel}
@@ -183,7 +183,7 @@ forwards all trames to the storage scheduler.
 \npar this interface was already discussed in iteration 1, see section
 \ref{add:it1/interfaces}.
 
-\subsubsection{Translator Pool}
+\subsubsection{Translator Map}
 
 \paragraph{TranslatorManager}
 
