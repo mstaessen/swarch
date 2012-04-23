@@ -42,47 +42,81 @@ performance drivers in mind.
 	\end{centering}
 \end{figure}
 
-\npar The design of the outbound communication scheduler is analogous to that
-of the storage scheduler and the anomaly detection scheduler. This is rather
-locical because they all have the same purpose: schedule commands of some kind.
+\subsubsection{OCScheduler}
 
-\npar All requests to the Outbound Communication Scheduler are encapsulated as
-OCCommand objects. These objects represent requests to send a certain control
-trame to a given remote device for some reason. 
+\npar The OCScheduler serves as entry point for the OCCommand scheduling. Upon
+receiving a command the scheduler will place that command in an
+OCPolicy. When the system transitions between load modi (from normal
+to overload or vice versa) it is possible to change the current policy.
+This transition in policies is likewise the responsibility of this component.
 
-\npar The scheduler (OCScheduler) handles every incoming command
-(OCCommand) by inserting the command in a queue (OCQueue) with a
-certain priority using a policy (OCPolicy). The scheduling policy
-determines the priority of the command based on the nature of that command
-(in particular, the reason for the request). As before, priorities of commands
-already in the queue are increased every time a new command is inserted.
-Again, this is done to prevent starvation.
+\subsubsection{OCPolicy}
 
-\npar An additional component (OCQueueReader) will pop the command with the
-highest priority off the queue and present it on the database for execution.
+\npar An OCPolicy is responsible for inserting incoming OCCommands (received
+from the OCScheduler) into the OCQueue. To be able to do this, the policy first
+has to determine the priority of the incoming OCCommand (and this priority is
+different for the various policies).
+
+\subsubsection{OCQueue}
+
+\npar The OCQueue does nothing else than provide a priority queue for
+OCCommands with accompanying insert and retrieve functionality. Since
+it is a priority queue the commands can be placed in different places in the
+queue depending on their priority. More precisely, for each priority level will
+the index of the last element with that priority be kept in a list. When a new
+command needs to be inserted, the priority of that command is determined.
+Subsequently, the priority is used to retrieve the index of the last element
+(with the same priority) and in this way the new command can be inserted.
+
+\subsubsection{OCQueueReader}
+
+\npar The purpose of this component is dequeueing the OCQueue and
+afterwards dispatch the popped command to the the Remote Module Communication
+Unit.
+
+% \npar The design of the outbound communication scheduler is analogous to that
+% of the storage scheduler and the anomaly detection scheduler. This is rather
+% locical because they all have the same purpose: schedule commands of some kind.
+% 
+% \npar All requests to the Outbound Communication Scheduler are encapsulated as
+% OCCommand objects. These objects represent requests to send a certain control
+% trame to a given remote device for some reason. 
+% 
+% \npar The scheduler (OCScheduler) handles every incoming command
+% (OCCommand) by inserting the command in a queue (OCQueue) with a
+% certain priority using a policy (OCPolicy). The scheduling policy
+% determines the priority of the command based on the nature of that command
+% (in particular, the reason for the request). As before, priorities of commands
+% already in the queue are increased every time a new command is inserted.
+% Again, this is done to prevent starvation.
+% 
+% \npar An additional component (OCQueueReader) will pop the command with the
+% highest priority off the queue and present it on the database for execution.
 
 \subsection{Step 4: Define interfaces for instantiated elements}
 \label{add:it7/interfaces}
 
-\subsubsection{OutboundCommScheduler}
+\npar In this section each interface is explained in terms of the components
+which use and/or offer it together with information about what is exchanged. For
+detailed information with reference to the specific methods the interfaces
+implement, we refer to the interface catalog, see appendix
+\ref{chap:interface-catalog}.
 
-\paragraph{OutboundTrameScheduler}
+\subsubsection{OCSchedulerAPI}
 
-\npar The OutboundTrameScheduler was already discussed in section
+\npar The OCSchedulerAPI was already discussed in section
 \ref{add:it1/interfaces}.
 
-\subsubsection{Scheduler}
+\subsubsection{OCPolicyAPI}
 
-\npar This component offers no interface.
+\npar The \interface{OCPolicyAPI} lies between the OCScheduler and the OCPolicy.
+Its goal is to pass through commands which have to be placed in an OCQueue.
 
-\subsubsection{PriorityQueue}
+\subsubsection{OCQueueAPI}
 
-\paragraph{OutboundQueue}
-
-\npar This interface is analogous to the priorityqueue interface of the storage
-scheduler, see section \ref{add:it3/interfaces}. It offers a \method{pop(trame)}
-and \method{push{trame}} method which will respectively pop and push a given
-trame from the priorityqueue.
+\npar This interface is offered by the OCQueue and used by both the OCPolicy and
+the OCQueueReader. The policy uses the interface to place commands in the queue
+and the reader pops them off.
 
 \begin{figure}[H]
 	\begin{centering}
