@@ -34,13 +34,13 @@ priorities, summarized in table \ref{table:add/it1/priorities}.
 \npar Because this is the first iteration of the architecture design process,
 the quality atttributes that will have the most impact on the architecture
 are selected. This results in the selection of
-\begin{description}
-  	\item[Av1] The measurements database should be separated from other storage. 
-  	\item[Av2] Components must be able to detect problems autonomously.
-  	\item[P1] Valves must be shut in time (processing of alarms and remote
+\begin{itemize}
+  	\item Av1: The measurements database should be separated from other storage. 
+  	\item Av2: Components must be able to detect problems autonomously.
+  	\item P1: Valves must be shut in time (processing of alarms and remote
   	actuation of valves).
-  	\item[P2] Process measurement trames in time. 
-\end{description}
+  	\item P2: Process measurement trames in time. 
+\end{itemize}
 
 \npar The choice of P1 is logical because it has the highest priority available
 (both a high client priority and impact on the architecture). The reasons for
@@ -189,43 +189,55 @@ Incoming trames (from remote devices) are handed over to the storage scheduler.
 Trames which need to be sent to remote modules are dispatched to the correct
 module through the correct medium.
 
-\subsubsection{Storage Scheduler}
+\subsubsection{Scheduler For Measurements}
 
-\npar This scheduler gets all incoming trames from remote modules and schedules
-them for storage. Dependent on the active scheduling policy trames can be
-prioritized over other trames. For instance, an incoming alarm trame for a gas
-leak has top priority and has strict bounds on the delivery time (see the
-quality attribute scenarios). Furthermore serves this scheduler as a buffer.
-This is particularly useful when the storage unit is overloaded.
+\npar This scheduler gets all incoming queries from the remote module
+communication unit and schedules them for storage. Dependent on the active
+scheduling policy queries can be prioritized over other queries. Furthermore
+serves this scheduler as a buffer. This is particularly useful when the storage
+unit is overloaded.
 
 \subsubsection{Health Monitoring Unit}
 
-\npar The heartbeat monitor cluster is the result of the tactic to detect a
+\npar The health monitoring unit is the result of the tactic to detect a
 fault, namely heartbeat. This component will monitor all other component's
 heartbeat to see if they are still alive (i.e. not crashed). Off course it is
 not unthinkable that the monitor component fails itself. Therefore this
-component has to monitor itself by for example an extra monitor that monitors
-the monitor.
+component has to monitor itself by for example providing an extra monitor that
+monitors the monitor (or a cluster of monitors). Futhermore is it often
+necessary (depending on the failing component) to notify a ReMeS operator, this
+functionality is also present in this unit.
 
-\subsubsection{Storage of trames}
+\subsubsection{MeasurementsStorage}
 
 \npar This component is responsible for all storage of measurements (and
 measurements only). It receives trames from the storage scheduler and notifies
-the Anomaly Detection scheduler when a new trame is available.
+the anomaly detection scheduler when a measurement trame is available.
 
 \subsubsection{Anomaly Detection Scheduler}
 
-\npar When the storage unit has stored a new trame, this scheduler is notified
-and fetches the freshly stored trame. Analogous to the other scheduler this
-scheduler serves as a buffer to prevent overloading on the anomaly detection
-unit. Once again different scheduling policies can be switched on.
+\npar When the storage unit has stored a new measurement, this scheduler is
+notified and fetches the freshly stored measurement (by sending a read query to
+the storage scheduler). Analogous to the storage scheduler this scheduler serves
+as a buffer to prevent overloading on the anomaly detection unit. Once again
+different scheduling policies can be turned on.
+
+\npar For alarm trames, the situation differs a little from the measurement
+trame's one. These alarms are sent directly towards this scheduler. Once again
+depending on the current policy priorities can be toggled. One wants to off
+course give priority to alarm trames over regular measurements. 
+
+\npar After this scheduling phase the trames are sent to the anomaly detection
+unit for further processing.
 
 \subsubsection{Notification Unit}
 
-\npar This module is contacted by the anomaly detection. When the latter detects
-an anomaly in the usage of one the utilities of a customer or a (non false)
-alarm, then that customer (and possibly the emergency services) needs to
-notified. This is the responsibility of the Notification Unit.
+\npar This module is contacted by the anomaly detection unit. When the latter
+detects an anomaly in the usage of one the utilities of a customer or
+receives a (non false) alarm, then that customer (and possibly the emergency
+services) needs to notified. This is the responsibility of the Notification
+Unit. The retrieval of the contact details is also the responsibility of this
+component.
 
 \subsubsection{Anomaly Detection Unit}
 
@@ -238,15 +250,16 @@ off course work based on data sets instead of single trames. Notice that there
 are multiple instances of this anomaly detection unit. This allows load
 balancing, cf. P2.
 
-\npar The task of this unit is the managing of all these instances. This
-includes monitoring the load of all the instances, performing the read queries
-and distributing the resulting trames. Upon detecting an anomaly two possible
-actions (or both) can be undertaken. The first is sealing a valve if it is a
-severe leak (this action is represented by the dependency between the outgoing
-communication scheduler and the anomaly detection). The second is notifying the
-approriate parties (the customer and/or the emergency services).
+\npar The task of this unit is the managing of all these anomaly detection
+instances. This includes monitoring the load of all the instances, performing
+the read queries and distributing the resulting trames. Upon detecting an
+anomaly two possible actions (or both) can be undertaken. The first is sealing a
+valve if it is a severe leak (this action is represented by the dependency
+between the outgoing communication scheduler and the anomaly detection). The
+second is notifying the approriate parties (the customer and/or the emergency
+services).
 
-\subsubsection{Outbound Communication Scheduler}
+\subsubsection{Scheduler For Outbound Communication }
 
 \npar The outgoing communication scheduler has as duty the scheduling of
 trames which are sent to remote modules. There is a need for scheduling because
@@ -257,108 +270,72 @@ use of different policies.
 \subsection{Step 4: Define interfaces for instantiated elements}
 \label{add:it1/interfaces}
 
-\subsubsection{Remote Module Communication Unit}
+\npar In this section each interface is explained in terms of the components
+which use and/or offer it together with information about what is exchanged. For
+detailed information with reference to the specific methods the interfaces
+implement, we refer to the interface catalog, see appendix
+\ref{chap:interface-catalog}.
 
-\paragraph{InputTrame} %TODO: parameter van de receive
+\subsubsection{InboundCommAPI}
 
-\npar The remote module communication unit offers one method
-\method{receive(\ldots)} which is invoked by remote modules whenever they want
-to send a trame towards ReMeS.
+\npar This interface lies in between ReMeS (more precisely the remote module
+communication unit) and the remote module(s). Remote Modules send measurements
+and alarm trames towards ReMeS through this interface.
 
-\paragraph{OutputTrame}
+\subsubsection{OutboundCommAPI}
 
-\npar The output translator also offers only one method, \method{send(trame)}.
-This method can be invoked by components who need to communicate with one or
-more remote modules.
+\npar The \interface{OutboundCommAPI} is offered by the remote module
+communication unit and is used by the scheduler for outbound communication. Its
+purpose is to provide outgoing communication, i.e. from ReMeS (the remote module
+communication unit) to the remote module(s).
 
-\subsubsection{Storage Scheduler}
+\subsubsection{MeasurementsSchedulerAPI}
 
-\paragraph{StorageQueryScheduler}
+\npar The scheduler for measurements offers this interface towards the anomaly
+detection unit and the remote module communication unit. Both of the latter
+parties can schedule so called CRUD (Create, Read, Update and Delete) queries on
+this component through its interface.
 
-\npar The \interface{StorageQueryScheduler} has one method,
-\method{schedule(query)}. This method will feed the given query into the
-scheduler. 
+\subsubsection{MeasurementsStorageAPI}
 
-\subsubsection{Storage}
+\npar This is the interface of the actual storage unit. It is invoked by the
+measurementsscheduler to execute queries which were scheduled.  
 
-\paragraph{TrameCRUD}
+\subsubsection{AnomalyDetectionAPI}
 
-\npar This interface offers four methods, summarized CRUD. This abbreviation
-stands for : ``Create Read Update Delete'' and refers to the four basic
-operations possible on a database.
- 
-\npar The first method, \method{create(query)}, can be used for the insertion of
-a new data table. The \method{read(query)} method serves to read a certain
-amount of trames (e.g. all measurements a of certain utility provider or
-customer). Third there is an \method{update(query)} method to change the
-content of a table (e.g. add a measurement for a certain customer). Finally a
-\method{delete(query)} method is provided to delete data.
+\npar The \interface{AnomalyDetectionAPI} interface offers functionality to
+effectively analyze a given trame. This interface is used by the anomaly
+detection scheduler.
 
-\subsubsection{Anomaly Detection Scheduler}
+\subsubsection{ADSchedulerAPI}
 
-\paragraph{DetectionScheduler}
+\npar The \interface{ADSchedulerAPI} is offered by the anomaly detection
+scheduler and is used by the remote module communication unit and the
+measurements storage. Through the use of this interface both of the two latter
+components can schedule commands to be (eventually) executed by the anomaly
+detection unit.
 
-\npar The \interface{DetectionScheduler} interface offers a
-\method{schedule(trame)} method which will offer the given trame to the
-scheduler.
+\subsubsection{NotificationAPI}
 
-\subsubsection{Anomaly Detection}
+\npar This interface lies in between the anomaly detection unit and the
+notification unit. The methods it offers can be invoked to send alarms towards
+customers and/or emergency services.
 
-\paragraph{AnomalyDetector}
+\subsubsection{CustomerProfileAPI}
 
-\npar This interface once again offers only one method \method{detect(trame)}.
-Invoking this method can trigger various anomaly detection algorithms to start
-running (or add the given trame to an already running algoritm). There can be an
-analysis for the utility provider or customer where the measurement belongs too.
-These algorithms typically take more than one trame as input so additional
-trames may be fetched. Therefore a read query be scheduled through the
-\interface{StorageQueryScheduler} by invoking the \method{read(query)} (where
-the query off course has to be constructed within the \method{detect} call).
+\npar This is an interface offered by the shared repository towards the
+notification unit for the flow of contact details for customers.
 
-\npar When the outcome of one or more algorithms indicates that an anomaly is
-found (or when the initial trame was an alarm trame) the customer and/or emergency
-services may have to be notified. Therefore the \method{send(notification)}
-of the \interface{NotifyUnit} can be used. This method call will handle the
-notification.
+\subsubsection{RMConfigurationAPI}
 
-\subsubsection{Notification Unit}
+\npar The shared repository offers this interface towards the remote module
+communication unit to exchange information about remote module configuration.
 
-\paragraph{NotifyUnit}
+\subsubsection{AlarmAPI}
 
-\npar The interface this notification unit offers, has one method, namely a
-\method{send(notification)}. Invoking this method results in the notification of
-the recipient (which is included in the notification parameter) with the actual
-message.
-
-\subsubsection{Outbound Remote Module Scheduler}
-
-\paragraph{OutboundTrameScheduler}
-
-\npar To fulfill the scheduling functionality a method is needed where
-components can send their trames to. This method is called
-\method{schedule(trame)} and feeds the given trame into the scheduler where it
-will wait to be redirected to the communication unit.
-
-\subsubsection{Shared Repository} 
-
-\npar All interfaces offered by the shared repository are analogous to the
-\interface{TrameCRUD} to a great extent. After all the basis of all of these
-interfaces is the CRUD principle.
-
-\paragraph{CustomerProfileCRUD}
-%TODO: niet volgens CRUD principe
-\npar This interface includes a \method{getCustomerByDeviceId(deviceId)} to
-enable the remote communication module to retrieve the customer which belongs to
-a certain incoming trame. This customer information can then be used throughout
-the system whenever needed.
-
-\paragraph{RemoteModuleConfigurationCRUD}
-
-\npar 
-
-\paragraph{AlarmStorageCRUD}
-
-\npar 
+\npar The \interface{AlarmAPI} lies in between the shared repository and the
+anomaly detection unit. It serves to support the information flow with regards
+to alarms.
 
 \begin{figure}[H]
 	\begin{centering}
