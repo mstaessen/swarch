@@ -32,6 +32,38 @@ to the Anomaly Detection Unit.
 \npar An overview of the instantiated child components of the Anomaly Detection
 Scheduler is shown in \ref{fig:it5/elements}.
 
+\subsubsection{ADScheduler}
+
+\npar This scheduler regulates all the traffic of ADCommands towards the
+Anomaly Detection Unit. It accepts incoming ADCommands at a random rate (i.e.
+the rate at which the communication and storage send them towards this
+component) and it redirects them to the Anomaly Detection Unit. This
+scheduler guarantees in addition that the rate at which it will send the
+ADCommands to the detection unit will not exceed its maximum sending rate.
+
+\subsubsection{ADPolicy}
+
+\npar An ADPolicy is responsible for inserting incoming ADCommands (received
+from the ADScheduler) into the ADQueue. To be able to do this, the policy first
+has to determine the priority of the incoming command (and this priority is
+different for the various policies).
+
+\subsubsection{ADQueue}
+
+\npar The ADQueue does nothing else than provide a priority queue for
+ADCommands with accompanying insert and retrieve functionality. Since
+it is a priority queue the commands can be placed in different places in the
+queue depending on their priority. More precisely, for each priority level will
+the index of the last element with that priority be kept in a list. When a new
+command needs to be inserted, the priority of that command is determined.
+Subsequently, the priority is used to retrieve the index of the last element and
+in this way the new command can be inserted.
+
+\subsubsection{ADQueueReader}
+
+\npar The purpose of this component is dequeueing the ADQueue and
+afterwards dispatch the popped command to the the Anomaly Detection Unit.
+
 \begin{figure}[H]
 	\begin{centering}
 		% TODO Figure
@@ -45,6 +77,12 @@ Scheduler is shown in \ref{fig:it5/elements}.
 \subsection{Step 4: Define interfaces for instantiated elements}
 \label{add:it5/interfaces}
 
+\npar In this section each interface is explained in terms of the components
+which use and/or offer it together with information about what is exchanged. For
+detailed information with reference to the specific methods the interfaces
+implement, we refer to the interface catalog, see appendix
+\ref{chap:interface-catalog}.
+
 \npar Because this scheduler is very similar to the measurements scheduler from
 iteration 3 (see \ref{add:it3}), the interfaces are also very similar. 
 
@@ -54,24 +92,21 @@ contains a copy of the received trame and the necessary data to fetch the
 historical measurement data, the alarm data and the configuration data for this
 device. This data will be used to determine whether an alarm is a false positive. 
 
-\subsubsection{ADScheduler}
+\subsubsection{ADSchedulerAPI}
 
-\npar The ADScheduler provides an interface
-\interface{ADSchedulerAPI}. This interface contains a method
-\method{shedule(ADCommand)} to schedule new commands.
+\npar This interface was already discussed in iteration 1, see
+\ref{add:it1/interfaces}.
 
-\subsubsection{ADPolicy}
+\subsubsection{ADPolicyAPI}
 
-\npar The ADCommand will be placed in the ADQueue by a policy. Therefore,
-ADPolicy provides an interface \interface{ADPolicyAPI} which contains a method
-\method{insertCommand(ADCommand, ADQueue)}.
+\npar The \interface{ADPolicyAPI} lies between the ADScheduler and the ADPolicy.
+Its goal is to pass through commands which have to be placed in an ADQueue.
 
-\subsubsection{ADQueue}
+\subsubsection{ADQueueAPI}
 
-\npar The ADQueue must provide methods for inserting items and removing items.
-These methods are contained in the \interface{ADQueueAPI} and are called
-\method{insertCommand(ADCommand, double)} and \method{remove()}. The first
-method is used by ADPolicy and the last one is used by ADQueueReader.
+\npar This interface is offered by the ADQueue and used by both the ADPolicy and
+the ADQueueReader. The policy uses the interface to place commands in the queue
+and the reader pops them off.
 
 \npar Figure \ref{fig:it5/interfaces} summarizes the components and the
 interfaces instantiated in this iteration.
