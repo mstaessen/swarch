@@ -3,50 +3,60 @@
 
 % TODO order alphabetically
 
-% Anomaly Detection Unit
+%1. Anomaly Detection Unit
 \input{interfaces/anomaly-detection-api.tex}
-\input{interfaces/ad-instance-api.tex}
-\input{interfaces/ad-instance-pool-api.tex}
+\input{interfaces/ad/ad-instance-api.tex}
+\input{interfaces/ad/ad-instance-pool-api.tex}
 
-% Measurements Storage API
-\input{interfaces/measurements-policy-api.tex}
-\input{interfaces/measurements-queue-api.tex}
+%2. Measurements Storage API
+\input{interfaces/measurements-scheduler/measurements-policy-api.tex}
+\input{interfaces/measurements-scheduler/measurements-queue-api.tex}
 \input{interfaces/measurements-scheduler-api.tex}
 
-% Measurements Storage API
+%3. Measurements Storage API
 \input{interfaces/measurements-storage-api.tex}
-\input{interfaces/measurements-storage-cache-api.tex}
-\input{interfaces/measurements-storage-instance-api.tex}
-\input{interfaces/temporary-buffer-api.tex}
+\input{interfaces/measurements-storage/measurements-storage-cache-api.tex}
+\input{interfaces/measurements-storage/measurements-storage-instance-api.tex}
+\input{interfaces/measurements-storage/temporary-buffer-api.tex}
 
-% AD API
-\input{interfaces/ad-policy-api.tex}
-\input{interfaces/ad-queue-api.tex}
+%4. AD Scheduler API
+\input{interfaces/ad-scheduler/ad-policy-api.tex}
+\input{interfaces/ad-scheduler/ad-queue-api.tex}
 \input{interfaces/ad-scheduler-api.tex}
 
-% Outbound Comm API
-\input{interfaces/oc-policy-api.tex}
-\input{interfaces/oc-queue-api.tex}
+%5. Outbound Comm API
+\input{interfaces/oc-scheduler/oc-policy-api.tex}
+\input{interfaces/oc-scheduler/oc-queue-api.tex}
 \input{interfaces/oc-scheduler-api.tex}
 
-% Remote Communication API
+%6. Remote Communication API
 \input{interfaces/rm-inbound-comm-api.tex}
 \input{interfaces/rm-outbound-comm-api.tex}
-\input{interfaces/rm-translator-manager.tex}
-\input{interfaces/rm-translator-api.tex}
-\input{interfaces/rm-trame-channel.tex}
-\input{interfaces/rm-trame-notifiable.tex}
+\input{interfaces/rm-comm-unit/rm-translator-manager.tex}
+\input{interfaces/rm-comm-unit/rm-translator-api.tex}
+\input{interfaces/rm-comm-unit/rm-trame-channel.tex}
+\input{interfaces/rm-comm-unit/rm-trame-notifiable.tex}
 
-% Notification Unit API
+%7. Notification Unit API
 \input{interfaces/notification-api.tex}
-\input{interfaces/notification-unit-transport-api.tex}
-\input{interfaces/notification-unit-transport-manager.tex}
+\input{interfaces/notification-unit/notification-unit-transport-api.tex}
+\input{interfaces/notification-unit/notification-unit-transport-manager.tex}
 
-%Other API
-\input{interfaces/other-billing-communication-api.tex}
-\input{interfaces/other-billing-receive-api.tex}
-\input{interfaces/other-billing-send-api.tex}
-\input{interfaces/other-customer-information.tex}
-\input{interfaces/other-prediction-api.tex}
-\input{interfaces/other-price-channel-api.tex}
-\input{interfaces/other-uis-communication-api.tex}
+%8. Other API
+\input{interfaces/other/other-billing-communication-api.tex}
+\input{interfaces/other/other-billing-receive-api.tex}
+\input{interfaces/other/other-billing-send-api.tex}
+\input{interfaces/other/other-customer-information.tex}
+\input{interfaces/other/other-prediction-api.tex}
+\input{interfaces/other/other-price-channel-api.tex}
+\input{interfaces/other/other-uis-communication-api.tex}
+
+%9. Health monitoring unit API
+\input{interfaces/health-monitoring-unit/health-monitoring-unit-api.tex}
+\input{interfaces/health-monitoring-unit/health-notification-operator-api.tex}
+
+%10. Shared repository
+\input{interfaces/alarm-api.tex}
+\input{interfaces/customer-profile-api.tex}
+\input{interfaces/invoice-api.tex}
+\input{interfaces/rm-configuration-api.tex}
