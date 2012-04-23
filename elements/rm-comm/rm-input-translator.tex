@@ -5,11 +5,9 @@
 
 \npar The input translator has as duty the translation of incoming (raw) trames
 into objectified trames. Therefore it must know what the incoming data format
-is. To realize this, it has a translator pool at its disposal where, based on
-the module (type) a translator can be fetched. The translated trame is provided
-with extra information concerning the customer (i.e. the owner of the module where the
-trame came from). When the trames are translated they are published on the event
-channel for all interested parties.
+is. To realize this, it has a translator map at its disposal where, based on
+the module (type) a translator can be fetched. When the trames are translated
+they are published on the event channel for all interested parties.
 
 \subsection{Provided interfaces}
 

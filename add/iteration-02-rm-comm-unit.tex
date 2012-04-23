@@ -106,122 +106,117 @@ receive trames in parallel.
 	\end{centering}
 \end{figure}
 
-\npar The remote module communication unit has three main components: Input
-Translator, Output Translator, Translator Pool, Event Channel, Deadline Monitor
+\npar The remote module communication unit has six main components: Input
+Translator, Output Translator, Translator Map, Event Channel, Deadline Monitor
 and Trame Consumer. Each of them will be discussed below. As one can see in
 diagram \ref{fig:it2/elements} there are only two communication paths
 in the system, one for incoming communication and one for outgoing. In this way
 another tactic is realized, namely the restriction of communication paths.
+%TODO: is die restriction tactic nog wel valid ? sloeg op een (veel) eerder
+% design
 
 \npar In the previous section there was the mentioning of a modified version of
 the \emph{Resource Pool} pattern. One can see this pattern in the usage of the
-translator pool. The translator pool component itself acts as a sort of manager
-of the pool and handles incoming requests for translators based on a
-certain module. The difference with the original pattern lies in the 
-diversity of the translators. Each translator is different whereas the
-resources normally should all be equal. 
+translator map. The translator map component itself acts as a sort of manager of
+the map and handles incoming requests for translators based on a certain module.
+The difference with the original pattern lies in the diversity of the
+translators. Each translator is different whereas the resources normally should
+all be equal.
 
-\subsubsection{Input Translator}
+\subsubsection{InputTranslator}
 
 \npar The input translator has as duty the translation of incoming (raw) trames
 into objectified trames. Therefore it must know what the incoming data format
-is. To realize this, it has a translator pool at its disposal where, based on
-the module (type) a translator can be fetched. The translated trame is provided
-with extra information concerning the customer (i.e. the owner of the module where the
-trame came from). When the trames are translated they are published on the event
-channel for all interested parties.
+is. To realize this, it has a translator map at its disposal where, based on
+the module (type) a translator can be fetched. When the trames are translated
+they are published on the event channel for all interested parties.
 
-\subsubsection{Output Translator}
+\subsubsection{OutputTranslator}
 
 \npar This component is analogous to the input translator off course. This
-component retrieves the right translator from the pool based on the module
+component retrieves the right translator from the map based on the module
 where the incoming trame should be send to. It is important to notice that all
 outgoing communication towards remote modules goes through this module.
 
-\subsubsection{Translator Map}
+\subsubsection{TranslatorMap}
 
 \npar The translator map acts as the manager for the map and all requests from
 both the translators will pass through this component. 
 
-\subsubsection{Event Channel}
+\subsubsection{EventChannel}
 
 \npar The event channel is the communication entity where publishers can publish
-events on and subscribers can subscribe on.
+events on and subscribers can subscribe on. In this context the input translator
+will publish events on the channel. The subscribers are the deadline monitor and
+the trame consumer.
 
-\subsubsection{Deadline Monitor}
+\subsubsection{DeadlineMonitor}
 
-\npar The responsibility of this process is the monitoring of all bypassing
+\npar The responsibility of this component is the monitoring of all bypassing
 measurements and guaranteeing that a missing measurement is detected within the
 demanded time limits. This monitor is subscribed to the event channel to receive
 trames. To guarantee these limits the monitor keeps a table with expected
-arrival times of all remote devices which is frenquently checked. Notice that to
-protect from failures, this table is made persistent. When a deadline is
-exceeded this is stored in the corresponding database. When a certain number of
-deadline violations is reached a ReMeS operator is notified. Notice that this
-component is in fact the realization of the heartbeat tactic. 
+arrival times of all remote devices which is frenquently checked. To constrcut
+the table the shared repository is contacted to retrieve the send frequency of
+each of the modules. Notice that to protect from failures, this table is made
+persistent. When a deadline is exceeded this is stored in the corresponding
+database. When a certain number of deadline violations is reached a ReMeS
+operator is notified. Notice that this component is in fact the realization of
+the heartbeat tactic.
 
-\subsubsection{Trame Consumer}
+\subsubsection{TrameConsumer}
 
-\npar The trame consumer is a simple forwarding unit which is subscribed to the
-event channel and receives all trames which are published on it. It simply
-forwards all trames to the storage scheduler.
+\npar The trame consumer is a forwarding unit which is subscribed to the event
+channel and receives all events which are published on it. It converts all
+measurements into insert queries which are to be scheduled on the
+measurement scheduler. Alarms are converted into commands and they are
+subsequentely sent to the anomaly scheduler. So this component is at the same
+time a router and a translator.
 
 \subsection{Step 4: Define interfaces for instantiated elements}
 \label{add:it2/interfaces}
 
-\subsubsection{Input Translator}
+\npar In this section each interface is explained in terms of the components
+which use and/or offer it together with information about what is exchanged. For
+detailed information with reference to the specific methods the interfaces
+implement, we refer to the interface catalog, see appendix
+\ref{chap:interface-catalog}.
 
-\paragraph{InputTrame}
-
-\npar this interface was already discussed in iteration 1, see section
-\ref{add:it1/interfaces}.
-
-\subsubsection{Output Translator}
-
-\paragraph{OutputTrame}
+\subsubsection{InboundCommAPI}
 
 \npar this interface was already discussed in iteration 1, see section
 \ref{add:it1/interfaces}.
 
-\subsubsection{Translator Map}
+\subsubsection{OutboundCommAPI}
 
-\paragraph{TranslatorManager}
+\npar this interface was already discussed in iteration 1, see section
+\ref{add:it1/interfaces}.
 
-\npar The translator pool interface offers one method,
-\method{GetTranslatorFor(RemoteDevice)}. This method does nothing
-else than return the correct translator for the given remote device (there can be
-differences between remote module types, communication channels, etc.).
+\subsubsection{TranslatorManager}
 
-\paragraph{Translator}
+\npar This interface lies in between the input translator and output translator
+on one side and the translator map, who implements it, on the other side.
+Through this interface translators are passed.
+
+\subsubsection{Translator}
 
 \npar Each of the different translators implements the \interface{Translator}
-translator interface. This interface includes two methods:
-\method{translateFromDevice(RawTrame)} and
-\method{translateToDevice(Message)}. The former serves as translate
-method for the input translator and vice versa for the latter one.
+translator interface. The users of this interface are the aforementioned input
+and output translator.
 
-\subsubsection{Trame Event Channel}
+\subsubsection{TrameChannel}
 
-\paragraph{TrameChannel} %TODO CommunicationEvent = wrapper voor Message
+\npar This interface lies in between the trame event channel and its users
+(i.e. publishers and receivers). Events flow through the channel, originating at
+a publisher and ending at one or more subscribers.
 
-\npar This interface offers two methods as prescribed by the \emph{Publisher -
-Subriber} pattern, \method{publish(CommunicationEvent)} and
-\method{subscribe(Filter)}.
-
-\subsubsection{Deadline Monitor}
-
-\paragraph{TrameNotifiable}
+\subsubsection{CommEventNotifiable}
 
 \npar This interface complements the \interface{TrameChannel} interface. When a
 component is subscribed to a certain event flow, the channel has to be able to
-notify the component when a new event is available. Therefore this interface
-offers a \method{notify()}.
-
-\subsubsection{Trame Consumer}
-
-\npar This unit offers the exact same interface as the deadline monitor.
-
-%TODO: hoe zit het met de interfaces tussen de pool en zijn instances ?
+notify the component when a new event is available. This is done through this
+interface which is implemented by subscribers (in this context deadline monitor
+and trame consumer).
 
 \begin{figure}[H]
 	\begin{centering}

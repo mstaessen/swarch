@@ -1,12 +1,12 @@
-\section{TrameNotifiable}
+\section{CommEventNotifiable}
 \label{api:rm-trame-notifiable}
 
 \subsection{Interface Identity}
 
-\npar \interface{TrameNotifiable} provides methods for notifying the
+\npar \interface{CommEventNotifiable} provides methods for notifying the
 implementor.
 
-\subsection{\method{notify()}}
+\subsection{\method{update(CommunicationEvent)}}
 
 \subsubsection{Resources Provided}
 
@@ -14,11 +14,11 @@ implementor.
 	\begin{description}
 		\item[Syntax] \
 		\begin{verbatim}
-void notify()
+void update(CommmuniationEvent event)
 		\end{verbatim}
 		\item[Arguments] \
 		\begin{itemize}
-		  \item This method has no arguments
+		  \item event: an event where the receiver needs to informed of.
 		\end{itemize}
 		\item[Effect] When this method is invoked the implementor knows that there is
 		a new CommunicationEvent available.
