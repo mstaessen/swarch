@@ -1,4 +1,4 @@
-\section{MeasurementsScheduler}
+\section{Scheduler For Measurements}
 \label{element:measurements-scheduler}
 
 \subsection{Roles and responsibilities}
@@ -6,8 +6,8 @@
 \npar This scheduler has to regulate all the traffic of QueryCommand towards the
 MeasurementsStorage. It accepts incoming QueryCommands at a random rate (i.e.
 the rate at which the communication unit sends them towards this component) and
-it redirects them to the MeasurementsStorage. In addition will it make sure that
-the rate at which it will send the QueryCommands to the storage does not
+it redirects them to the MeasurementsStorage. In addition will it make sure
+that the rate at which it will send the QueryCommands to the storage does not
 overload the storage.
 
 \subsection{Provided interfaces}
