@@ -6,51 +6,49 @@
 
 \npar In the previous iteration, four quality attributes (Av2', M1', M2' and
 M3') and three use cases (UC7, UC8' and UC13') were assigned to the remote
-module communication unit and 2 use cases (UCx and UCy) were created. 
+module communication unit and one use case (UCy) was derived. 
 
-\npar There is no real coupling between the quality attributes and the use cases
-so the following quality attributes will form the drivers for this
-iteration:
+\npar The decomposition is entirely driven by the quality attribute scenarios. 
 
 \begin{itemize}
-  \item Av2': Missing measurements.
-  \begin{itemize}
-    \item When a measurement did not arrive this should be logged, when
-  this happens for the third time a ReMes Operator should be notified. This
-  detection should occur in less than ten minutes.
-	\item Trames should be resent when their receival deadline is elapsed.
-  \end{itemize}
-  \item M1': Dynamic pricing.
-  \begin{itemize}
-    \item New types of remote devices will be introduced (with possibly new
-    data formats of the trames they send).
-  \end{itemize}
-  \item M2': Fine-grained metering for enterprises.
-  \begin{itemize}
-    \item The secondary meters can introduce new trame formats.
-  \end{itemize}
-  \item M3': Decentralized electricity generation
-  \begin{itemize}
-    \item The production meters could define a new trame format.
-  \end{itemize}
+  	\item Av2': Missing measurements
+  	\begin{itemize}
+    	\item When a measurement did not arrive this should be logged, when
+  		this happens for the third time, a ReMes Operator should be notified. This
+  		detection should occur in less than ten minutes.
+		\item Trames should be resent when they are not acknowledged.
+  	\end{itemize}
+  	\item M1': Dynamic pricing
+  	\begin{itemize}
+    	\item New types of remote devices will be introduced (with possibly new
+    	data formats of the trames they send).
+  	\end{itemize}
+  	\item M2': Fine-grained metering for enterprises
+  	\begin{itemize}
+    	\item The secondary meters can introduce new trame formats
+  	\end{itemize}
+  	\item M3': Decentralized electricity generation
+  	\begin{itemize}
+   		\item The production meters could define a new trame format
+  	\end{itemize}
 \end{itemize}
 
 \npar The use cases delegated to this unit are given below.
 
 \begin{itemize}
-	\item UC7 : Send trame to remote device.
-	\item UC8': Send measurement.
+	\item UC7: Send trame to remote device
+	\item UC8': Send measurement
 	\begin{itemize}
-    	\item ReMeS is responsible for customer accounting information
-    	\item Remote modules are marked as active when they send their first
-    	trame.
+	    \item Incoming trames are acknowledged.
+    	\item Remote modules are marked as active when they send their first trame.
   	\end{itemize}
-  	\item UC13': Send alarm.
+  	\item UC13': Send alarm
   	\begin{itemize}
-		\item %TODO
+		\item The incoming trame should be acknowledged
+		\item Possibly, a control trame will be sent to shut a valve
   	\end{itemize}
-  	\item UCx: Retrieve customer from trame.
-  	\item UCy: Retrieve remote module protocol.
+  	\item UCx: Retrieve customer from trame
+  	\item UCy: Retrieve remote module protocol
 \end{itemize}
 
 \subsection{Step 2: Choose design concepts}
@@ -61,8 +59,8 @@ iteration:
 
 \paragraph{Modifiability}
 
-\npar When opting for a modifiable solution 3 main (groups) of tactics can be
-used: localize modifications, prevent ripple effect and defer binding time.
+\npar When opting for a modifiable solution three main (groups) of tactics can
+be used: localize modifications, prevent ripple effect and defer binding time.
 Two tactis are picked from the first group, namely abstraction of common
 services and anticipate expected changes.
 
@@ -80,9 +78,10 @@ mechanism.
 \label{add:it2/patterns}
 
 \npar To realize the modifiability tactics and allow the coverage of UC7', the
-\emph{Message Translator} pattern is selected. The translator acts an
-intermediary between the remote module and ReMeS and all information remains
-hidden behind a simple interface. 
+\emph{Message Translator} pattern \citep[see][p.~229]{Buschmann:07} and the
+Layers design pattern \citep[see][p.~185]{Buschmann:07} are selected.
+The translator acts an intermediary between the remote module and ReMeS and all
+information remains hidden behind a simple interface.
 
 \npar To push this information hiding even further a modified version of the
 \emph{Resource Pool} pattern is used. This will be enlightened in the next
@@ -90,8 +89,9 @@ section.
 %TODO: misschien is dit niet helemaal waar, want resource pool is meer op
 % performantie gericht.
 
-\npar Finally the \emph{Publisher - Subscriber} pattern is used to allow
-multiple components to receive trames in parallel. 
+\npar Finally the \emph{Publisher-Subscriber} pattern
+\citep[see][p.~234]{Buschmann:07} is used to allow multiple components to
+receive trames in parallel.
 
 \subsection{Step 3: Instantiate architectural elements and allocate responsibilities}
 \label{add:it2/elements}
@@ -236,6 +236,18 @@ offers a \method{notify()}.
 \subsection{Step 5: Verify and refine}
 \label{add:it2/verification}
 
-\npar All the drivers were resolved so no futher decomposition of any of these
-modules has to take place because there are no more requirements to divide
-amongst the components. 
+\npar All quality requirements are resolved in this iteration so no futher
+decomposition of any of the child modules have to take place. The use cases
+are delegated to child elements. 
+
+\begin{itemize}
+	\item UC7: Send trame to remote device. The OutputTranslator has to take care
+	of this. 
+  	\item UC8': Send measurement. The acknowledgement of incoming trames will
+  	be handled by the InputTranslator. New remote devices are marked active by
+  	the TrameConsumer. 
+  	\item UC13': Send alarm. The acknowledgement of trames is already implemented
+  	in UC8' and as such it is taken care of.
+  	\item UCy: Retrieve remote module protocol. This functionality applies to
+  	both the InputTranslator and OutputTranslator. 
+\end{itemize}

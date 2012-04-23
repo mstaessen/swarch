@@ -16,14 +16,9 @@
 \npar There are two delegated (and split) use cases:
 
 \begin{itemize}
-  \item UC8' : Send measurement.
-  \begin{itemize}
-  	\item measurements need to be stored.
-  \end{itemize}
-  \item UC17' : Perform research.
-  \begin{itemize}
-  	\item researchers should be able to query the database. 
-  \end{itemize}
+  	\item UC8' : Send measurement. measurements need to be stored.
+  	\item UC17' : Perform research. researchers should be able to query the
+  	database.
 \end{itemize}
 
 \subsection{Step 2: Choose design concepts}
@@ -161,4 +156,7 @@ QueryCommand from the buffer.
 \subsection{Step 5: Verify and refine}
 \label{add:it4/verification}
 
-% TODO verify & refine
+\npar All quality requirements are met in this iteration. The database is
+replicated for availabililty and this replication potentially also yields a
+speed improvement for read queries by using load balancing across database
+instances.

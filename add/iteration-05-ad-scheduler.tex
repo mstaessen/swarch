@@ -7,16 +7,10 @@
 \npar This iteration is driven by:
 
 \begin{itemize}
-	\item P1': Timely closure of valves.
-	\begin{itemize}
-  		\item Alarm trames have to be handled within a bounded time. 
-    \end{itemize}
-	\item P2': Anomaly Detection.
-	\begin{itemize}
-	  \item When the system is in overload modus the processing order of trames
+	\item P1': Timely closure of valves. Alarm trames have to be handled within a bounded time. 
+	\item P2': Anomaly Detection. When the system is in overload modus the processing order of trames
 	  occurs on a priority basis (premium service has a higher priority than
 	  normal service).
-	\end{itemize}
 \end{itemize}
 
 \npar No use cases were delegated to this component.
@@ -94,4 +88,5 @@ interfaces instantiated in this iteration.
 \subsection{Step 5: Verify and refine}
 \label{add:it5/verification}
 
-% TODO verify & refine
+\npar All quality requirements are resolved in this iteration. The policies for
+the scheduler will ensure that commands are scheduled in the right order. 

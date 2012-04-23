@@ -18,19 +18,13 @@ scheduled.
 	to a maximal execution time based on the SLA. 
 \end{itemize}
 
-\npar The use cases delegated to this component are
+\npar The functionality of two use cases is affected by this iteration. These
+use cases are:
 
 \begin{itemize}
-  \item UC8':
-  \begin{itemize}
-  	\item measurements have to be stored.
-  \end{itemize}
-  \item UC17': 
-  \begin{itemize}
-  	\item researchers should be able to extract research data from the database
-  	(i.e. perform a read query).
-  \end{itemize}
-
+  \item UC8': measurements have to be stored.
+  \item UC17': researchers should be able to extract research data from the
+  database (i.e. perform a read query).
 \end{itemize}
 
 \subsection{Step 2: Choose design concepts}
@@ -167,6 +161,6 @@ interfaces instantiated in this iteration.
 \subsection{Step 5: Verify and refine}
 \label{add:it3/verification}
 
-\npar The one and only driver, P3' is resolved in this decomposition. The
+\npar The one and only driver for this iteration, P3', is resolved. The
 scheduler and scheduling policy guarantee that QueryCommands are executed in the
 right order.
