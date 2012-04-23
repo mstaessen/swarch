@@ -44,7 +44,7 @@ functionality in combination with the heartbeat tactic.
 \end{figure}
 
 \npar The design is relatively simple. There are only two components, they are
-together with all their associations depicted in figure
+together with all their associations depicted in figure \ref{fig:it9/elements}.
 %TODO: gaat er geen commentaar komen op het feit dat ons notification gedrag
 % over 2 plaatsen verspreid is ?
 \subsubsection{Operator Notification Unit}
@@ -63,22 +63,22 @@ action is undertaken (i.e. a ReMeS operator is notified).
 \subsection{Step 4: Define interfaces for instantiated elements}
 \label{add:it9/interfaces}
 
-\subsubsection{Operator Notification Unit}
+\npar In this section each interface is explained in terms of the components
+which use and/or offer it together with information about what is exchanged. For
+detailed information with reference to the specific methods the interfaces
+implement, we refer to the interface catalog, see appendix
+\ref{chap:interface-catalog}.
 
-\paragraph{OperatorNotificationAPI}
-%TODO: moet er uberhaupt een message zijn of is dit altijd gewoon hetzelfde
-% message (namelijk een crash) ?
-\npar This interface offers a \method{notify(Message)} method. The
-purpose of this method is notifying a ReMeS operator with the given message
-parameter. 
+\subsubsection{HealthMonitorAPI}
 
-\subsubsection{Heartbeat Monitor}
+\npar The \interface{HealthMonitorAPI} was already discussed in section
+\ref{add:it1/interfaces}.
 
-\paragraph{HealthMonitorAPI}
-%TODO: parameter van de pulse methode
-\npar Since there is a need for other component to give a signal that they are
-still alive a method \method{pulse()} is included. This is the only method this
-interface offers.
+\subsubsection{OperatorNotificationAPI}
+%TODO: Dit moet nog in de diagrammas duidelijk gemaakt worden !!!!
+%TODO: De vorige TODO zeker niet vergeten Michiel !!!!!!!
+\npar This interface lies in between the OperatorNotificationUnit and components
+who need to be able to notify a ReMeS operator. 
 
 \begin{figure}[H]
 	\begin{centering}
