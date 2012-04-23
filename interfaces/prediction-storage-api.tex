@@ -1,10 +1,10 @@
-\section{CustomerProfileAPI}
-\label{api:customer-profile-api}
+\section{PredictionStorageAPi}
+\label{api:prediction-storage-api}
 
 \subsection{Interface Identity}
 
-\npar \interface{CustomerProfileAPI} provides methods for the retrieval of and storage of
-customer profile(s) (information).
+\npar \interface{PredictionStorageAPi} provides methods for the retrieval of and storage of
+predictions.
 
 \subsection{\method{execute(CustomerProfileQuery)}}
 
@@ -14,7 +14,7 @@ customer profile(s) (information).
 	\begin{description}
 		\item[Syntax] \
 		\begin{verbatim}
-CustomerProfileResult execute(CustomerProfileQuery query)
+PredictionResult execute(PredictionQuery query)
     throws IllegalQuerySyntaxException, NullPointerException;
 		\end{verbatim}
 		\item[Arguments] \
@@ -22,8 +22,8 @@ CustomerProfileResult execute(CustomerProfileQuery query)
 		  \item query: the query to be executed on the database. 
 		\end{itemize}
 		\item[Effect] The query is executed on the database and the result is returned
-		as a CustomerProfileResult. When the given query is an update query the result is the
-		null reference.
+		as a PredictionResult. When the given query is an update query the result is
+		the null reference.
 		\item[Restrictions] \
 		\begin{itemize}
 		  \item The query can't be the null reference.
@@ -36,13 +36,13 @@ CustomerProfileResult execute(CustomerProfileQuery query)
 
 \begin{quote}
 	\begin{description}
-		\item[CustomerProfileResult] This object is a container for multiple
-		CustomerProfiles.
-		\item[CustomerProfileQuery] This object is a wrapper for queries only executable on a
-		part of the shared repository, namely the customer profile storage.
-		\item[CustomerProfile] This object is a container for all sorts of information useful
-		for contacting a customer. This includes one or more alaram recipients, an
-		adress, etc.
+		\item[PredictionResult] This object is a container for multiple Predictions.
+		\item[PredictionQuery] This object is a wrapper for queries only executable on
+		a part of the shared repository, namely the prediction storage.
+		\item[Prediction] This object is a container for all sorts of
+		prediction information of how much of a certain utility to producde for
+		a certain period. This object includes the predicted amount, the date,
+		possible reasons why that this amount is what is it is, etc.
 	\end{description} 
 \end{quote}
 
