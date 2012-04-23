@@ -432,13 +432,13 @@ elements a short description is provided.
 		\item P2': Anomaly Detection (split). Parallellize anomaly detection.
 		\item UC10: Anomaly Detection (delegated). Perform the actual anomaly
 		detection.
-	  	\item UCx: Retrieve customer from a deviceId (derived). Gets the customer's
-	  	profile based on a recieved trame (by using the device's identification)
 	\end{itemize}
 	\item Notification Unit
 	\begin{itemize}
 		\item UC9: Notify Customer (delegated). Notify customers, alarm recipients,
 		call center and the emergency services. 
+	  	\item UCx: Retrieve customer from a deviceId (derived). Gets the customer's
+	  	profile based on a recieved trame (by using the device's identification)
 	\end{itemize}
 	\item Scheduler for Outbound Communication
 	\begin{itemize}
@@ -452,6 +452,10 @@ elements a short description is provided.
 	\end{itemize}
 	\item Other functionality
 	\begin{itemize}
+	  	\item Av3: Third Party Billing Service failure (delegated)
+	  	\item M1': Dynamic pricing (split)
+	  	\item M2: Fine-grained metering for enterprises (delegated)
+	  	\item M3': Decentralized electricity generation (split)
 	  	\item UC1: Log in (delegated)
 	  	\item UC2: Log off (delegated)
 	  	\item UC3: Register customer (delegated)
@@ -464,9 +468,5 @@ elements a short description is provided.
 	  	\item UC15: Generate invoice (delegated)
 	  	\item UC16: Mark invoice paid (delegated)
 	  	\item UC17: Perform research (delegated)
-	  	\item Av3: Third Party Billing Service failure (delegated)
-	  	\item M1': Dynamic pricing (split)
-	  	\item M2: Fine-grained metering for enterprises (delegated)
-	  	\item M3': Decentralized electricity generation (split)
 	\end{itemize}
 \end{itemize}
