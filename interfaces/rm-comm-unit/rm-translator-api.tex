@@ -14,7 +14,7 @@ incoming and outgoing trames.
 	\begin{description}
 		\item[Syntax] \
 		\begin{verbatim}
-translateFromDevice(byte[] rawTrame) : Message
+Message translateFromDevice(byte[] rawTrame) 
     throws IllegalFormatException
 		\end{verbatim}
 		\item[Arguments] \
@@ -59,7 +59,7 @@ translateFromDevice(byte[] rawTrame) : Message
 	\begin{description}
 		\item[Syntax] \
 		\begin{verbatim}
-translateToDevice(Message message) : byte[]
+byte[] translateToDevice(Message message)
     throws IllegalContentException, NullPointerException
 		\end{verbatim}
 		\item[Arguments] \
