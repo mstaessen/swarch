@@ -35,7 +35,7 @@ user is a generalisation for all actors who can interact with the portal.
 \begin{figure}
 	\begin{centering}
 		% TODO Figure
-		%\includegraphics[width=\textwidth]{figs/final-deployment.pdf}
+		\includegraphics[height=\textwidth,angle=90]{figs/final-deployment.pdf}
 		\caption{The deployment diagram}
 		\label{fig:final-deployment}
 	\end{centering}
@@ -68,12 +68,34 @@ cache server and multiple measurements storage replicas.
 server. This machine handles all other storage, from customer profiles to
 predictions and historical prices. 
 
-\npar 
+\npar Every machine in the deployment diagram communicates with the heartbeat
+cluster. This is, however, not shown in figure \ref{fig:final-deployment}
+because it would only make the diagram less clear. This cluster has a primary
+server and a secondary server, which monitors the primary and vice versa. This
+way, virtually 100\% of both servers can be guaranteed. What is the chance that
+both servers fail at exactly the same time?
 
+\npar The notification of ReMeS operators is handled by the Notification Server.
+This server is also used to notify alarm recipients and the customer in case of
+an alarm. 
 
+\npar The billing is separated from the rest of the system because it is an
+expensive operation, happens only once a month and should not affect the
+operation of the other systems. 
 
+\npar A similar reasoning is used for the Prediction Server. This is an
+expensive operation that should not interfere with the other systems and runs
+less often than the other systems.
 
+\npar Communication with the UIS is provided through the Web Service Server. It
+is assumed that communication with third parties will be implemented with web
+services. 
 
+\npar Last, but not least, a webserver provides access to all ReMeS data. The
+traffic between the user's browser and the web server is encypted.
 
-
-
+\npar The deployment diagram is created with the idea that is is probably better
+to define multiple small, easy replacable machines instead of few, large
+do-it-all servers. With the current virtualization technologies, the hardware of
+multiple nodes in this system can be shared, which will reduce hardware and
+maintenance costs.
