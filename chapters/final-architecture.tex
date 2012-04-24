@@ -3,27 +3,26 @@
 
 \section{Context Diagram}
 
-\begin{figure}[H]
+\begin{figure}
 	\begin{centering}
 		% TODO Figure
-		%\includegraphics[width=\textwidth]{figs/add-it8-elements.pdf}
-		\caption{The context diagram.}
-		\label{fig:context-diagram}
+		%\includegraphics[width=\textwidth]{figs/final-context.pdf}
+		\caption{The context diagram}
+		\label{fig:final-context}
 	\end{centering}
 \end{figure}
 
-\npar In the diagram in \ref{fig:context-diagram} the context diagram is
-depicted. The ReMeS user is a generalisation for all actors who can interact
-with the portal. 
+\npar Figure \ref{fig:final-context} shows the context diagram. The ReMeS
+user is a generalisation for all actors who can interact with the portal. 
 
 \section{Overall Component Diagram}
 
-\begin{figure}[H]
+\begin{figure}
 	\begin{centering}
 		% TODO Figure
-		%\includegraphics[width=\textwidth]{figs/add-it8-elements.pdf}
-		\caption{The component diagram of the overall system.}
-		\label{fig:overall-component-diagram}
+		%\includegraphics[width=\textwidth]{figs/final-components.pdf}
+		\caption{The component diagram of the overall system}
+		\label{fig:final-components}
 	\end{centering}
 \end{figure}
 
@@ -31,11 +30,50 @@ with the portal.
 
 \section{Deployment Diagram}
 
-\begin{figure}[H]
+\npar The deployment diagram is shown in figure \ref{fig:final-deployment}. 
+
+\begin{figure}
 	\begin{centering}
 		% TODO Figure
-		%\includegraphics[width=\textwidth]{figs/add-it8-elements.pdf}
-		\caption{The deployment diagram.}
-		\label{fig:deployment-diagram}
+		%\includegraphics[width=\textwidth]{figs/final-deployment.pdf}
+		\caption{The deployment diagram}
+		\label{fig:final-deployment}
 	\end{centering}
 \end{figure}
+
+\npar A trame always arrives at the RMComm Server in the Communication Cluster.
+This server acts as a gateway for all remote module communication. It will also
+host the scheduler for outbound communication. To summarize, the RMComm Server
+is responsible for all trame communication. 
+
+\npar As already mentioned, the Communication Unit will route trames to the
+right units: a measurement trame is routed to storage, an alarm trame is
+immediately routed to the anomaly detection unit. Both units have been assigned
+their own clusters: the measurements storage cluster and the anomaly detection
+cluster. 
+
+\npar The anomaly detection cluster exists of a frontend server, which takes
+care of scheduling, resource arbitration and results processing
+(shutting the valve and dispatching the notification unit in case of an alarm).
+Among the frontend server, there are a number of anomaly detection instances.
+Only three are shown but additional instances can be easily added and/or
+removed. This is one of the advantages of the resource pool design pattern.
+
+\npar The measurements storage cluster is contained in a general storage
+cluster. Again, as with the anomaly detection cluster, the scheduler, frontend
+and buffer are assigned to a single machine. That machine communicates with a
+cache server and multiple measurements storage replicas. 
+
+\npar Among the measurements storage cluster, there is a shared repository
+server. This machine handles all other storage, from customer profiles to
+predictions and historical prices. 
+
+\npar 
+
+
+
+
+
+
+
+
