@@ -107,17 +107,17 @@ receive trames in parallel.
 \end{figure}
 
 \npar The remote module communication unit has six main components: Input
-Translator, Output Translator, Translator Map, Event Channel, Deadline Monitor
-and Trame Consumer. Each of them will be discussed below. As one can see in
-diagram \ref{fig:it2/elements} there are only two communication paths
-in the system, one for incoming communication and one for outgoing. In this way
-another tactic is realized, namely the restriction of communication paths.
-%TODO: is die restriction tactic nog wel valid ? sloeg op een (veel) eerder
+Translator, OutputTranslator, TranslatorMap, TrameEventChannel, DeadlineMonitor
+and TrameConsumer. Each of them will be discussed below. As one can see in
+diagram \ref{fig:it2/elements} there are only two communication paths in the
+system, one for incoming communication and one for outgoing. In this way another
+tactic is realized, namely the restriction of communication paths.
+% TODO: is die restriction tactic nog wel valid ? sloeg op een (veel) eerder
 % design
 
 \npar In the previous section there was the mentioning of a modified version of
 the \emph{Resource Pool} pattern. One can see this pattern in the usage of the
-translator map. The translator map component itself acts as a sort of manager of
+TranslatorMap. The TranslatorMap component itself acts as a sort of manager of
 the map and handles incoming requests for translators based on a certain module.
 The difference with the original pattern lies in the diversity of the
 translators. Each translator is different whereas the resources normally should
@@ -125,30 +125,30 @@ all be equal.
 
 \subsubsection{InputTranslator}
 
-\npar The input translator has as duty the translation of incoming (raw) trames
+\npar The InputTranslator has as duty the translation of incoming (raw) trames
 into objectified trames. Therefore it must know what the incoming data format
-is. To realize this, it has a translator map at its disposal where, based on
-the module (type) a translator can be fetched. When the trames are translated
-they are published on the event channel for all interested parties.
+is. To realize this, it has a TranslatorMap at its disposal where, based on
+the module (type) a RemoteModuleTranslator can be fetched. When the trames are
+translated they are published on the event channel for all interested parties.
 
 \subsubsection{OutputTranslator}
 
-\npar This component is analogous to the input translator off course. This
-component retrieves the right translator from the map based on the module
-where the incoming trame should be send to. It is important to notice that all
+\npar This component is analogous to the InputTranslator off course. This
+component retrieves the right RemoteModuleTranslator from the map based on the
+module where the incoming trame should be send to. It is important to notice that all
 outgoing communication towards remote modules goes through this module.
 
 \subsubsection{TranslatorMap}
 
-\npar The translator map acts as the manager for the map and all requests from
+\npar The TranslatorMap acts as the manager for the map and all requests from
 both the translators will pass through this component. 
 
-\subsubsection{EventChannel}
+\subsubsection{TrameEventChannel}
 
 \npar The event channel is the communication entity where publishers can publish
-events on and subscribers can subscribe on. In this context the input translator
-will publish events on the channel. The subscribers are the deadline monitor and
-the trame consumer.
+events on and subscribers can subscribe on. In this context the InputTranslator
+will publish events on the channel. The subscribers are the DeadlineMonitor and
+the TrameConsumer.
 
 \subsubsection{DeadlineMonitor}
 
@@ -194,15 +194,15 @@ implement, we refer to the interface catalog, see appendix
 
 \subsubsection{TranslatorManager}
 
-\npar This interface lies in between the input translator and output translator
-on one side and the translator map, who implements it, on the other side.
+\npar This interface lies in between the InputTranslator and OutputTranslator
+on one side and the TranslatorMap, who implements it, on the other side.
 Through this interface translators are passed.
 
 \subsubsection{Translator}
 
-\npar Each of the different translators implements the \interface{Translator}
-translator interface. The users of this interface are the aforementioned input
-and output translator.
+\npar Each of the different translators implements the \interface{Translator} 
+interface. The users of this interface are the aforementioned input and output
+translator.
 
 \subsubsection{TrameChannel}
 
