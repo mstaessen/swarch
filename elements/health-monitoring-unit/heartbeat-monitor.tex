@@ -5,9 +5,10 @@
 
 \npar This component acts as the registering point for heartbeats. The provided
 functionality allows that each component can register itself so the monitor
-knows it is still alive. Off course it is always possible that the monitor
-itself fails. Therefore this component is in fact a cluster of monitors where
-each monitor monitors every other monitor.
+knows it is still alive. When a component does not register itself appropriate
+action is undertaken (i.e. a ReMeS operator is notified). Off course it is
+always possible that the monitor itself fails. Therefore this component is in
+fact a cluster of monitors where each monitor monitors every other monitor.
 
 \subsection{Provided interfaces}
 
