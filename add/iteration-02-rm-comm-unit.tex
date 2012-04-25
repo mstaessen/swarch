@@ -5,8 +5,8 @@
 \label{add:it2/drivers}
 
 \npar In the previous iteration, four quality attributes (Av2', M1', M2' and
-M3') and three use cases (UC7, UC8' and UC13') were assigned to the remote
-module communication unit and one use case (UCy) was derived. 
+M3') and three use cases (UC7, UC8' and UC13') were assigned to the Remote
+Module Communication Unit and one use case (UCy) was derived. 
 
 \npar The decomposition is entirely driven by the quality attribute scenarios. 
 
@@ -16,7 +16,7 @@ module communication unit and one use case (UCy) was derived.
     	\item When a measurement did not arrive this should be logged, when
   		this happens for the third time, a ReMes Operator should be notified. This
   		detection should occur in less than ten minutes.
-		\item Trames should be resent when they are not acknowledged.
+		\item Trames should be sent again when they are not acknowledged.
   	\end{itemize}
   	\item M1': Dynamic pricing
   	\begin{itemize}
@@ -54,6 +54,9 @@ module communication unit and one use case (UCy) was derived.
 \subsection{Step 2: Choose design concepts}
 \label{add:it2/concepts}
 
+\npar In this section there will be an overview of the chosen tactics and
+patterns.
+
 \subsubsection{Tactics}
 \label{add:it2/tactics}
 
@@ -72,10 +75,13 @@ will be used.
 \paragraph{Availability}
 
 \npar The chosen availability tactic is detection, more specific the heartbeat
-mechanism.
+mechanism. For the reasons why this tactic was picked see section
+\ref{add:it2/tactics}.
 
 \subsubsection{Design Patterns}
 \label{add:it2/patterns}
+
+\paragraph{Message Translator}
 
 \npar To realize the modifiability tactics and allow the coverage of UC7', the
 \emph{Message Translator} pattern \citep[see][p.~229]{Buschmann:07} and the
@@ -83,11 +89,15 @@ Layers design pattern \citep[see][p.~185]{Buschmann:07} are selected.
 The translator acts an intermediary between the remote module and ReMeS and all
 information remains hidden behind a simple interface.
 
+\paragraph{Resource Pool}
+
 \npar To push this information hiding even further a modified version of the
 \emph{Resource Pool} pattern is used. This will be enlightened in the next
 section.
 %TODO: misschien is dit niet helemaal waar, want resource pool is meer op
 % performantie gericht.
+
+\paragraph{Publisher - Subscriber}
 
 \npar Finally the \emph{Publisher-Subscriber} pattern
 \citep[see][p.~234]{Buschmann:07} is used to allow multiple components to
@@ -106,7 +116,7 @@ receive trames in parallel.
 	\end{centering}
 \end{figure}
 
-\npar The remote module communication unit has six main components: Input
+\npar The Remote Module Communication Unit has six main components: Input
 Translator, OutputTranslator, TranslatorMap, TrameEventChannel, DeadlineMonitor
 and TrameConsumer. Each of them will be discussed below. As one can see in
 diagram \ref{fig:it2/elements} there are only two communication paths in the
@@ -118,10 +128,10 @@ tactic is realized, namely the restriction of communication paths.
 \npar In the previous section there was the mentioning of a modified version of
 the \emph{Resource Pool} pattern. One can see this pattern in the usage of the
 TranslatorMap. The TranslatorMap component itself acts as a sort of manager of
-the map and handles incoming requests for translators based on a certain module.
-The difference with the original pattern lies in the diversity of the
-translators. Each translator is different whereas the resources normally should
-all be equal.
+the map and handles incoming requests for RemoteModuleTranslators based on a
+certain module. The difference with the original pattern lies in the diversity
+of the RemoteModuleTranslators. Each RemoteModuleTranslator is different whereas
+the resources normally should all be equal.
 
 \subsubsection{InputTranslator}
 
@@ -135,7 +145,7 @@ translated they are published on the event channel for all interested parties.
 
 \npar This component is analogous to the InputTranslator off course. This
 component retrieves the right RemoteModuleTranslator from the map based on the
-module where the incoming trame should be send to. It is important to notice that all
+module where the incoming trame should be sent to. It is important to notice that all
 outgoing communication towards remote modules goes through this module.
 
 \subsubsection{TranslatorMap}
@@ -156,8 +166,8 @@ the TrameConsumer.
 measurements and guaranteeing that a missing measurement is detected within the
 demanded time limits. This monitor is subscribed to the event channel to receive
 trames. To guarantee these limits the monitor keeps a table with expected
-arrival times of all remote devices which is frenquently checked. To constrcut
-the table the shared repository is contacted to retrieve the send frequency of
+arrival times of all remote devices which is frenquently checked. To construct
+the table the Shared Repository is contacted to retrieve the send frequency of
 each of the modules. Notice that to protect from failures, this table is made
 persistent. When a deadline is exceeded this is stored in the corresponding
 database. When a certain number of deadline violations is reached a ReMeS
@@ -168,10 +178,10 @@ the heartbeat tactic.
 
 \npar The trame consumer is a forwarding unit which is subscribed to the event
 channel and receives all events which are published on it. It converts all
-measurements into insert queries which are to be scheduled on the
-measurement scheduler. Alarms are converted into commands and they are
-subsequentely sent to the anomaly scheduler. So this component is at the same
-time a router and a translator.
+measurements into insert queries which are to be scheduled on the Scheduler For
+MeasurementsStorage. Alarms are converted into commands and they are
+subsequentely sent to the Scheduler For Anomaly Detection. So this component is
+at the same time a router and a translator.
 
 \subsection{Step 4: Define interfaces for instantiated elements}
 \label{add:it2/interfaces}
@@ -184,46 +194,46 @@ implement, we refer to the interface catalog, see appendix
 
 \subsubsection{InboundCommAPI}
 
-\npar this interface was already discussed in iteration 1, see section
+\npar This interface was already discussed in iteration 1, see section
 \ref{add:it1/interfaces}.
 
 \subsubsection{OutboundCommAPI}
 
-\npar this interface was already discussed in iteration 1, see section
+\npar This interface was already discussed in iteration 1, see section
 \ref{add:it1/interfaces}.
 
 \subsubsection{TranslatorManager}
 
 \npar This interface lies in between the InputTranslator and OutputTranslator
 on one side and the TranslatorMap, who implements it, on the other side.
-Through this interface translators are passed.
+Through this interface RemoteModuleTranslators are passed.
 
 \subsubsection{Translator}
 
-\npar Each of the different translators implements the \interface{Translator} 
-interface. The users of this interface are the aforementioned input and output
-translator.
+\npar Each of the different RemoteModuleTranslators implements the
+\interface{Translator} interface. The users of this interface are the
+aforementioned Input- and OutputTranslator.
 
-\subsubsection{TrameChannel}
+\subsubsection{CommEventChannel}
 
-\npar This interface lies in between the trame event channel and its users
-(i.e. publishers and receivers). Events flow through the channel, originating at
-a publisher and ending at one or more subscribers.
+\npar This interface lies in between the TrameEventChannel and its users (i.e.
+publishers and receivers). Events flow through the channel, originating at a
+publisher and ending at one or more subscribers.
 
 \subsubsection{CommEventNotifiable}
 
-\npar This interface complements the \interface{TrameChannel} interface. When a
-component is subscribed to a certain event flow, the channel has to be able to
+\npar This interface complements the \interface{CommEventChannel} interface.
+When a component is subscribed to a certain event flow, the channel has to be able to
 notify the component when a new event is available. This is done through this
-interface which is implemented by subscribers (in this context deadline monitor
-and trame consumer).
+interface which is implemented by subscribers (in this context, the
+DeadlineMonitor and the TrameConsumer).
 
 \begin{figure}[H]
 	\begin{centering}
 		% TODO Figure
 		\includegraphics[width=\textwidth]{figs/add-it2-interfaces.pdf}
-		\caption{Overview of the interfaces and components in the remote
-		module communication unit}
+		\caption{Overview of the interfaces and components in the Remote
+		Module Communication Unit}
 		\label{fig:it2/interfaces}
 	\end{centering}
 \end{figure}

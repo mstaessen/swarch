@@ -45,10 +45,10 @@ are selected. This results in the selection of
 \npar The choice of P1 is logical because it has the highest priority available
 (both a high client priority and impact on the architecture). The reasons for
 selecting P2, Av1 and Av2 are more subtle because these were mainly selected
-because of details in their quelity description.
+because of details in their quality description.
 
 \npar Av1 is selected because it clearly states that the measurement storage
-should fail independently from other storage. 
+should fail independently from other storage and it has a high client priority. 
 
 \npar Av2 is selected because it requires uptime monitoring of all internal
 components. This is a high impact on the architecture. 
@@ -63,6 +63,9 @@ trames), trame storage, trame processing and communication towards stakeholders
 
 \subsection{Step 2: Choose design concepts}
 \label{add:it1/concepts}
+
+\npar In this section there will be an overview of the chosen tactics and
+patterns.
 
 \subsubsection{Tactics}
 \label{add:it1/tactics}
@@ -83,11 +86,11 @@ example.
 
 \npar Suppose that a component $c_1$ depends on another component $c_2$. For
 some reason, $c_1$ does not need the services of $c_2$ for a duration longer
-than the detection interval of one minute (see Av2). Within this time,
-no detection can occur, simply because there is no interaction between the
-components. For this reason, we eliminate exceptions as a primary fault
-detection system. However, exceptions will still have to be implemented in order
-to make the system fail gracefully (a component being unavailable will not
+than the detection interval of one minute (see Av2). Within this time, no
+detection (through exceptions) can occur, simply because there is no interaction
+between the components. For this reason, we eliminate exceptions as a primary
+fault detection system. However, exceptions will still have to be implemented in
+order to make the system fail gracefully (a component being unavailable will not
 cause the system to crash).
 
 \npar Another detection method uses ping/echo. This primarily focusses on
@@ -185,21 +188,22 @@ configuration data, etc. Therefore, the \emph{Shared Repository} design pattern
 
 \npar This module is responsible for all communication from and to remote
 modules (all types of communication and both valves and control devices).
-Incoming trames (from remote devices) are handed over to the storage scheduler.
-Trames which need to be sent to remote modules are dispatched to the correct
-module through the correct medium.
+Incoming measurements (from remote devices) are handed over to the Scheduler For
+MeasurementsStorage. Alarms are dispatched to the Scheduler For Anomaly
+Detection. Trames which need to be sent to remote modules are dispatched to the
+correct module through the correct medium.
 
-\subsubsection{Scheduler For Measurements}
+\subsubsection{Scheduler For MeasurementsStorage}
 
-\npar This scheduler gets all incoming queries from the remote module
-communication unit and schedules them for storage. Dependent on the active
-scheduling policy queries can be prioritized over other queries. Furthermore
-serves this scheduler as a buffer. This is particularly useful when the storage
-unit is overloaded.
+\npar This scheduler gets all incoming queries from the Remote Module
+Communication Unit and Scheduler For Anomaly Detection and schedules them for
+storage. Dependent on the active scheduling policy queries can be prioritized
+over other queries. Furthermore serves this scheduler as a buffer. This is
+particularly useful when the storage unit is overloaded.
 
 \subsubsection{Health Monitoring Unit}
 
-\npar The health monitoring unit is the result of the tactic to detect a
+\npar The Health Monitoring Unit is the result of the tactic to detect a
 fault, namely heartbeat. This component will monitor all other component's
 heartbeat to see if they are still alive (i.e. not crashed). Off course it is
 not unthinkable that the monitor component fails itself. Therefore this
@@ -211,16 +215,18 @@ functionality is also present in this unit.
 \subsubsection{MeasurementsStorage}
 
 \npar This component is responsible for all storage of measurements (and
-measurements only). It receives trames from the storage scheduler and notifies
-the anomaly detection scheduler when a measurement trame is available.
+measurements only). It receives trames from the Scheduler For
+MeasurementsStorage and notifies the Scheduler For Anomaly Detection when a
+measurement trame is available.
 
-\subsubsection{Anomaly Detection Scheduler}
+\subsubsection{Scheduler For Anomaly Detection}
 
-\npar When the storage unit has stored a new measurement, this scheduler is
-notified and fetches the freshly stored measurement (by sending a read query to
-the storage scheduler). Analogous to the storage scheduler this scheduler serves
-as a buffer to prevent overloading on the anomaly detection unit. Once again
-different scheduling policies can be turned on.
+\npar When the MeasurementsStorage has stored a new measurement, this scheduler
+is notified and fetches the freshly stored measurement (by sending a read query
+to the Scheduler For MeasurementsStorage). Analogous to the Scheduler For
+MeasurementsStorage this scheduler serves as a buffer to prevent overloading on
+the Anomaly Detection Unit. Once again different scheduling policies can be
+turned on.
 
 \npar For alarm trames, the situation differs a little from the measurement
 trame's one. These alarms are sent directly towards this scheduler. Once again
@@ -232,8 +238,8 @@ unit for further processing.
 
 \subsubsection{Notification Unit}
 
-\npar This module is contacted by the anomaly detection unit. When the latter
-detects an anomaly in the usage of one the utilities of a customer or
+\npar This module is contacted by the Anomaly Detection Unit. When the latter
+detects an anomaly in the usage of one of the utilities of a customer or
 receives a (non false) alarm, then that customer (and possibly the emergency
 services) needs to notified. This is the responsibility of the Notification
 Unit. The retrieval of the contact details is also the responsibility of this
@@ -241,27 +247,27 @@ component.
 
 \subsubsection{Anomaly Detection Unit}
 
-\npar The Anomaly Detection unit is responsible for running the algorithms to
-discover anomalies. It receives trames from the anomaly detection scheduler so
-it can process them. After receiving such a trame, additional trames are fetched
-by sending a read query to the storage scheduler. These additional trames
-are from the same customer or utility company because the detection algorithms
-off course work based on data sets instead of single trames. Notice that there
-are multiple instances of this anomaly detection unit. This allows load
-balancing, cf. P2.
+\npar The Anomaly Detection Unit is responsible for running the algorithms to
+discover anomalies. It receives trames from the Scheduler For Anomaly
+Detection so it can process them. After receiving such a trame, additional
+trames are fetched by sending a read query to the Scheduler For
+MeasurementsStorage. These additional trames are from the same customer or
+utility company because the detection algorithms off course work based on data
+sets instead of single trames. Notice that there are multiple instances of this
+Anomaly Detection Unit. This allows load balancing, cf. P2.
 
-\npar The task of this unit is the managing of all these anomaly detection
-instances. This includes monitoring the load of all the instances, performing
+\npar The task of this unit is the managing of all these Anomaly Detection
+Instances. This includes monitoring the load of all the instances, performing
 the read queries and distributing the resulting trames. Upon detecting an
 anomaly two possible actions (or both) can be undertaken. The first is sealing a
 valve if it is a severe leak (this action is represented by the dependency
-between the outgoing communication scheduler and the anomaly detection). The
+between the scheduler For Outbound Communication and the anomaly detection). The
 second is notifying the approriate parties (the customer and/or the emergency
-services).
+services) by contacting the Notification Unit.
 
-\subsubsection{Scheduler For Outbound Communication }
+\subsubsection{Scheduler For Outbound Communication}
 
-\npar The outgoing communication scheduler has as duty the scheduling of
+\npar The Scheduler For Outbound Communication has as duty the scheduling of
 trames which are sent to remote modules. There is a need for scheduling because
 control trames to shut a valve need to reach the specified module within certain
 time constraints according to P1. This scheduling can again be realized by the
@@ -278,63 +284,63 @@ implement, we refer to the interface catalog, see appendix
 
 \subsubsection{InboundCommAPI}
 
-\npar This interface lies in between ReMeS (more precisely the remote module
-communication unit) and the remote module(s). Remote Modules send measurements
+\npar This interface lies in between ReMeS (more precisely the Remote Module
+Communication Unit) and the remote module(s). Remote modules send measurements
 and alarm trames towards ReMeS through this interface.
 
 \subsubsection{OutboundCommAPI}
 
-\npar The \interface{OutboundCommAPI} is offered by the remote module
-communication unit and is used by the scheduler for outbound communication. Its
-purpose is to provide outgoing communication, i.e. from ReMeS (the remote module
-communication unit) to the remote module(s).
+\npar The \interface{OutboundCommAPI} is offered by the Remote Module
+Communication Unit and is used by the Scheduler For Outbound Communication. Its
+purpose is to provide outgoing communication, i.e. from ReMeS (the Remote Module
+Communication Unit) to the remote module(s).
 
 \subsubsection{MeasurementsSchedulerAPI}
 
-\npar The scheduler for measurements offers this interface towards the anomaly
-detection unit and the remote module communication unit. Both of the latter
-parties can schedule so called CRUD (Create, Read, Update and Delete) queries on
-this component through its interface.
+\npar The Scheduler For MeasurementsStorage offers this interface towards the
+Anomaly Detection Unit and the Remote Module Communication Unit. Both of the
+latter parties can schedule so called CRUD (Create, Read, Update and Delete)
+queries on this component through its interface.
 
 \subsubsection{MeasurementsStorageAPI}
 
 \npar This is the interface of the actual storage unit. It is invoked by the
-measurementsscheduler to execute queries which were scheduled.  
+Scheduler For MeasurementsStorage to execute queries which were scheduled.  
 
 \subsubsection{AnomalyDetectionAPI}
 
 \npar The \interface{AnomalyDetectionAPI} interface offers functionality to
-effectively analyze a given trame. This interface is used by the anomaly
-detection scheduler.
+effectively analyze a given trame. This interface is used by the Scheduler For
+Anomaly Detection.
 
 \subsubsection{ADSchedulerAPI}
 
-\npar The \interface{ADSchedulerAPI} is offered by the anomaly detection
-scheduler and is used by the remote module communication unit and the
-measurements storage. Through the use of this interface both of the two latter
-components can schedule commands to be (eventually) executed by the anomaly
-detection unit.
+\npar The \interface{ADSchedulerAPI} is offered by the Scheduler For
+Anomaly Detection and is used by the Remote Module Communication Unit and the
+MeasurementsStorage. Through the use of this interface both of the two latter
+components can schedule commands to be (eventually) executed by the Anomaly
+Detection Unit.
 
 \subsubsection{NotificationAPI}
 
-\npar This interface lies in between the anomaly detection unit and the
-notification unit. The methods it offers can be invoked to send alarms towards
+\npar This interface lies in between the Anomaly Detection Unit and the
+Notification Unit. The methods it offers can be invoked to send alarms towards
 customers and/or emergency services.
 
 \subsubsection{CustomerProfileAPI}
 
-\npar This is an interface offered by the shared repository towards the
-notification unit for the flow of contact details for customers.
+\npar This is an interface offered by the Shared Repository towards the
+Notification Unit for the flow of contact details for customers.
 
 \subsubsection{RMConfigurationAPI}
 
-\npar The shared repository offers this interface towards the remote module
-communication unit to exchange information about remote module configuration.
+\npar The Shared Repository offers this interface towards the Remote Module
+Communication Unit to exchange information about remote module configurations.
 
 \subsubsection{AlarmAPI}
 
-\npar The \interface{AlarmAPI} lies in between the shared repository and the
-anomaly detection unit. It serves to support the information flow with regards
+\npar The \interface{AlarmAPI} lies in between the Shared Repository and the
+Anomaly Detection Unit. It serves to support the information flow with regards
 to alarms.
 
 \begin{figure}[H]
@@ -368,22 +374,25 @@ the requirement is split, delegated or derived. Also, for split and derived
 elements a short description is provided.
 
 \begin{itemize}
-	\item Communication Unit
+	\item Remote Module Communication Unit
 	\begin{itemize}
 	  	\item UCy: Retrieve remote module protocol (derived). Gets the protocol in
 	  	order to select the right translator to be able to communicate with the device. 
 		\item UC7: Send trame to remote device (delegated). 
+		\item UC8': Send measurement (split). Acknowledgment of trames and activation
+		of modules.
+		\item UC13': Send alarm (split). Acknowledgement of alarms.
 		\item Av2': Missing measurements (split). The communication unit will monitor
 		the interarrival times of trames and will detect missing measurement trames.
 		Also, the health of the component is being monitored.
 		\item M1': Dynamic pricing (split). The communication module should support
 		new meters in the near future. 
 		\item M2': Fine-grained metering for enterprises (split). The communication
-		module should support new meters in the near future. 
+		module should support new meters (i.e. secondary meters) in the near future. 
 		\item M3': Decentralized electricity generation (split). The communication
-		module should support new meters in the near future.
+		module should support new meters (i.e. production meters) in the near future.
 	\end{itemize}
-	\item Measurements Storage Scheduler
+	\item Scheduler For MeasurementsStorage
 	\begin{itemize}
 		\item P3': Requests to the measurement database (split). Queries of different
 		types have different priorities.
@@ -395,7 +404,7 @@ elements a short description is provided.
 		\item Av1': Measurement database failure (split). Replicate the database.
 	  	\item P3': Requests to the measurement database (split). Load balancing.
 	\end{itemize}
-	\item Anomaly Detection Scheduler
+	\item Scheduler For Anomaly Detection 
 	\begin{itemize}
 		\item P1' : Timely closure of valves (split). Make sure alarms are processed
 		in time. 
@@ -404,7 +413,7 @@ elements a short description is provided.
 		\item UCz: Determine the operational mode (derived). Determine the load in
 		order to utilize the right policy.
 	\end{itemize}
-	\item Anomaly Detection
+	\item Anomaly Detection Unit
 	\begin{itemize}
 		\item P2': Anomaly Detection (split). Parallellize anomaly detection.
 		\item UC10: Anomaly Detection (delegated). Perform the actual anomaly
@@ -415,7 +424,7 @@ elements a short description is provided.
 		\item UC9: Notify Customer (delegated). Notify customers, alarm recipients,
 		call center and the emergency services. 
 	  	\item UCx: Retrieve customer from a deviceId (derived). Gets the customer's
-	  	profile based on a recieved trame (by using the device's identification)
+	  	profile based on a received trame (by using the device's identification)
 	\end{itemize}
 	\item Scheduler for Outbound Communication
 	\begin{itemize}
@@ -429,21 +438,22 @@ elements a short description is provided.
 	\end{itemize}
 	\item Other functionality
 	\begin{itemize}
-	  	\item Av3: Third Party Billing Service failure (delegated)
-	  	\item M1': Dynamic pricing (split)
-	  	\item M2: Fine-grained metering for enterprises (delegated)
-	  	\item M3': Decentralized electricity generation (split)
-	  	\item UC1: Log in (delegated)
-	  	\item UC2: Log off (delegated)
-	  	\item UC3: Register customer (delegated)
-	  	\item UC4: Unregister customer (delegated)
-	  	\item UC5: Associate device to customer (delegated)
-	  	\item UC6: Customize customer profile (delegated)
-	  	\item UC11: Operate remote actuator remotely (delegated)
-	  	\item UC12: Set alarm recipients (delegated)
-	  	\item UC14: Request consumption predictions (delegated)
-	  	\item UC15: Generate invoice (delegated)
-	  	\item UC16: Mark invoice paid (delegated)
-	  	\item UC17: Perform research (delegated)
+	  	\item Av3: Third Party Billing Service failure (delegated).
+	  	\item M1': Dynamic pricing (split). All modifiable functionality regarding
+	  	billing.
+	  	\item M2: Fine-grained metering for enterprises (delegated).
+	  	\item M3': Decentralized electricity generation (split). The B2B front end.
+	  	\item UC1: Log in (delegated).
+	  	\item UC2: Log off (delegated).
+	  	\item UC3: Register customer (delegated).
+	  	\item UC4: Unregister customer (delegated).
+	  	\item UC5: Associate device to customer (delegated).
+	  	\item UC6: Customize customer profile (delegated).
+	  	\item UC11: Operate remote actuator remotely (delegated).
+	  	\item UC12: Set alarm recipients (delegated).
+	  	\item UC14: Request consumption predictions (delegated).
+	  	\item UC15: Generate invoice (delegated).
+	  	\item UC16: Mark invoice paid (delegated).
+	  	\item UC17: Perform research (delegated).
 	\end{itemize}
 \end{itemize}
