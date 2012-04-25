@@ -28,7 +28,182 @@ user is a generalisation for all actors who can interact with the portal.
 
 \section{Key Decompositions}
 
-% TODO uitleg en figuren
+\npar In this section there will be a short overview of all iterations of the
+ADD process, recapitulating every iteration by its corresponding interface
+diagram. In every subsection there will be a link to the ADD chapter where to
+find detailed information explaining all components and interfaces of the
+diagram.
+
+\subsection{Whole system}
+
+\npar In diagram \ref{fig:final-architecture/it1} all the components of the
+first iteration are shown. The explanation for the roles and responsibilities
+respectively interfaces can be found in sections \ref{add:it1/elements} and
+\ref{add:it1/interfaces}.
+
+\begin{figure}[H]
+	\begin{centering}
+		% TODO Figure
+		\includegraphics[height=\textwidth,angle=90]{figs/add-it1-interfaces.pdf}
+		\caption{Overview of the interfaces and components in the ReMeS
+		System.}
+		\label{fig:final-architecture/it1}
+	\end{centering}
+\end{figure}
+
+\subsection{Remote Module Communication Unit}
+
+\npar The results of the second iteration are visualized in figure
+\ref{fig:final-architecture/it2}. The corresponding components and interface
+explanation can be found in respectively section \ref{add:it2/elements} and
+\ref{add:it2/interfaces}.
+
+\begin{figure}[H]
+	\begin{centering}
+		% TODO Figure
+		\includegraphics[width=\textwidth]{figs/add-it2-interfaces.pdf}
+		\caption{Overview of the interfaces and components in the Remote
+		Module Communication Unit.}
+		\label{fig:final-architecture/it2}
+	\end{centering}
+\end{figure}
+
+\subsection{Scheduler For MeasurementsStorage}
+
+\npar Figure \ref{fig:final-architecture/it3} shows all the components of the
+Scheduler for MeasurementsStorage, this was the third iteration. The roles and
+responsibilties of each component can be found in \ref{add:it3/elements}. The
+interfaces documentation is stated in section \ref{add:it3/interfaces}.
+
+\begin{figure}[H]
+	\begin{centering}
+		\includegraphics[width=\textwidth]{figs/add-it3-interfaces.pdf}
+		\caption{Overview of the interfaces and components in the Scheduler For
+		MeasurementsStorage.}
+		\label{fig:final-architecture/it3}
+	\end{centering}
+\end{figure}
+
+\subsection{MeasurementsStorage}
+
+\npar The results of the fourth iteration are visible in figure
+\ref{fig:final-architecture/it4}. Interface documentation can be found in
+section \ref{add:it4/interfaces}. The component explanation is documented in
+section \ref{add:it4/elements}.
+
+\begin{figure}[H]
+	\begin{centering}
+		% TODO Figure
+		\includegraphics[width=\textwidth]{figs/add-it4-interfaces.pdf}
+		\caption{Overview of the interfaces and components in the
+		MeasurementsStorage.}
+		\label{fig:final-architecture/it4}
+	\end{centering}
+\end{figure}
+
+\subsection{Scheduler For Anomaly Detection}
+
+\npar Iteration 5 discussed the decomposition of the scheduler for anomaly
+detection. The results are shown in figure \ref{fig:final-architecture/it5}. The
+component and interface documentation can be found in respectively section
+\ref{add:it5/elements} and \ref{add:it5/interfaces}.
+
+\begin{figure}[H]
+	\begin{centering}
+		\includegraphics[width=\textwidth]{figs/add-it5-interfaces.pdf}
+		\caption{Overview of the interfaces and components in the Scheduler For
+		Anomaly Detection.}
+		\label{fig:final-architecture/it5}
+	\end{centering}
+\end{figure}
+
+\subsection{Anomaly Detection Unit}
+
+\npar In figure \ref{fig:final-architecture/it6} is the decomposition of the
+Anomaly Detection Unit depicted. The explanation for the roles and
+responsibilities of each component can be found in section
+\ref{add:it6/elements}. The interface documentation is stated in section
+\ref{add:it6/interfaces}.
+
+\begin{figure}[H]
+	\begin{centering}
+		% TODO Figure
+		\includegraphics[width=\textwidth]{figs/add-it6-interfaces.pdf}
+		\caption{Overview of the interfaces and components in the Anomaly Detection
+		Unit.}
+		\label{fig:final-architecture/it6}
+	\end{centering}
+\end{figure}
+
+\subsection{Scheduler For Outbound Communication}
+
+\npar The results of the seventh iteration are visualized in figure
+\ref{fig:final-architecture/it7}. The corresponding components and interface
+explanation can be found in respectively section \ref{add:it7/elements} and
+\ref{add:it7/interfaces}.
+
+\begin{figure}[H]
+	\begin{centering}
+		% TODO Figure
+		\includegraphics[width=\textwidth]{figs/add-it7-interfaces.pdf}
+		\caption{Overview of the interfaces and components in the Scheduler For
+		Outbound Communication.}
+		\label{fig:final-architecture/it7}
+	\end{centering}
+\end{figure}
+
+\subsection{Notification Unit}
+
+\npar Figure \ref{fig:final-architecture/it8} depicts the decomposition of the
+Notification Unit. A detailed explanation of each component can be found in
+\ref{add:it8/elements}. The interface documentation is to be found in section
+\ref{add:it8/interfaces}.
+
+\begin{figure}[H]
+	\begin{centering}
+		% TODO Figure
+		\includegraphics[width=\textwidth]{figs/add-it8-interfaces.pdf}
+		\caption{Overview of the interfaces and components in the Notification Unit.}
+		\label{fig:final-architecture/it8}
+	\end{centering}
+\end{figure}
+
+\subsection{Health Monitoring Unit}
+
+\npar Iteration 5 discussed the decomposition of the Health Monitoring Unit. The
+results are shown in figure \ref{fig:final-architecture/it9}. The component and
+interface documentation can be found in respectively section
+\ref{add:it9/elements} and \ref{add:it9/interfaces}.
+
+\begin{figure}[H]
+	\begin{centering}
+		% TODO Figure
+		\includegraphics[width=\textwidth]{figs/add-it9-interfaces.pdf}
+		\caption{Overview of the interfaces and components in the Health Monitoring
+		Unit.}
+		\label{fig:final-architecture/it9}
+	\end{centering}
+\end{figure}
+
+\subsection{Other}
+
+\npar The final iteration, the tenth, contains the decomposition of the other
+component. It is very important to remark that there never will be any notion of
+an ``other component'' in the system once one starts implementing it. This can
+also be seen in the overall component diagram, see \ref{fig:final-components}.
+Nonetheless is it shown in diagram \ref{fig:final-architecture/it10}, but it has
+no functional meaning except for grouping the components. Documentation of the
+components can be found in section \ref{add:it10/elements}. The interface
+explanation is to be found in section \ref{add:it10/interfaces}.
+
+\begin{figure}[H]
+	\begin{centering}
+		% TODO Figure 
+		\includegraphics[width=\textwidth]{figs/add-it10-interfaces.pdf}
+		\caption{Overview of the interfaces and components in the Other component.}
+		\label{fig:final-architecture/it10}
+	\end{centering}
+\end{figure}
 
 \section{Deployment Diagram}
 
