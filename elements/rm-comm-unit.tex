@@ -1,13 +1,14 @@
-\section{RemoteModuleCommunication}
+\section{Remote Module Communication Unit}
 \label{element:rm-comm-unit}
 
 \subsection{Roles and responsibilities}
 
 \npar This module is responsible for all communication from and to remote
 modules (all types of communication and both valves and control devices).
-Incoming trames (from remote devices) are handed over to the storage scheduler
-(after conversion into QueryCommands). Trames which need to be sent to remote
-modules are dispatched to the correct module through the correct medium.
+Incoming measurements (from remote devices) are handed over to the Scheduler For
+MeasurementsStorage. Alarms are dispatched to the Scheduler For Anomaly
+Detection. Trames which need to be sent to remote modules are dispatched to the
+correct module through the correct medium.
 
 \subsection{Provided interfaces}
 
