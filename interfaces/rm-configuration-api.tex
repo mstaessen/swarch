@@ -6,7 +6,7 @@
 \npar \interface{RMConfigurationAPI} provides methods for the retrieval of and
 storage of remote module configurations.
 
-\subsection{\method{execute(RMCOnfigurationQuery)}}
+\subsection{\method{execute(RMConfigurationQuery)}}
 
 \subsubsection{Resources Provided}
 
@@ -22,8 +22,7 @@ RMConfigurationResult execute(RMConfigurationQuery query)
 		  \item query: the query to be executed on the database. 
 		\end{itemize}
 		\item[Effect] The query is executed on the database and the result is returned
-		as an RMConfigurationResult. When the given query is an update query the result is the
-		null reference.
+		as an RMConfigurationResult. 
 		\item[Restrictions] \
 		\begin{itemize}
 		  \item The query can't be the null reference.

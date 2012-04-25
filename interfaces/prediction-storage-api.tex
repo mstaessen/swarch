@@ -1,10 +1,10 @@
-\section{PredictionStorageAPi}
+\section{PredictionStorageAPI}
 \label{api:prediction-storage-api}
 
 \subsection{Interface Identity}
 
-\npar \interface{PredictionStorageAPi} provides methods for the retrieval of and storage of
-predictions.
+\npar \interface{PredictionStorageAPI} provides methods for the retrieval of and
+storage of predictions.
 
 \subsection{\method{execute(CustomerProfileQuery)}}
 
@@ -22,8 +22,7 @@ PredictionResult execute(PredictionQuery query)
 		  \item query: the query to be executed on the database. 
 		\end{itemize}
 		\item[Effect] The query is executed on the database and the result is returned
-		as a PredictionResult. When the given query is an update query the result is
-		the null reference.
+		as a PredictionResult. 
 		\item[Restrictions] \
 		\begin{itemize}
 		  \item The query can't be the null reference.
