@@ -10,6 +10,9 @@ that the load should be balanced ower multiple instances of each subsystem.
 \subsection{Step 2: Choose design concepts}
 \label{add:it6/concepts}
 
+\npar In this section there will be an overview of the chosen tactics and
+patterns.
+
 \subsubsection{Tactics}
 \label{add:it6/tactics}
 
@@ -26,8 +29,8 @@ the use of resources efficient.
 
 \paragraph{Resource Pool}
 
-\npar The resource pool design pattern \citep[see][p.~503]{Buschmann:07} can be
-used to efficiently manage the instances for anomaly detection. Every time an
+\npar The \emph{Resource Pool} design pattern \citep[see][p.~503]{Buschmann:07}
+can be used to efficiently manage the instances for anomaly detection. Every time an
 anomaly request comes in, an instance is removed from the pool and assigned to
 that request. When the anomaly detection algorithm has ended, the resource is
 placed back in the pool. 
@@ -37,14 +40,14 @@ placed back in the pool.
 \npar Running all instances on a single machine is not the best idea. If that
 machine goes down, there is no way to detect anomalies. A better approach is to
 distribute multiple instances across multiple nodes. As with database
-replication, the replicated component group design pattern
+replication, the  \emph{Replicated Component Group} design pattern
 \citep[see][p.~326]{Buschmann:07} can be used.
 
 \paragraph{Business Delegate}
 
-\npar To make the location of the instances transparant, a business delegate
-design pattern \citep[see][p.~292]{Buschmann:07} can be used, as is done in
-iteration 4 (see \ref{add:it4}) for the measurements storage replication.
+\npar To make the location of the instances transparant, a \emph{Business
+Delegate} design pattern \citep[see][p.~292]{Buschmann:07} can be used, as is
+done in iteration 4 (see \ref{add:it4}) for the measurements storage replication.
 
 \subsection{Step 3: Instantiate architectural elements and allocate responsibilities}
 \label{add:it6/elements}
@@ -59,14 +62,14 @@ iteration 4 (see \ref{add:it4}) for the measurements storage replication.
 \subsubsection{ADFrontEnd}
 
 \npar This component acts as the manager of the ADInstances. When a new
-ADCommand enters the front end will fetch an instance of the instance pool which
-will execute the command and return the result. Based on the result the front
+ADCommand enters, the frontend will fetch an instance of the instance pool
+which will execute the command and return the result. Based on the result the front
 end can determine whether it is a false alarm or a true alarm. In the latter
 case the notification unit is contacted to send an alarm and possibly an
 OCCommand is constructed and send to the OCScheduler to seal the corresponding
 valve. The machine learning algorithms typically work on datasets instead of a
 single datum. Therefore extra alarm or measurement data can be fetched from
-respectively the Shared Repository or the MeasureMentsStorage.
+respectively the Shared Repository or the MeasurementsStorage.
 
 \subsubsection{ADInstance}
 
@@ -90,7 +93,7 @@ Unit is shown in \ref{fig:it6/elements}.
 		% TODO Figure
 		\includegraphics[width=\textwidth]{figs/add-it6-elements.pdf}
 		\caption{Overview of all instantiated child elements in the Anomaly
-		Detection Unit}
+		Detection Unit.}
 		\label{fig:it6/elements}
 	\end{centering}
 \end{figure}
@@ -127,7 +130,7 @@ where results of anomaly detection algorithms are passed through.
 		% TODO Figure
 		\includegraphics[width=\textwidth]{figs/add-it6-interfaces.pdf}
 		\caption{Overview of the interfaces and components in the Anomaly Detection
-		Unit}
+		Unit.}
 		\label{fig:it6/interfaces}
 	\end{centering}
 \end{figure}

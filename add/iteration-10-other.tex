@@ -7,7 +7,7 @@
 \npar In the first iteration there were quite a lot of requirements delegated to
 this component. This requires some selection to take place. This selection is
 once again based on the priorities of the quality attributes. However since all
-the remaning quality attribute scenarios are (split versions from)
+the remaining quality attribute scenarios are (split versions of)
 modifiability, they can be easily combined. Furthermore is the remaining
 availability quality attribute heavily correlated with M1' concerning the
 billing aspect. Therefore the drivers for this iteration are M1', M2, M3' and
@@ -18,8 +18,8 @@ Av3.
 \begin{itemize}
 	\item Av3: Third Party Billing Service failure
 	\begin{itemize}
-		\item Detect failure of the billing service
-		\item Notify ReMeS operators after 5 failed attempts
+		\item Detect failure of the billing service.
+		\item Notify ReMeS operators after 5 failed attempts.
 	\end{itemize}
  	\item M1': Dynamic pricing.
   	\begin{itemize}
@@ -34,7 +34,7 @@ Av3.
   	\end{itemize}
 	\item M3': Decentralized electricity generation
   	\begin{itemize}
-  	  \item Be ready for dynamic pricing (cf. M1)
+  	  \item Be ready for dynamic pricing (cf. M1).
   	\end{itemize}
 \end{itemize}
 
@@ -53,6 +53,9 @@ the other component. %TODO: juist ?
 \subsection{Step 2: Choose design concepts}
 \label{add:it10/concepts}
 
+\npar In this section there will be an overview of the chosen tactics and
+patterns.
+
 \subsubsection{Tactics}
 \label{add:it10/tactics}
 
@@ -69,8 +72,8 @@ expected changes, the hiding of information and the use of an intermediary.
 \npar The \emph{Publisher - Subscriber} pattern is in this context particularly useful due to
 the inherently unknown parties potentially interested in certain messages. E.g. When
 later in time dynamic pricing is introduced it is simply possible for the other
-interested parties (customers, HAS, etc.) to subscribe to these events. So this
-pattern aids in realizing the anticipate expected changes tactic.
+interested parties (e.g. customers, HAS, etc.) to subscribe to these events. So
+this pattern aids in realizing the anticipate expected changes tactic.
 
 \paragraph{Facade}
 
@@ -103,36 +106,37 @@ will be discussed.
 
 \subsubsection{PriceChannel}
 
-\npar The event channel is a communication entity where publishers can publish
+\npar The PriceChannel is a communication entity where publishers can publish
 events on and subscribers can subscribe on. Its solely goal is to redirect
 incoming events to the right receivers. Notice that this component is only used
 for the propagation of pricing updates.
 
 \subsubsection{PredictionUnit}
 
-\npar The prediction unit is responsible for fetching the consumption
+\npar The PredictionUnit is responsible for fetching the consumption
 histories of all customers and processing them (i.e. running all sorts of
 prediction algorithms on the fetched data). The UISCommunicationUnit can
 afterwards contact this component to retrieve the computed predictions.
+Predictions are also made persistent in the Shared Repository.
 
 \subsubsection{BillingUnit}
 
 \npar The responsibility of this unit is limited to the generation of invoices.
-Ths includes determining that an invoice should be constructed, fetching all the
-relevant consumption data and constructing the invoice. The constructed invoice
-is then sent towards the billing communication unit through the
+This includes determining that an invoice should be constructed, fetching all
+the relevant consumption data and constructing the invoice. The constructed
+invoice is then sent towards the BillingCommunicationUnit through the
 \interface{BillingSendAPI} interface. One more task is assigned to this
 component, namely the marking of paid invoices. To retrieve all the data the
-billing unit needs, first of all it has to have access through the internal ReMeS
+BillingUnit needs, first of all it has to have access to the internal ReMeS
 customer database (through the \interface{CustomerProfileAPI} interface).
 Secondly, it needs to be able to contact the UIS. This is done through the
-\interface{CustomerInformation}.
+\interface{CustomerInformation} interface.
 
 \subsubsection{UISCommunicationUnit}
 
 \npar This unit is the first of two units responsible for communication with
 external actors in respect to billing and prediction. In section
-\ref{add:it8/patterns} we discussed the usage of a slight variant of the
+\ref{add:it10/patterns} we discussed the usage of a slight variant of the
 \emph{Facade} pattern. The deviation of the standard pattern lies firstly in the
 usage of two communication units instead of one single point of access.
 Secondly there is no bypassing of this communication (not even in a limited
@@ -140,10 +144,10 @@ number of scenarios) as it is the case in the \emph{Facade} pattern.
 
 \npar This component interacts with three other components. The first one,
 Utility information system, is used for all information needed by ReMeS that is
-stored by the utility company. The second one, prediction unit, is used to
+stored by the utility company. The second one, PredictionUnit, is used to
 acquire prediction statistics for a certain utility company. Besides using
-interfaces the UISCommunicationUnit off course offers interfaces itself. It
-offers two main services towards other components: one towards the billing unit
+interfaces, the UISCommunicationUnit off course offers interfaces itself. It
+offers two main services towards other components: one towards the BillingUnit
 and one towards the UIS. The former service includes the retrieval of customer
 data that is kept by the UIS. The latter one is more of a consultation service
 where the UIS can request predictions.
@@ -158,9 +162,9 @@ possibility for all notifications that need to be sent towards ReMeS concerning
 the payment of invoices.
 
 \npar The BillingCommunicationUnit also uses functionality which is reflected in
-the usage of the BillingUnit and third party billing service. The former one is
-used to sent the notification of a payment to. It uses the third party billing
-service for sending it the right documents.
+the usage of the BillingUnit and Third Party Billing Service. The former one is
+used to sent the notification of a payment to. It uses the Third Party Billing
+Service for sending it the right documents.
 
 \subsection{Step 4: Define interfaces for instantiated elements}
 \label{add:it10/interfaces}
@@ -180,8 +184,8 @@ implementor, PriceChannel itself. Events are dispatched through the channel
 \subsubsection{PredictionAPI}
 
 \npar The \interface{PredictionAPI} interface is offered by the PredictionUnit
-towards the UISCommunicationUnit. The latter can use this to send predictions to however
-needs them.
+towards the UISCommunicationUnit. The latter can use this to send predictions to
+whoever needs them.
 
 \subsubsection{BillingUnitAPI}
 
@@ -192,8 +196,8 @@ certain invoice.
 \subsubsection{BillingCommunicationAPI}
 
 \npar This interface has exactly the same role as the \interface{BillingUnitAPI}
-but it is declared between the BillingCommunicationAPI on one side and the third
-party billing service on the other side.
+but it is declared between the BillingCommunicationAPI on one side and the Third
+Party Billing Service on the other side.
 
 \subsubsection{CustomerInformation}
 

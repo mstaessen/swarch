@@ -19,18 +19,19 @@
 \label{add:it5/concepts}
 
 \npar The design concepts for this decomposition are completely analogous to the
-design concepts of iteration 3 (see section \ref{add:it3/concepts}). 
+design concepts of iteration 3 (see section \ref{add:it3/concepts}), since it
+involves scheduling as well.
 
 \subsection{Step 3: Instantiate architectural elements and allocate responsibilities}
 \label{add:it5/elements}
 
 \npar Also analogous to iteration 3 (see \ref{add:it3}), an ADScheduler will
-enqueue processing jobs with a priorities in an ADQueue with an ADPolicy. An
-ADQueueReader will dequeue jobs from the queue en feed them
+enqueue processing jobs with a priority in an ADQueue with an ADPolicy. An
+ADQueueReader will dequeue jobs from the queue and feed them
 to the Anomaly Detection Unit. 
 
-\npar An overview of the instantiated child components of the Anomaly Detection
-Scheduler is shown in \ref{fig:it5/elements}.
+\npar An overview of the instantiated child components of the Scheduler
+For Anomaly Detection is shown in \ref{fig:it5/elements}.
 
 \subsubsection{ADScheduler}
 
@@ -39,7 +40,8 @@ Anomaly Detection Unit. It accepts incoming ADCommands at a random rate (i.e.
 the rate at which the communication and storage send them towards this
 component) and it redirects them to the Anomaly Detection Unit. This
 scheduler guarantees in addition that the rate at which it will send the
-ADCommands to the detection unit will not exceed its maximum sending rate.
+ADCommands to the Anomaly Detection Unit will not exceed its maximum sending
+rate.
 
 \subsubsection{ADPolicy}
 
@@ -52,7 +54,7 @@ different for the various policies).
 
 \npar The ADQueue does nothing else than provide a priority queue for
 ADCommands with accompanying insert and retrieve functionality. Since
-it is a priority queue the commands can be placed in different places in the
+it is a priority queue, the commands can be placed in different places in the
 queue depending on their priority. More precisely, for each priority level will
 the index of the last element with that priority be kept in a list. When a new
 command needs to be inserted, the priority of that command is determined.
@@ -115,8 +117,8 @@ interfaces instantiated in this iteration.
 \begin{figure}[H]
 	\begin{centering}
 		\includegraphics[width=\textwidth]{figs/add-it5-interfaces.pdf}
-		\caption{Overview of the interfaces and components in the Anomaly Detection
-		Scheduler}
+		\caption{Overview of the interfaces and components in the Scheduler For
+		Anomaly Detection.}
 		\label{fig:it5/interfaces}
 	\end{centering}
 \end{figure}
