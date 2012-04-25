@@ -38,7 +38,7 @@ functionality in combination with the heartbeat tactic.
 		% TODO Figure
 		\includegraphics[width=\textwidth]{figs/add-it9-elements.pdf}
 		\caption{Overview of the instantiated child elements in the Health Monitoring
-		Unit}
+		Unit.}
 		\label{fig:it9/elements}
 	\end{centering}
 \end{figure}
@@ -47,18 +47,20 @@ functionality in combination with the heartbeat tactic.
 together with all their associations depicted in figure \ref{fig:it9/elements}.
 %TODO: gaat er geen commentaar komen op het feit dat ons notification gedrag
 % over 2 plaatsen verspreid is ?
-\subsubsection{Operator Notification Unit}
+\subsubsection{OperatorNotificationUnit}
 
 \npar This unit is purely responsible for the notification of ReMeS operators. A
 notification request can enter this unit either from the heartbeat monitor or
 from an external component.
 
-\subsubsection{Heartbeat Monitor}
+\subsubsection{HeartbeatMonitor}
 
-\npar The heartbeat monitor is a registering point for other components to
+\npar The HeartbeatMonitor is a registering point for other components to
 confirm that they are still up and running. When a component does not give a
 heartbeat signal, it is assumed that that component is crashed and approriate
-action is undertaken (i.e. a ReMeS operator is notified).
+action is undertaken (i.e. a ReMeS operator is notified). Off course it is
+always possible that the monitor itself fails. Therefore this component is in
+fact a cluster of monitors where each monitor monitors every other monitor.
 
 \subsection{Step 4: Define interfaces for instantiated elements}
 \label{add:it9/interfaces}
@@ -85,7 +87,7 @@ who need to be able to notify a ReMeS operator.
 		% TODO Figure
 		\includegraphics[width=\textwidth]{figs/add-it9-interfaces.pdf}
 		\caption{Overview of the interfaces and components in the Health Monitoring
-		Unit}
+		Unit.}
 		\label{fig:it9/interfaces}
 	\end{centering}
 \end{figure}

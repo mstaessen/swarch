@@ -4,8 +4,8 @@
 \subsection{Step 1: Identify candidate drivers}
 \label{add:it8/drivers}
 
-\npar There is only very little functionality delegated to this unit, namely one
-two cases, UC9 (Notify Customer) and UCx (retrieve customer from deviceId).
+\npar There is only very little functionality delegated to this unit, namely two
+cases, UC9 (Notify Customer) and UCx (retrieve customer from deviceId).
 Since there are no quality attributes this decomposition will be use case
 driven.
 
@@ -15,9 +15,9 @@ driven.
 \subsubsection{Tactics}
 \label{add:it8/tactics}
 
-\npar Since there are no applicable quality attributes in this iteration. There
-are no tactics selected. Off course are general OO design principles such as
-separation of concerns taken into account as much as possible.
+\npar Since there are no applicable quality attributes in this iteration.
+Hence, there are no tactics selected. Off course general OO design principles
+such as separation of concerns are taken into account as much as possible.
 
 \subsubsection{Design Patterns}
 \label{add:it8/patterns}
@@ -31,33 +31,34 @@ separation of concerns taken into account as much as possible.
 	\begin{centering}
 		% TODO Figure
 		\includegraphics[width=\textwidth]{figs/add-it8-elements.pdf}
-		\caption{Overview of the instantiated child elements in the Notification Unit}
+		\caption{Overview of the instantiated child elements in the Notification
+		Unit.}
 		\label{fig:it8/elements}
 	\end{centering}
 \end{figure}
 
-\npar There are two main components in this decomposition, the communication
-client and the transport map. Both of them will be explained below. A graphical
-illustration is given in figure \ref{fig:it8/elements}.
+\npar There are two main components in this decomposition, the
+CommunicationClient and the TransportMap. Both of them will be explained below.
+A graphical illustration is given in figure \ref{fig:it8/elements}.
 
 \subsubsection{CommunicationClient} 
 
-\npar This component gets the initial notification message. It's task is
+\npar This component gets the initial notification message. Its task is
 twofold. First of all this component has to fetch the communication channel
 through which it has to contact the stakeholder (i.e. the emergency services
 and/or one or more customers). Therefore it uses the
-\interface{CustomerProfileAPI} interface of the database which contains all user
+\interface{RMConfigurationAPI} interface of the database which contains all user
 information. Secondly, once the channel is acquired it has to contact the
-transport map to ask for the right transport unit which can be used to send the
-notification. The transport map offers therefore an \interface{TransportMapAPI}
+TransportMap to ask for the right Transport unit which can be used to send the
+notification. The TransportMap offers therefore an \interface{TransportMapAPI}
 interface.
 
 \subsubsection{Transport Map}
 
-\npar The transport map is the manager of several transport components. The
-map will return the right transport component based on the request. Each
-transportcomponent is responsible for communication towards the stakeholders
-through a specific channel. To realize this, each of these transport components
+\npar The TransportMap is the manager of several Transport components. The
+map will return the right Transport component based on the request. Each
+Transportcomponent is responsible for communication towards the stakeholders
+through a specific channel. To realize this, each of these Transport components
 offers a \interface{TransportAPI} interface. By splitting the transport into
 different components the sending of notifications can be parallelized (i.e. over
 different communication channels).
@@ -85,13 +86,13 @@ provider. This interface offers functionality to retrieve a Transport entity.
 \paragraph{TransportAPI}
 
 \npar This interface is offered by Transport components. It is used to transport
-notification towards stakeholders such as customers.
+notifications towards stakeholders such as customers.
 
 \begin{figure}[H]
 	\begin{centering}
 		% TODO Figure
 		\includegraphics[width=\textwidth]{figs/add-it8-interfaces.pdf}
-		\caption{Overview of the interfaces and components in the Notification Unit}
+		\caption{Overview of the interfaces and components in the Notification Unit.}
 		\label{fig:it8/interfaces}
 	\end{centering}
 \end{figure}
@@ -99,5 +100,5 @@ notification towards stakeholders such as customers.
 \subsection{Step 5: Verify and refine}
 \label{add:it8/verification}
 
-\npar The driver of this iteration, UC9, is resolved. All the steps of its main
-scenario are now tracable in the diagram.
+\npar The drivers of this iteration, UC9 and Ucx, are resolved. All the steps of
+its main scenario are now tracable in the diagram.
