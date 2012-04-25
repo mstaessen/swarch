@@ -38,17 +38,22 @@ Av3.
   	\end{itemize}
 \end{itemize}
 
-\npar M1' is linked with the following use cases:
+\npar The use cases that have to be handled in this iteration are:
 
 \begin{itemize}
-  \item UC14: Request consumption predictions
-  \item UC15: Generate invoide
-  \item UC16: Mark invoice paid
+	\item UC1: Log in
+	\item UC2: Log off
+	\item UC3: Register customer
+	\item UC4: Unregister customer
+	\item UC5: Associate device to customer
+	\item UC6: Customize customer profile
+	\item UC11: Operate actuator remotely
+	\item UC12: Set alarm recipients
+	\item UC14: Request consumption predictions
+	\item UC15: Generate invoice
+	\item UC16: Mark invoice paid
+	\item UC17': Perform Research
 \end{itemize}
-
-\npar Because of this relation between M3' and the listed use cases their
-functionality will also be adressed. The remaining use cases are delegated to
-the other component. %TODO: juist ?
 
 \subsection{Step 2: Choose design concepts}
 \label{add:it10/concepts}
@@ -61,8 +66,10 @@ patterns.
 
 \paragraph{Modifiability}
 
-\npar For the purpose of modifiability three tactics are selected: anticipate
-expected changes, the hiding of information and the use of an intermediary.
+\npar For the purpose of modifiability, the ``anticipate expected changes'' tactic
+is selected. Because a lot of extra external actors will be added to the
+system (more devices, smart meters, HAS\ldots), one has to keep that in mind
+when designing the architecture. 
 
 \subsubsection{Design Patterns}
 \label{add:it10/patterns}
@@ -166,6 +173,14 @@ the usage of the BillingUnit and Third Party Billing Service. The former one is
 used to sent the notification of a payment to. It uses the Third Party Billing
 Service for sending it the right documents.
 
+\subsubsection{Portal}
+
+\npar The Portal represents the web interface that is exposed to ReMeS users.
+This includes customers, utility providers, ReMeS personnel\ldots
+
+\npar Upon subscribing to ReMeS, the user receives a login with which he/she can
+login and manage its profile, meters and utility usage. 
+
 \subsection{Step 4: Define interfaces for instantiated elements}
 \label{add:it10/interfaces}
 
@@ -230,12 +245,19 @@ and the BillingUnit. The latter is the one who provides the interface.
 \label{add:it10/verification}
 
 \npar All quality attribute drivers and assigned use cases were resolved in
-this iteration. There are still, however, a number of non resolved use cases and
-one quality attribte which are listed below. The quality attribute is
-delegated to the billing communication unit. The use cases are all delegated to
-the Other component.
+this iteration. 
 
-%TODO: correct (dat van de use cases) ?
+\npar Use case 14 (request consumption predictions) is divided across the
+UISCommunicationUnit and the PredictionUnit.
+
+\npar The Billing Unit and Billing Communication are responsible for:
+
+\begin{itemize}
+    \item UC15: Generate invoice
+    \item UC16: Mark invoice paid
+\end{itemize}
+
+\npar The following use cases are assigned to the ReMeS Portal.
 
 \begin{itemize}
 	\item UC1: Log in
@@ -246,4 +268,5 @@ the Other component.
 	\item UC6: Customize customer profile
 	\item UC11: Operate actuator remotely
 	\item UC12: Set alarm recipients
+	\item UC17': Perform Research
 \end{itemize}
