@@ -30,6 +30,9 @@ use cases are:
 \subsection{Step 2: Choose design concepts}
 \label{add:it3/concepts}
 
+\npar In this section there will be an overview of the chosen tactics and
+patterns.
+
 \subsubsection{Tactics}
 \label{add:it3/tactics}
 
@@ -43,7 +46,7 @@ queue for the scheduler. Jobs are pushed on a queue and popped off when the
 scheduler can process a new job. 
 
 \npar A scheduler can also be implemented with multiple queues. For each kind of
-job, there is a seperate queue. In this case, you would end up with a number of
+job, there is a separate queue. In this case, you would end up with a number of
 queues for different priorities. Whenever a job resides in a queue for a long
 time, it is promoted to a higher priority queue. 
 
@@ -62,16 +65,16 @@ jobs will eventually have a high priority.
 
 \paragraph{Collections for States}
 
-\npar The collections for states design pattern describes a way to efficiently
-implement a scheduler with multiple queues. In a client, every state is
+\npar The \emph{Collections for States} design pattern describes a way to
+efficiently implement a scheduler with multiple queues. In a client, every state is
 represented by a collection of objects with that state. The collections for
 each state would be implemented with queues and the the states would represent
 priority levels.
 
 \paragraph{Strategy}
 
-\npar If the scheduler allows for multiple policies, the strategy design pattern
-can be used to implement these policies. The behaviour of the message router
+\npar If the scheduler allows for multiple policies, the \emph{Strategy} design
+pattern can be used to implement these policies. The behaviour of the message router
 will be determined by the policy.
 
 \paragraph{Monitor} 
@@ -99,8 +102,8 @@ entries of the queues might also be large, making this solution less efficient.
 \begin{figure}[H]
 	\begin{centering}
 		\includegraphics[width=\textwidth]{figs/add-it3-elements.pdf}
-		\caption{Overview of the instantiated child components in the Measurements
-		Storage Scheduler}
+		\caption{Overview of the instantiated child components in the Scheduler For
+		MeasurementsStorage.}
 		\label{fig:it3/elements}
 	\end{centering}
 \end{figure}
@@ -131,13 +134,12 @@ queue depending on their priority. More precisely, for each priority level will
 the index of the last element with that priority be kept in a list. When a new
 query needs to be inserted, the priority of that query is determined.
 Subsequently, the priority is used to retrieve the index of the last element and
-in this way the new query can be inserted. To prevent starvation are the
-priorities of all other commands increased every time a new command is
-inserted.
+in this way the new query can be inserted. The priorities of all commands are
+increased every time a new command is inserted to prevent starvation.
 
 \subsubsection{MeasurementsQueueReader}
 
-\npar The purpose of this component is dequeueing the measurement queue and
+\npar The purpose of this component is dequeueing the MeasurementsQueue and
 afterwards dispatch the popped query to the the MeasurementsStorage.
 
 % \npar All requests to the Measurements Database Scheduler are encapsulated as
@@ -186,8 +188,8 @@ interfaces instantiated in this iteration.
 \begin{figure}[H]
 	\begin{centering}
 		\includegraphics[width=\textwidth]{figs/add-it3-interfaces.pdf}
-		\caption{Overview of the interfaces and components in the Measurements Storage
-		Scheduler}
+		\caption{Overview of the interfaces and components in the Scheduler For
+		MeasurementsStorage.}
 		\label{fig:it3/interfaces}
 	\end{centering}
 \end{figure}

@@ -1,4 +1,4 @@
-\section{Iteration 4: Decomposition of the Storage Unit}
+\section{Iteration 4: Decomposition of the MeasurementsStorage}
 \label{add:it4}
 
 \subsection{Step 1: Identify candidate drivers}
@@ -16,13 +16,16 @@
 \npar There are two delegated (and split) use cases:
 
 \begin{itemize}
-  	\item UC8' : Send measurement. measurements need to be stored.
-  	\item UC17' : Perform research. researchers should be able to query the
+  	\item UC8' : Send measurement. Measurements need to be stored.
+  	\item UC17' : Perform research. Researchers should be able to query the
   	database.
 \end{itemize}
 
 \subsection{Step 2: Choose design concepts}
 \label{add:it4/concepts}
+
+\npar In this section there will be an overview of the chosen tactics and
+patterns.
 
 \subsubsection{Tactics}
 \label{add:it4/tactics}
@@ -91,12 +94,12 @@ replicated instances.
 
 \subsubsection{MeasurementsStorageFrontEnd}
 
-\npar The MeasurementStorageFrontEnd acts as a business delegate and will
+\npar The MeasurementsStorageFrontEnd acts as a business delegate and will
 provide an interface to execute queries on the measurements database. The
 FrontEnd will coordinate interaction between all (replicated) storage instances
 and will also manage references to a TemporaryBuffer, for temporary storage of
 measurement trames in case the database becomes unavailable. It also manages
-access to a MeasurementStorageCache, to speed up requests to the measurements
+access to a MeasurementsStorageCache, to speed up requests to the measurements
 database in case to load is high. Notice that the frontend also converts the
 incoming QueryCommands to actual Queries.
 
@@ -125,8 +128,8 @@ commands will be stored in this buffer, they won't be executed.
 	\begin{centering}
 		% TODO Figure
 		\includegraphics[width=\textwidth]{figs/add-it4-elements.pdf}
-		\caption{Overview of all instantiated child elements in the Measurement
-		Storage}
+		\caption{Overview of all instantiated child elements in the
+		MeasurementsStorage.}
 		\label{fig:it4/elements}
 	\end{centering}
 \end{figure}
@@ -140,24 +143,24 @@ detailed information with reference to the specific methods the interfaces
 implement, we refer to the interface catalog, see appendix
 \ref{chap:interface-catalog}.
 
-\subsubsection{MeasurementStorageAPI}
+\subsubsection{MeasurementsStorageAPI}
 
 \npar This interface was already discussed in iteration 1, see
 \ref{add:it1/interfaces}.
 
-\subsubsection{MeasurementStorageInstanceAPI}
+\subsubsection{MeasurementsStorageInstanceAPI}
 
-\npar The \interface{MeasurementStorageInstanceAPI} lies in between the
+\npar The \interface{MeasurementsStorageInstanceAPI} lies in between the
 MeasurementsStorageFrontEnd and the MeasurementsStorageInstance, who implements
 it. Through this interface queries are streamed from the frontend to the
-instance and in the other directions are the results (synchronously)
-and load information is returned.
+instance and in the other directions the results and load information are
+(synchronously) returned.
 
-\subsubsection{MeasurementStorageCacheAPI}
+\subsubsection{MeasurementsStorageCacheAPI}
 
-\npar The MeasurementStorageCache provides an interface
-\interface{MeasurementStorageCacheAPI}, similar to the
-\interface{MeasurementStorageInstanceAPI}. The dataflows are equal except for
+\npar The MeasurementsStorageCache provides an interface
+\interface{MeasurementsStorageCacheAPI}, similar to the
+\interface{MeasurementsStorageInstanceAPI}. The dataflows are equal except for
 the load information which is not present.
 
 \subsubsection{TemporaryBufferAPI}
@@ -172,7 +175,8 @@ to the frontend. Through this interface QueryCommands are sent.
 	\begin{centering}
 		% TODO Figure
 		\includegraphics[width=\textwidth]{figs/add-it4-interfaces.pdf}
-		\caption{Overview of the interfaces and components in the Measurement Storage}
+		\caption{Overview of the interfaces and components in the
+		MeasurementsStorage.}
 		\label{fig:it4/interfaces}
 	\end{centering}
 \end{figure}
