@@ -4,8 +4,10 @@
 \subsection{Roles and responsibilities}
 
 \npar All storage regarding measurements is provided by this component. To this
-extent it offers basic functionality to execute a QueryCommand. 
-%TODO: referentie naar ADScheduler
+extent it offers basic functionality to execute a QueryCommand. After processing
+a measurement, it will be passed to the Scheduler For Anomaly Detection. This
+storage component is also implemented by active replication to provide high
+availability.
 
 \subsection{Provided interfaces}
 
