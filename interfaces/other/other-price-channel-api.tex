@@ -14,7 +14,7 @@ events as the \emph{Publisher-Subscriber} pattern prescribes.
 	\begin{description}
 		\item[Syntax] \
 		\begin{verbatim}
-void publish{PriceEvent priceEvent}
+void publish(PriceEvent priceEvent)
     throws NullPointerException;
 		\end{verbatim}
 		\item[Arguments] \
@@ -65,7 +65,7 @@ subscribe(PriceFilter filter) : void
 		  notifications of arrivals of events.
 		\end{itemize}
 		\item[Effect] The subscribing object will be marked as a subscriber for
-		certain events (this is determined on the filter).
+		certain events (this is determined by the filter).
 		\item[Restrictions] \
 		\begin{itemize}
 		  \item The given parameter can not be the null reference.
