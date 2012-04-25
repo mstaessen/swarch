@@ -3,7 +3,7 @@
 
 \subsection{Interface Identity}
 
-\npar \interface{PredictionAPI} provides methods for the retrieval of
+\npar \interface{UISCommunicationAPI} provides methods for the retrieval of
 predicted amounts for utility production.
 
 \subsection{\method{getConsumptionPredictions(UtilityProvider)}}
@@ -21,9 +21,8 @@ Prediction getConsumptionPredictions(UtilityProvider up)
 		\begin{itemize}
 		  \item up: contains basic information about a utility provider.
 		\end{itemize}
-		\item[Effect] Based on the utility provider detailed statistics will be
-		retrieved about how much to produce of each utility in the next period of
-		time.
+		\item[Effect] This method will dispatch this method call to the method with
+		the same name of the PredictionAPI, see \ref{api:other-prediction-api}.
 		\item[Restrictions] \
 		\begin{itemize}
 		  \item The given up can't be the null reference

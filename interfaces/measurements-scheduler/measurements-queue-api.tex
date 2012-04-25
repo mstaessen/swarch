@@ -4,7 +4,7 @@
 \subsection{Interface Identity}
 
 \npar \interface{MeasurementsQueueAPI} provides methods to enqueue and dequeue
-QueryCommands in the MeasurementQueue.
+QueryCommands in the MeasurementsQueue.
 
 \subsection{\method{enqueue(QueryCommand, double)}}
 
@@ -23,7 +23,7 @@ void enqueue(QueryCommand command, double priority)
 			measurements database.
 			\item priority: the priority this command will have in queue. 
 		\end{itemize}
-		\item[Effect] The command is inserted in the queue accoring to its priority.
+		\item[Effect] The command is inserted in the queue according to its priority.
 		\item[Restrictions] \ 
 		\begin{itemize}
 			\item The given command is not null.

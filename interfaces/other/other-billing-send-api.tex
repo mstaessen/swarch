@@ -19,8 +19,8 @@ void send(Invoice invoice)
 		\end{verbatim}
 		\item[Arguments] \
 		\begin{itemize}
-			\item invoice: contains a consumed amount of a certain customer together with
-			the owed payment. Additional information regarding the payment method is
+			\item invoice: contains a consumed amount of a certain customer, together
+			with the owed payment. Additional information regarding the payment method is
 			also included.
 		\end{itemize}
 		\item[Effect] The invoice is sent towards the customer included in the
@@ -30,7 +30,7 @@ void send(Invoice invoice)
 			\item The given invoice is not null.
 			\item The invoice contains customer information about where to sent the
 			invoice to.
-			\item The third party billing service is available (i.e. the network the
+			\item The third party billing service is available (i.e. the network and the
 			billing service itself are up and running).
 		\end{itemize}
 	\end{description} 

@@ -6,7 +6,7 @@
 \npar The \interface{PriceChannelAPI} provides methods for the communication of
 events as the \emph{Publisher-Subscriber} pattern prescribes.
 
-\subsection{\method{publish{PriceEvent}}}
+\subsection{\method{publish(PriceEvent)}}
 
 \subsubsection{Resources Provided}
 
@@ -21,11 +21,11 @@ void publish(PriceEvent priceEvent)
 		\begin{itemize}
 		  \item priceEvent: will be published to all subscribers.
 		\end{itemize}
-		\item[Effect] Subscribers to receiving PricEvents will be notified of
+		\item[Effect] Subscribers to receiving PriceEvents will be notified of
 		the availability of a new event. 
 		\item[Restrictions] \
 		\begin{itemize}
-		  \item The given parameter can not be the null reference.
+		  \item The given parameter cannot be the null reference.
 		\end{itemize}
 	\end{description}
 \end{quote}
@@ -56,7 +56,7 @@ void publish(PriceEvent priceEvent)
 	\begin{description}
 		\item[Syntax] \
 		\begin{verbatim}
-subscribe(PriceFilter filter) : void
+void subscribe(PriceFilter filter)
     throws NullPointerException
 		\end{verbatim}
 		\item[Arguments] \

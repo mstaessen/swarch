@@ -19,7 +19,7 @@ void markPaid(String InvoiceId)
 		\end{verbatim}
 		\item[Arguments] \
 		\begin{itemize}
-		  \item id, this unique id identifies an invoice throughout the system.
+		  \item invoiceId: this unique id identifies an invoice throughout the system.
 		\end{itemize}
 		\item[Effect] The invoice with the given id is marked as paid and this
 		information will also be stored. 
@@ -48,6 +48,6 @@ void markPaid(String InvoiceId)
 		\item[NullPointerException] This exception is thrown when the given id is the
 		null reference.
 		\item[IllegalInvoiceIdException] This exception is thrown when the given
-		invoiceId does not point to an existing invoice
+		invoiceId does not point to an existing invoice.
 	\end{description} 
 \end{quote}

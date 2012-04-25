@@ -12,10 +12,10 @@ communication (i.e. into the ReMeS system).
 
 \begin{quote}
 	\begin{description}
-		\item[Syntax] \ %TODO: throws ?
+		\item[Syntax] \
 		\begin{verbatim}
 void receive(byte[] rawTrame)
-	throws ;
+	throws NullPointerException;
 		\end{verbatim}
 		\item[Arguments] \
 		\begin{itemize}
@@ -43,6 +43,7 @@ void receive(byte[] rawTrame)
 
 \begin{quote}
 	\begin{description}
-		\item[] This method throws no exceptions.
+		\item[NullPointerException] This exception is thrown when the given parameter
+		is null.
 	\end{description} 
 \end{quote}

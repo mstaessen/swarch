@@ -4,7 +4,7 @@
 \subsection{Interface Identity}
 
 \npar \interface{ADInstanceAPI} provides methods to run the anomaly detection
-algorithms for a given measurement or alarm trame, encapsulated in a ADCommand,
+algorithms for a given measurement or alarm trame, encapsulated in an ADCommand,
 on an ADInstance.
 
 \subsection{\method{execute(ADCommand, Callback)}}
@@ -21,12 +21,14 @@ void execute(ADCommand command, Callback callback)
 		\item[Arguments] \
 		\begin{itemize}
 			\item command: represents a request to run the anomaly detection algorithms
-			for a given trame that is encapsulated in the command.
+			for a given trame that is encapsulated in the command. Other relevant
+			historical measurements or alarm data (e.g. from the same customer) can be
+			included as well.
 			\item callback: a communication channel back to the issuer to be able to
 			return the results.
 		\end{itemize}
-		\item[Effect] The trame is analyzed. If historical measurement or alarm data
-		is needed, it is fetched. The result is returned to the issuer in a callback.
+		\item[Effect] The trame is analyzed. The result is returned to the issuer in a
+		callback.
 		\item[Restrictions] \ 
 		\begin{itemize}
 			\item The given command is not null.

@@ -29,7 +29,7 @@ void pulse(String componentId, ComponentInfo info)
 		it is alive but one of its replicas has failed).
 		\item[Restrictions] \
 		\begin{itemize}
-		  \item The given id cannot must be valid.
+		  \item The given id cannot be null.
 		  \item The given id has to refer to an existing component.
 		  \item A component can only call the \method{pulse()} method with its own
 		  identifier as first argument. 
@@ -53,6 +53,6 @@ void pulse(String componentId, ComponentInfo info)
 \begin{quote}
 	\begin{description}
 		\item[IllegalComponentIdException] This exception is thrown when the
-		componentId doest not match the id number of any component in the system.
+		componentId does not match the id number of any component in the system.
 	\end{description} 
 \end{quote}

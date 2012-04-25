@@ -1,9 +1,9 @@
-\section{TrameChannel}
+\section{CommEventChannel}
 \label{api:rm-trame-channel}
 
 \subsection{Interface Identity}
 
-\npar The \interface{TrameChannel} provides methods for the communication of
+\npar The \interface{CommEventChannel} provides methods for the communication of
 events as the \emph{Publisher-Subscriber} pattern prescribes.
 
 \subsection{\method{publish(CommunicationEvent)}}
@@ -25,7 +25,7 @@ publish(CommunicationEvent communicationEvent) : void
 		the availability of a new event. 
 		\item[Restrictions] \
 		\begin{itemize}
-		  \item The given parameter can not be the null reference.
+		  \item The given parameter cannot be the null reference.
 		\end{itemize}
 	\end{description} 
 \end{quote}
@@ -56,7 +56,7 @@ publish(CommunicationEvent communicationEvent) : void
 	\begin{description}
 		\item[Syntax] \
 		\begin{verbatim}
-subscribe(CommunicationFilter filter) : void
+void subscribe(CommunicationFilter filter)
     throws NullPointerException
 		\end{verbatim}
 		\item[Arguments] \
@@ -68,7 +68,7 @@ subscribe(CommunicationFilter filter) : void
 		certain events (this is determined on the filter).
 		\item[Restrictions] \
 		\begin{itemize}
-		  \item The given parameter can not be the null reference.
+		  \item The given parameter cannot be the null reference.
 		\end{itemize}
 	\end{description} 
 \end{quote}

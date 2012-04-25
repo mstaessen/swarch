@@ -4,7 +4,8 @@
 \subsection{Interface Identity}
 
 \npar \interface{DeadlineStorageAPI} provides methods for the retrieval of and
-storage of invoice(s) (information).
+storage of deadline(s) (information). By deadline we mean the expected arrival
+time of the next trame of a remote module.
 
 \subsection{\method{execute(DeadlineQuery)}}
 
@@ -22,7 +23,7 @@ DeadlineResult execute(DeadlineQuery query)
 		  \item query: the query to be executed on the database. 
 		\end{itemize}
 		\item[Effect] The query is executed on the database and the result is returned
-		as an DeadlineResult. 
+		as a DeadlineResult. 
 		\item[Restrictions] \
 		\begin{itemize}
 		  \item The query can't be the null reference.
@@ -38,7 +39,7 @@ DeadlineResult execute(DeadlineQuery query)
 		\item[DeadlineResult] This object is a container for one or more Deadlines. 
 		\item[DeadlineQuery] This object is a wrapper for queries only executable on a
 		part of the shared repository, namely the deadline storage.
-		\item[Invoice] This object represents a Deadline. This includes the next
+		\item[Deadline] This object represents a deadline. This includes the next
 		arrival time of a trame, an id number, possible delay, etc.
 	\end{description} 
 \end{quote}

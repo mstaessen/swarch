@@ -6,7 +6,7 @@
 \npar \interface{PredictionStorageAPI} provides methods for the retrieval of and
 storage of predictions.
 
-\subsection{\method{execute(CustomerProfileQuery)}}
+\subsection{\method{execute(PredictionQuery)}}
 
 \subsubsection{Resources Provided}
 
@@ -39,7 +39,7 @@ PredictionResult execute(PredictionQuery query)
 		\item[PredictionQuery] This object is a wrapper for queries only executable on
 		a part of the shared repository, namely the prediction storage.
 		\item[Prediction] This object is a container for all sorts of
-		prediction information of how much of a certain utility to producde for
+		prediction information of how much of a certain utility to produce for
 		a certain period. This object includes the predicted amount, the date,
 		possible reasons why that this amount is what is it is, etc.
 	\end{description} 

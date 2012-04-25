@@ -14,12 +14,12 @@ invoice.
 	\begin{description}
 		\item[Syntax] \
 		\begin{verbatim}
-void markPaid(String InvoiceId)
+void markPaid(String invoiceId)
     throws NullPointerException, IllegalInvoiceIdException
 		\end{verbatim}
 		\item[Arguments] \
 		\begin{itemize}
-		  \item id, this unique id identifies an invoice throughout the system.
+		  \item invoiceId this unique id identifies an invoice throughout the system.
 		\end{itemize}
 		\item[Effect] The invoice with the given id is marked as paid and this
 		information will also be stored. 
