@@ -3,16 +3,16 @@
 
 \subsection{Roles and responsibilities}
 
-\npar The responsibility of this component is the monitoring of all bypassing
+\npar The responsibility of this component is the monitoring of all passing
 measurements and guaranteeing that a missing measurement is detected within the
 demanded time limits. This monitor is subscribed to the event channel to receive
 trames. To guarantee these limits the monitor keeps a table with expected
 arrival times of all remote devices which is frenquently checked. The
 information to build this table is fetched from the database which maintains
 remote module information. Notice that to protect from failures, this table is
-made persistent. When a deadline is exceeded this is stored in the corresponding
-database. When a certain number of deadline violations is reached a ReMeS
-operator is notified.
+made persistent. When a deadline is exceeded, this is stored in the
+corresponding database. When a certain number of deadline violations is reached,
+a ReMeS operator is notified.
 
 \subsection{Provided interfaces}
 

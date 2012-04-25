@@ -3,8 +3,8 @@
 
 \subsection{Roles and responsibilities}
 
-\npar The TemporaryBuffer component is introduced to provide 3 hours of storage
-in case a database failure occurs. The MeasurementsStorageFrontEnd will redirect
+\npar The TemporaryBuffer component is introduced to provide at least 3 hours of
+storage in case a database failure occurs. The MeasurementsStorageFrontEnd will redirect
 all storage traffic (i.e. QueryCommands) towards this component. Notice that the
 commands will be stored in this buffer, they won't be executed.
 

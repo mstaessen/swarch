@@ -3,14 +3,10 @@
 
 \subsection{Roles and responsibilities}
 
-\npar The measurements queue does nothing else than provide a priority queue for
-measurementsqueries with accompanying insert and retrieve functionality. Since
-it is a priority queue the queries can be placed in different places in the
-queue depending on their priority. More precisely, for each priority level will
-the index of the last element with that priority be kept in a list. When a new
-query needs to be inserted, the priority of that query is determined.
-Subsequently, the priority is used to retrieve the index of the last element and
-in this way the new query can be inserted.
+\npar The MeasurementsQueue does nothing else than providing a priority queue
+for MeasurementsQueries with accompanying insert and retrieve functionality.
+Since it is a priority queue the queries can be placed at different places in
+the queue depending on their priority. 
 
 \subsection{Provided interfaces}
 

@@ -4,11 +4,11 @@
 \subsection{Roles and responsibilities}
 
 \npar The MeasurementsScheduler serves as entry point for the measurements
-scheduling. Upon receiving a measurement the scheduler will place that
-measurement in a measurementspolicy. When the system transitions between load
-modi (from normal to overload or vice versa) it is possible that another policy
-is used. This transition in policies is likewise the responsibility of this
-component.
+scheduling. Upon receiving a measurement, the scheduler will hand that
+measurement over to a MeasurementsPolicy. When the system transitions between
+load modi (from normal to overload or vice versa), it is possible that another
+policy is used. This transition in policies is likewise the responsibility of
+this component.
 
 \subsection{Provided Interfaces}
 

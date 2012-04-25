@@ -3,14 +3,10 @@
 
 \subsection{Roles and responsibilities}
 
-\npar The ADQueue does nothing else than provide a priority queue for
+\npar The ADQueue does nothing else than providing a priority queue for
 ADCommands with accompanying insert and retrieve functionality. Since
-it is a priority queue the commands can be placed in different places in the
-queue depending on their priority. More precisely, for each priority level will
-the index of the last element with that priority be kept in a list. When a new
-command needs to be inserted, the priority of that command is determined.
-Subsequently, the priority is used to retrieve the index of the last element and
-in this way the new command can be inserted.
+it is a priority queue, the commands can be inserted at different places in
+the queue depending on their priority. 
 
 \subsection{Provided interfaces}
 
