@@ -89,14 +89,6 @@ Layers design pattern \citep[see][p.~185]{Buschmann:07} are selected.
 The translator acts an intermediary between the remote module and ReMeS and all
 information remains hidden behind a simple interface.
 
-\paragraph{Resource Pool}
-
-\npar To push this information hiding even further a modified version of the
-\emph{Resource Pool} pattern is used. This will be enlightened in the next
-section.
-%TODO: misschien is dit niet helemaal waar, want resource pool is meer op
-% performantie gericht.
-
 \paragraph{Publisher - Subscriber}
 
 \npar Finally the \emph{Publisher-Subscriber} pattern
@@ -118,20 +110,14 @@ receive trames in parallel.
 
 \npar The Remote Module Communication Unit has six main components: Input
 Translator, OutputTranslator, TranslatorMap, TrameEventChannel, DeadlineMonitor
-and TrameConsumer. Each of them will be discussed below. As one can see in
-diagram \ref{fig:it2/elements} there are only two communication paths in the
-system, one for incoming communication and one for outgoing. In this way another
-tactic is realized, namely the restriction of communication paths.
-% TODO: is die restriction tactic nog wel valid ? sloeg op een (veel) eerder
-% design
+and TrameConsumer. They are shown on figure \ref{fig:it2/elements}. Each of them
+will be discussed below.
 
-\npar In the previous section there was the mentioning of a modified version of
-the \emph{Resource Pool} pattern. One can see this pattern in the usage of the
-TranslatorMap. The TranslatorMap component itself acts as a sort of manager of
-the map and handles incoming requests for RemoteModuleTranslators based on a
-certain module. The difference with the original pattern lies in the diversity
-of the RemoteModuleTranslators. Each RemoteModuleTranslator is different whereas
-the resources normally should all be equal.
+\npar When a trame comes in, it is a represented as an array of bytes. In
+order to properly handle it, the trame has to be translated. Therefore, a
+TranslatorMap component is available. It acts as a sort of manager of the map
+and handles requests for RemoteModuleTranslators based on a certain module. One
+could easily compare this component to the Java HashMap. 
 
 \subsubsection{InputTranslator}
 
