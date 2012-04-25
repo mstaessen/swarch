@@ -142,20 +142,6 @@ increased every time a new command is inserted to prevent starvation.
 \npar The purpose of this component is dequeueing the MeasurementsQueue and
 afterwards dispatch the popped query to the the MeasurementsStorage.
 
-% \npar All requests to the Measurements Database Scheduler are encapsulated as
-% QueryCommand objects. These objects have already been created in another
-% component and represent a query to the measurements database. Because the
-% scheduling makes communication asynchronous, the QueryCommand contains a
-% Callback to return the result of the query to the issuer.
-% 
-% \npar The scheduler (MeasurementsScheduler) handles every incoming command
-% (QueryCommand) by inserting the command in a queue (MeasurementsQueue) with a
-% certain priority using a policy (MeasurementsPolicy). The scheduling policy
-% determines the priority of the command based on the nature of that command. 
-% 
-% \npar An additional component (MeasurementsQueueReader) will pop the command
-% with the highest priority off the queue and present it on the database for execution. 
-
 \subsection{Step 4: Define interfaces for instantiated elements}
 \label{add:it3/interfaces}
 

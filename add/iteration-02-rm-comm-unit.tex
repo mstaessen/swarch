@@ -100,7 +100,6 @@ receive trames in parallel.
 
 \begin{figure}[H]
 	\begin{centering}
-		% TODO Figure
 		\includegraphics[width=\textwidth]{figs/add-it2-elements.pdf}
 		\caption{Overview of the instantiated child elements in the Remote Module
 		Communication Unit}
@@ -200,6 +199,15 @@ Through this interface RemoteModuleTranslators are passed.
 \interface{Translator} interface. The users of this interface are the
 aforementioned Input- and OutputTranslator.
 
+\begin{figure}[H]
+	\begin{centering}
+		\includegraphics[width=\textwidth]{figs/add-it2-interfaces.pdf}
+		\caption{Overview of the interfaces and components in the Remote
+		Module Communication Unit}
+		\label{fig:it2/interfaces}
+	\end{centering}
+\end{figure}
+
 \subsubsection{CommEventChannel}
 
 \npar This interface lies in between the TrameEventChannel and its users (i.e.
@@ -213,16 +221,6 @@ When a component is subscribed to a certain event flow, the channel has to be ab
 notify the component when a new event is available. This is done through this
 interface which is implemented by subscribers (in this context, the
 DeadlineMonitor and the TrameConsumer).
-
-\begin{figure}[H]
-	\begin{centering}
-		% TODO Figure
-		\includegraphics[width=\textwidth]{figs/add-it2-interfaces.pdf}
-		\caption{Overview of the interfaces and components in the Remote
-		Module Communication Unit}
-		\label{fig:it2/interfaces}
-	\end{centering}
-\end{figure}
 
 \subsection{Step 5: Verify and refine}
 \label{add:it2/verification}

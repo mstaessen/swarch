@@ -52,13 +52,6 @@ done in iteration 4 (see \ref{add:it4}) for the measurements storage replication
 \subsection{Step 3: Instantiate architectural elements and allocate responsibilities}
 \label{add:it6/elements}
 
-% \npar For every incoming command (ADCommand), the front end (ADFrontEnd) will
-% remove an anomaly detection instance (ADInstance) from the resource pool
-% (ADInstancePool). This instance will handle the anomaly detection for that
-% command and will return the result in a callback to the front end. The front end
-% will then handle the result and if necessary dispatch the Notification Unit.
-% After this is done, the instance is placed back in the pool.
-
 \subsubsection{ADFrontEnd}
 
 \npar This component acts as the manager of the ADInstances. When a new
@@ -70,6 +63,15 @@ OCCommand is constructed and send to the OCScheduler to seal the corresponding
 valve. The machine learning algorithms typically work on datasets instead of a
 single datum. Therefore extra alarm or measurement data can be fetched from
 respectively the Shared Repository or the MeasurementsStorage.
+
+\begin{figure}[H]
+	\begin{centering}
+		\includegraphics[width=0.7\textwidth]{figs/add-it6-elements.pdf}
+		\caption{Overview of all instantiated child elements in the Anomaly
+		Detection Unit.}
+		\label{fig:it6/elements}
+	\end{centering}
+\end{figure}
 
 \subsubsection{ADInstance}
 
@@ -85,18 +87,10 @@ finished the result is returned to the front end.
 functionality to add and remove such instances. Notice that all instances
 are equal.
 
+
 \npar An overview of the instantiated child components of the Anomaly Detection
 Unit is shown in \ref{fig:it6/elements}.
 
-\begin{figure}[H]
-	\begin{centering}
-		% TODO Figure
-		\includegraphics[width=\textwidth]{figs/add-it6-elements.pdf}
-		\caption{Overview of all instantiated child elements in the Anomaly
-		Detection Unit.}
-		\label{fig:it6/elements}
-	\end{centering}
-\end{figure}
 
 \subsection{Step 4: Define interfaces for instantiated elements}
 \label{add:it6/interfaces}
@@ -112,6 +106,15 @@ implement, we refer to the interface catalog, see appendix
 \npar This interface was already discussed in iteration 1, see
 \ref{add:it1/interfaces}.
 
+\begin{figure}[H]
+	\begin{centering}
+		\includegraphics[width=\textwidth]{figs/add-it6-interfaces.pdf}
+		\caption{Overview of the interfaces and components in the Anomaly Detection
+		Unit}
+		\label{fig:it6/interfaces}
+	\end{centering}
+\end{figure}
+
 \subsubsection{ADInstancePoolAPI}
 
 \npar The \interface{ADInstancePoolAPI} lies in between the ADFrontEnd and the
@@ -125,15 +128,6 @@ where results of anomaly detection algorithms are passed through.
 \npar On overview of all the components and their interfaces is shown in figure
 \ref{fig:it6/interfaces}.
 
-\begin{figure}[H]
-	\begin{centering}
-		% TODO Figure
-		\includegraphics[width=\textwidth]{figs/add-it6-interfaces.pdf}
-		\caption{Overview of the interfaces and components in the Anomaly Detection
-		Unit.}
-		\label{fig:it6/interfaces}
-	\end{centering}
-\end{figure}
 
 \subsection{Step 5: Verify and refine}
 \label{add:it6/verification}

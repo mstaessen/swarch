@@ -50,6 +50,15 @@ from the ADScheduler) into the ADQueue. To be able to do this, the policy first
 has to determine the priority of the incoming command (and this priority is
 different for the various policies).
 
+\begin{figure}[H]
+	\begin{centering}
+		\includegraphics[width=0.8\textwidth]{figs/add-it5-elements.pdf}
+		\caption{Overview of all instantiated child elements in the Anomaly
+		Detection Scheduler}
+		\label{fig:it5/elements}
+	\end{centering}
+\end{figure}
+
 \subsubsection{ADQueue}
 
 \npar The ADQueue does nothing else than provide a priority queue for
@@ -65,16 +74,6 @@ in this way the new command can be inserted.
 
 \npar The purpose of this component is dequeueing the ADQueue and
 afterwards dispatch the popped command to the the Anomaly Detection Unit.
-
-\begin{figure}[H]
-	\begin{centering}
-		% TODO Figure
-		\includegraphics[width=\textwidth]{figs/add-it5-elements.pdf}
-		\caption{Overview of all instantiated child elements in the Anomaly
-		Detection Scheduler}
-		\label{fig:it5/elements}
-	\end{centering}
-\end{figure}
 
 \subsection{Step 4: Define interfaces for instantiated elements}
 \label{add:it5/interfaces}
@@ -93,6 +92,15 @@ iteration 3 (see \ref{add:it3}), the interfaces are also very similar.
 \npar This interface was already discussed in iteration 1, see
 \ref{add:it1/interfaces}.
 
+\begin{figure}[H]
+	\begin{centering}
+		\includegraphics[width=0.9\textwidth]{figs/add-it5-interfaces.pdf}
+		\caption{Overview of the interfaces and components in the Scheduler For
+		Anomaly Detection}
+		\label{fig:it5/interfaces}
+	\end{centering}
+\end{figure}
+
 \subsubsection{ADPolicyAPI}
 
 \npar The \interface{ADPolicyAPI} lies between the ADScheduler and the ADPolicy.
@@ -106,15 +114,6 @@ and the reader pops them off.
 
 \npar Figure \ref{fig:it5/interfaces} summarizes the components and the
 interfaces instantiated in this iteration.
-
-\begin{figure}[H]
-	\begin{centering}
-		\includegraphics[width=\textwidth]{figs/add-it5-interfaces.pdf}
-		\caption{Overview of the interfaces and components in the Scheduler For
-		Anomaly Detection.}
-		\label{fig:it5/interfaces}
-	\end{centering}
-\end{figure}
 
 \subsection{Step 5: Verify and refine}
 \label{add:it5/verification}

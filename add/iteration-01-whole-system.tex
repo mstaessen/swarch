@@ -157,6 +157,14 @@ allow replacement of policies at runtime.
 an abstraction layer should be placed between the Remote Modules and the ReMeS
 system, especially for the trame storage and processing.
 
+\begin{figure}[H]
+	\begin{centering}
+		\includegraphics[width=1.2\textwidth,angle=90]{figs/add-it1-elements.pdf}
+		\caption{Overview of the instantiated child elements in the ReMeS system}
+		\label{fig:it1/elements}
+	\end{centering}
+\end{figure}
+
 \paragraph{Resource Pool}
 
 \npar To allow load balancing (and hence increase the performance) multiple
@@ -173,16 +181,6 @@ configuration data, etc. Therefore, the \emph{Shared Repository} design pattern
 \subsection{Step 3: Instantiate architectural elements and allocate responsibilities}
 \label{add:it1/elements}
 
-\begin{figure}[H]
-	\begin{centering}
-		% TODO Figure
-		\includegraphics[height=\textwidth,angle=90]{figs/add-it1-elements.pdf}
-		\caption{Overview of the instantiated child elements in the ReMeS system}
-		\label{fig:it1/elements}
-	\end{centering}
-\end{figure}
-
-% TODO Hier al een other blok tonen?
 
 \subsubsection{Remote Module Communication unit}
 
@@ -327,6 +325,15 @@ Detection Unit.
 Notification Unit. The methods it offers can be invoked to send alarms towards
 customers and/or emergency services.
 
+\begin{figure}[H]
+	\begin{centering}
+		\includegraphics[width=1.4\textwidth,angle=90]{figs/add-it1-interfaces.pdf}
+		\caption{Overview of the interfaces and components in the ReMeS
+		System}
+		\label{fig:it1/interfaces}
+	\end{centering}
+\end{figure}
+
 \subsubsection{CustomerProfileAPI}
 
 \npar This is an interface offered by the Shared Repository towards the
@@ -342,16 +349,6 @@ Communication Unit to exchange information about remote module configurations.
 \npar The \interface{AlarmAPI} lies in between the Shared Repository and the
 Anomaly Detection Unit. It serves to support the information flow with regards
 to alarms.
-
-\begin{figure}[H]
-	\begin{centering}
-		% TODO Figure
-		\includegraphics[height=\textwidth,angle=90]{figs/add-it1-interfaces.pdf}
-		\caption{Overview of the interfaces and components in the ReMeS
-		System}
-		\label{fig:it1/interfaces}
-	\end{centering}
-\end{figure}
 
 \subsection{Step 5: Verify and refine}
 \label{add:it1/verification}

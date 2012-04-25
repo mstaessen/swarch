@@ -34,8 +34,7 @@ performance drivers in mind.
 
 \begin{figure}[H]
 	\begin{centering}
-		% TODO Figure
-		\includegraphics[width=\textwidth]{figs/add-it7-elements.pdf}
+		\includegraphics[width=0.8\textwidth]{figs/add-it7-elements.pdf}
 		\caption{Overview of the instantiated child elements in the Scheduler For
 		Outbound Communication.}
 		\label{fig:it7/elements}
@@ -74,25 +73,6 @@ Subsequently, the priority is used to retrieve the index of the last element
 afterwards dispatch the popped command to the the Remote Module Communication
 Unit.
 
-% \npar The design of the outbound communication scheduler is analogous to that
-% of the storage scheduler and the anomaly detection scheduler. This is rather
-% locical because they all have the same purpose: schedule commands of some kind.
-% 
-% \npar All requests to the Outbound Communication Scheduler are encapsulated as
-% OCCommand objects. These objects represent requests to send a certain control
-% trame to a given remote device for some reason. 
-% 
-% \npar The scheduler (OCScheduler) handles every incoming command
-% (OCCommand) by inserting the command in a queue (OCQueue) with a
-% certain priority using a policy (OCPolicy). The scheduling policy
-% determines the priority of the command based on the nature of that command
-% (in particular, the reason for the request). As before, priorities of commands
-% already in the queue are increased every time a new command is inserted.
-% Again, this is done to prevent starvation.
-% 
-% \npar An additional component (OCQueueReader) will pop the command with the
-% highest priority off the queue and present it on the database for execution.
-
 \subsection{Step 4: Define interfaces for instantiated elements}
 \label{add:it7/interfaces}
 
@@ -107,6 +87,15 @@ implement, we refer to the interface catalog, see appendix
 \npar The \interface{OCSchedulerAPI} was already discussed in section
 \ref{add:it1/interfaces}.
 
+\begin{figure}[H]
+	\begin{centering}
+		\includegraphics[width=\textwidth]{figs/add-it7-interfaces.pdf}
+		\caption{Overview of the interfaces and components in the Scheduler For
+		Outbound Communication.}
+		\label{fig:it7/interfaces}
+	\end{centering}
+\end{figure}
+
 \subsubsection{OCPolicyAPI}
 
 \npar The \interface{OCPolicyAPI} lies between the OCScheduler and the OCPolicy.
@@ -117,16 +106,6 @@ Its goal is to pass through commands which have to be placed in an OCQueue.
 \npar This interface is offered by the OCQueue and used by both the OCPolicy and
 the OCQueueReader. The policy uses the interface to place commands in the queue
 and the reader pops them off.
-
-\begin{figure}[H]
-	\begin{centering}
-		% TODO Figure
-		\includegraphics[width=\textwidth]{figs/add-it7-interfaces.pdf}
-		\caption{Overview of the interfaces and components in the Scheduler For
-		Outbound Communication.}
-		\label{fig:it7/interfaces}
-	\end{centering}
-\end{figure}
 
 \subsection{Step 5: Verify and refine}
 \label{add:it7/verification}

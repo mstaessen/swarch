@@ -126,7 +126,6 @@ commands will be stored in this buffer, they won't be executed.
 
 \begin{figure}[H]
 	\begin{centering}
-		% TODO Figure
 		\includegraphics[width=\textwidth]{figs/add-it4-elements.pdf}
 		\caption{Overview of all instantiated child elements in the
 		MeasurementsStorage.}
@@ -156,6 +155,16 @@ it. Through this interface queries are streamed from the frontend to the
 instance and in the other directions the results and load information are
 (synchronously) returned.
 
+\begin{figure}[H]
+	\begin{centering}
+		% TODO Figure
+		\includegraphics[width=\textwidth]{figs/add-it4-interfaces.pdf}
+		\caption{Overview of the interfaces and components in the
+		MeasurementsStorage.}
+		\label{fig:it4/interfaces}
+	\end{centering}
+\end{figure}
+
 \subsubsection{MeasurementsStorageCacheAPI}
 
 \npar The MeasurementsStorageCache provides an interface
@@ -170,16 +179,6 @@ to the frontend. Through this interface QueryCommands are sent.
 
 \npar An overview of all child components and their interfaces is shown in
 \ref{fig:it4/interfaces}.
-
-\begin{figure}[H]
-	\begin{centering}
-		% TODO Figure
-		\includegraphics[width=\textwidth]{figs/add-it4-interfaces.pdf}
-		\caption{Overview of the interfaces and components in the
-		MeasurementsStorage.}
-		\label{fig:it4/interfaces}
-	\end{centering}
-\end{figure}
 
 \subsection{Step 5: Verify and refine}
 \label{add:it4/verification}

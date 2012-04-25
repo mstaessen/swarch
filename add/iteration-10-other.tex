@@ -100,7 +100,6 @@ interfaces for all different components.
 
 \begin{figure}[H]
 	\begin{centering}
-		% TODO Figure
 		\includegraphics[width=\textwidth]{figs/add-it10-elements.pdf}
 		\caption{Overview of the instantiated child elements in the other component}
 		\label{fig:add/it10/decomposition}
@@ -226,20 +225,20 @@ exchanged.
 also offers the interface, and the UIS. This interface provides several services
 to the UIS including prediction of utilities.
 
+\begin{figure}[H]
+	\begin{centering}
+		\includegraphics[width=1.4\textwidth,angle=90]{figs/add-it10-interfaces.pdf}
+		\caption{Overview of the interfaces and components in the Other Component}
+		\label{fig:it10/interfaces}
+	\end{centering}
+\end{figure}
+
 \subsubsection{BillingSendAPI}
 
 \npar This interface is analogous to \interface{BillingCommunicationAPI}, but it
 is declared between different components, namely the BillingCommunicationUnit
 and the BillingUnit. The latter is the one who provides the interface.
 
-\begin{figure}[H]
-	\begin{centering}
-		% TODO Figure 
-		\includegraphics[width=\textwidth]{figs/add-it10-interfaces.pdf}
-		\caption{Overview of the interfaces and components in the Other Component}
-		\label{fig:it10/interfaces}
-	\end{centering}
-\end{figure}
 
 \subsection{Step 5: Verify and refine}
 \label{add:it10/verification}
