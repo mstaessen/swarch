@@ -195,7 +195,8 @@ interface documentation can be found in respectively section
 \npar The final iteration, the tenth, contains the decomposition of the other
 component. It is very important to remark that there never will be any notion of
 an ``other component'' in the system once one starts implementing it. This can
-also be seen in the overall component diagram, see \ref{fig:final-components}.
+also be seen in the overall component diagram, see
+\ref{fig:final-components-left} and \ref{fig:final-components-right}.
 Nonetheless is it shown in diagram \ref{fig:final-architecture/it10}, but it has
 no functional meaning except for grouping the components. Documentation of the
 components can be found in section \ref{add:it10/elements}. The interface
@@ -230,7 +231,7 @@ is responsible for all trame communication.
 right units: a measurement trame is routed to storage, an alarm trame is
 immediately routed to the anomaly detection unit. Both units have been assigned
 their own clusters: the measurements storage cluster and the anomaly detection
-cluster. 
+cluster.
 
 \npar The anomaly detection cluster exists of a frontend server, which takes
 care of scheduling, resource arbitration and results processing
