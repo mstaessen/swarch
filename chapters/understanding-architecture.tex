@@ -1,2 +1,30 @@
 \chapter{Understanding the architecture}
 \label{chap:understanding-architecture}
+
+\npar All incoming communication goes through the Incoming Communication
+Component. The received bits are converted into an alarm trame and are
+subsequently handed over to the right component. In this case, it is the Alarm
+Processor. This can be done through the Receive Alarm Trame interface. The Alarm
+Processor will determine whether the remote module that sent the alarm has a
+control valve associated with it (by retrieving the configuration data from the
+Alarm Configuration Database). If so, the Actuator Controller is invoked through
+its ActivateValve interface. Afterwards the alarm will be stored in the
+measurements database (by constructing a query and invoking the storeData(Query)
+method).
+
+\npar The Actuator Controller will construct a command to shut down the
+corresponding valve and invoke the Outgoing Communication Component’s
+sendCommand() method. It is important that this command arrives at the remote
+module so an acknowledgement is be sent by the module upon receiving the
+command. When the acknowledgement does not arrive within a certain interval, the
+command is resent. If this happens several times in a row, a notification is
+sent towards the customer to inform him of the multiple failures. The activation
+of the valve is stored in the measurement and information database. All these
+responsibilties belong to the Actuator Controller.
+
+\npar Finally, an alarm notification is sent towards the customer (and/or
+emergency services) by using the Outgoing Communication Component. In the
+Outgoing Communication Component the different messages are sent according to
+their priority. The command received from the Actuator Controller in this
+case has a high priority. To notify all the stakeholders, the recipient
+information is fetched from the database. The notification is also persisted.
