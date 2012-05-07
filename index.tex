@@ -19,6 +19,7 @@
 \usepackage{lscape}
 \usepackage[sectionbib,round]{natbib}
 \usepackage{hyperref}
+%\usepackage{booktabs}
 
 % Custome Page Headers 
 \pagestyle{fancy}
@@ -32,8 +33,11 @@
 \setlength{\parindent}{0pt}
 \setlength{\headheight}{14pt}
 \newcommand{\npar}{\par \vspace{2.3ex plus 0.3ex minus 0.3ex}}
-\newcommand{\method}[1]{\texttt{#1}}
-\newcommand{\interface}[1]{\texttt{#1}}
+
+\newcommand{\tmdatastore}[1]{\footnotesize #1 & $\times$ & $\times$ & $\times$ & $\times$ & $\times$ &  & $\times$ \\}
+\newcommand{\tmdataflow}[1]{\footnotesize #1 & $\times$ & $\times$ & $\times$& $\times$ & $\times$ & & $\times$ \\}
+\newcommand{\tmprocess}[1]{\footnotesize #1 & $\times$ & $\times$ & $\times$& $\times$ & $\times$ & & $\times$ \\}
+\newcommand{\tmentity}[1]{\footnotesize #1 & $\times$ & $\times$ & & &  & $\times$ & \\}
 
 \bibliographystyle{plainnat}
 \renewcommand{\bibname}{References}
@@ -58,14 +62,10 @@
 \mainmatter
 
 % Content
-%\input{chapters/add.tex}
-%\input{chapters/final-architecture.tex}
-%\input{chapters/scenarios.tex}
+\input{chapters/understanding-architecture.tex}
+\input{chapters/privacy-analysis.tex}
 
 \appendix
-
-%\input{chapters/element-catalog.tex}
-%\input{chapters/interface-catalog.tex}
 
 \newpage
 \bibliography{references}
