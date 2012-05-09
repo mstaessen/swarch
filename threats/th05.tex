@@ -1,0 +1,51 @@
+\subsubsection{T05 - Disclosure of transmitted log-in credentials}
+\label{threats:t05}
+
+\paragraph{Summary}
+
+\npar The misactor gains access to the data flow that contains personal
+information of a user. This personal information is quite broad amongst it are
+e.g. credentials, detailed consumption information, etc.
+
+\paragraph{Primary mis-actor}
+
+\npar Skilled insider (e.g. admin)
+
+\paragraph{Basic path}
+\begin{enumerate}
+	\item[bf1.] The misactor gains access to the dataflow between the Consumer
+	Portal and the user data store.
+    \item[bf2.] The misactor intercepts personal information.
+\end{enumerate}
+
+\paragraph{Consequence}
+
+\npar The misactor now has access to the user's information and can possibly
+spoof the user when his or her credentials were stolen. When other personal
+information is retrieved the misactor can sell this information to companies.
+
+\paragraph{Reference to threat tree node(s)}
+
+ID\_df4, ID\_df7
+
+\paragraph{Parent threat tree(s)}
+
+ID\_df
+
+\paragraph{DFD element(s)}
+
+This applies to all internal dataflows. More specific, to all dataflows which
+were collapsed into the ``1.1 Incoming Communication Component - 1.11 Process
+Data'' dataflow.
+
+\paragraph{Remarks:}
+	\begin{enumerate}
+         \item[r1.] The personal information which was mentioned throughout the
+         misuse case is very broad and is a generalisation of all data which is
+         important the user. This includes: credentials, consumption
+         information, contact details, etc.
+         \item[r2.] Side channel attacks are not considered (see assumption
+         %TODO ref)
+         \item[r3.] This threat is possible because interal dataflows are
+         possibly not encrypted.
+    \end{enumerate}

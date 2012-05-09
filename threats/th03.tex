@@ -1,0 +1,61 @@
+\subsubsection{T03 - identifying a customer from his user data}
+\label{threats:t03}
+
+\paragraph{Summary}
+
+\npar A researcher with malicious intent identifies a customer in a set of user
+(or measurement or alarm configuration) data.
+
+\paragraph{Primary mis-actor}
+
+\npar unskilled insider.
+
+\paragraph{Basic path*:}
+\begin{enumerate}
+	\item[bf1.] The misactor performs a set of targeted queries on the user
+	(or measurement or alarm configuration) data store and retrieves very detailed
+	results.
+    \item[bf2.] The misactor can extract the identity of the customer from each
+    individual query result because of strong data mining techniques or he first
+    links several results to each other (see threats \ref{threats:t01} and
+    \ref{threats:t02}) which provide him with identiable information.
+    \item[bf3.]
+\end{enumerate}
+
+\paragraph{Consequence}
+
+\npar The misactor gains access to the customer's identity although this should
+have remained secret.
+
+\paragraph{Reference to threat tree node(s)}
+
+\begin{itemize}
+  \item I\_ds1
+  \item I\_ds2
+\end{itemize}
+
+\paragraph{Parent threat tree(s)}
+
+\begin{itemize}
+  \item I\_ds
+\end{itemize}
+
+\paragraph{DFD element(s)}
+
+\begin{itemize}
+  \item 1.8 Measurement and information data store
+  \item 1.9 User data store
+  \item 1.10 Alarm configuration data store
+\end{itemize}
+
+\paragraph{Remarks}
+	\begin{enumerate}
+         \item[r1.] Threats \ref{threats:t01} and \ref{threats:t02} are
+		(part of) the preconditions for this threat.
+         \item[r2.] Because of assumption %TODO referentie voor een enumeration
+		 , the misactor has access to several (strong) data mining technique and hence
+		 I\_ds2 is fulfilled
+         \item[r3.] Node I\_ds1 is applicable due to assumption %TODO reference.
+         \item[r4.] Although this threat is elaborated for user data it is as
+         well applicable for the other datastores.
+    \end{enumerate}
