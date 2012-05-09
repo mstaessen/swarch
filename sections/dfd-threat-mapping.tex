@@ -1,111 +1,163 @@
 \section{DFD - Threat mapping}
 \label{sec:dfd-threat-mapping}
 
-	\begin{center}
-		\begin{longtable}{p{9cm}ccccccc}
-		\toprule[1pt]
-		\bf Threat target & \bf L & \bf I & \bf N & \bf D & \bf D & \bf U & \bf N \\
-		\midrule[0.5pt]
-		\multicolumn{8}{c}{\textbf{Data Store}} \\
-		\midrule[0.5pt]
-		\tmdatastore{1.8 Measurements/Information Data}
-		\tmdatastore{1.9 User Data}
-		\tmdatastore{1.10 Alarm Configuration Data}
-		\midrule[0.5pt]
-		\multicolumn{8}{c}{\textbf{Data Flow}} \\
-		\midrule[0.5pt]
-		\tmdataflow{1.1 Incoming Communication Component -- 1.11 Process Data}
-		\tmdataflow{1.1 Incoming Communication Component -- 1.12 Process Alarm}
-		\tmdataflow{1.1 Incoming Communication Component -- 1.13 Manage Configuration}
-		\tmdataflow{1.1 Incoming Communication Component -- 1.17 Manage Actuator}
-		\tmdataflow{1.2 Outgoing Communication Component -- 1.8 Measurements/Information Data}
-		\tmdataflow{1.2 Outgoing Communication Component -- 1.9 Consumer Data}
-		\tmdataflow{1.2 Outgoing Communication Component -- 2. Remote Module}
-		\tmdataflow{1.2 Outgoing Communication Component -- 3. Consumer}
-		\tmdataflow{1.3 Consumer Portal -- 1.8 Measurements/Information Data}
-		\tmdataflow{1.3 Consumer Portal -- 1.9 User Data}
-		\tmdataflow{1.3 Consumer Portal -- 1.13 Manage Configuration (module configuration)}
-		\tmdataflow{1.3 Consumer Portal -- 1.13 Manage Configuration (notification management)}
-		\tmdataflow{1.3 Consumer Portal -- 1.13 Manage Configuration (valve activation)}
-		\tmdataflow{1.3 Consumer Portal -- 1.14 Browse Statistics}
-		\tmdataflow{1.3 Consumer Portal -- 3. Consumer}
-		\tmdataflow{1.4 Operator Portal -- 1.6 UIS Web Service}
-		\tmdataflow{1.4 Operator Portal -- 1.9 User Data}
-		\tmdataflow{1.4 Operator Portal -- 1.14 Browse Statistics}
-		\tmdataflow{1.4 Operator Portal -- 7. ReMeS Personnel}
-		\tmdataflow{1.5 Researcher Portal -- 1.9 User Data}
-		\tmdataflow{1.5 Researcher Portal -- 1.14 Browse Statistics}
-		\tmdataflow{1.5 Researcher Portal -- 6. Researcher}
-		\tmdataflow{1.6 UIS Web Service -- 1.8 Measurements/Information Data}
-		\tmdataflow{1.6 UIS Web Service -- 1.14 Browse Statistics}
-		\tmdataflow{1.6 UIS Web Service -- 4. UIS Communication Component}
-		\tmdataflow{1.7 Billing -- 1.8 Measurements/Information Data}
-		\tmdataflow{1.7 Billing -- 5. Third Party Billing Web Service}
-		\tmdataflow{1.8 Measurements/Information Data -- 1.6 UIS Web Service}
-		\tmdataflow{1.8 Measurements/Information Data -- 1.7 Billing}
-		\tmdataflow{1.8 Measurements/Information Data -- 1.11 Process Data}
-		\tmdataflow{1.8 Measurements/Information Data -- 1.12 Process Alarm}
-		\tmdataflow{1.8 Measurements/Information Data -- 1.14 Browse Statistics}
-		\tmdataflow{1.8 Measurements/Information Data -- 1.15 Check Schedule}
-		\tmdataflow{1.8 Measurements/Information Data -- 1.16 Make Prediction}
-		\tmdataflow{1.9 User Data -- 1.2 Outgoing Communication Component}
-		\tmdataflow{1.9 User Data -- 1.3 Consumer Portal}
-		\tmdataflow{1.9 User Data -- 1.4 Operator Portal}
-		\tmdataflow{1.9 User Data -- 1.5 Researcher Portal}
-		\tmdataflow{1.10 Alarm Configuration Data -- 1.12 Process Alarm}
-		\tmdataflow{1.11 Process Data -- 1.2 Outgoing Communication Component}
-		\tmdataflow{1.11 Process Data -- 1.8 Measurements/Information Data}
-		\tmdataflow{1.12 Process Alarm -- 1.8 Measurements/Information Data}
-		\tmdataflow{1.12 Process Alarm -- 1.10 Alarm Configuration Data}
-		\tmdataflow{1.13 Manage Configuration -- 1.2 Outgoing Communication Component (notification)}
-		\tmdataflow{1.13 Manage Configuration -- 1.2 Outgoing Communication Component (control trame)}
-		\tmdataflow{1.13 Manage Configuration -- 1.8 Measurements/Information Data}
-		\tmdataflow{1.13 Manage Configuration -- 1.17 Manage Actuator}
-		\tmdataflow{1.14 Browse Statistics -- 1.3 Consumer Portal}
-		\tmdataflow{1.14 Browse Statistics -- 1.4 Operator Portal}
-		\tmdataflow{1.14 Browse Statistics -- 1.5 Researcher Portal}
-		\tmdataflow{1.14 Browse Statistics -- 1.6 UIS Web Service}
-		\tmdataflow{1.14 Browse Statistics -- 1.8 Measurements/Information Data}
-		\tmdataflow{1.15 Check Schedule -- 1.2 Outgoing Communication Component}
-		\tmdataflow{1.16 Make Prediction -- 1.8 Measurements/Information Data}
-		\tmdataflow{1.17 Manage Actuator -- 1.2 Outgoing Communcation Component (notification)}
-		\tmdataflow{1.17 Manage Actuator -- 1.2 Outgoing Communcation Component (control trame)}
-		\tmdataflow{1.17 Manage Actuator -- 1.8 Measurements/Information Data}
-		\tmdataflow{2. Remote Module -- 1.1 Incoming Communication Component}
-		\tmdataflow{3. Consumer -- 1.3 Consumer Portal}
-		\tmdataflow{4. UIS Communication Component -- 1.1 Incoming Communication Component}
-		\tmdataflow{5. Third Party Billing Web Service -- 1.7 Billing}
-		\tmdataflow{6. Researcher -- 1.5 Researcher Portal}
-		\tmdataflow{7. ReMeS Personnel -- 1.4 Operator Portal}
-		\midrule[0.5pt]
-		\multicolumn{8}{c}{\textbf{Process}} \\
-		\midrule[0.5pt]
-		\tmprocess{1.1 Incoming Communication Component}
-		\tmprocess{1.2 Outgoing Communication Component}
-		\tmprocess{1.3 Consumer Portal}
-		\tmprocess{1.4 Operator Portal}
-		\tmprocess{1.5 Reearcher Portal}
-		\tmprocess{1.6 UIS Web Service}
-		\tmprocess{1.7 Billing}
-		\tmprocess{1.11 Process Data}
-		\tmprocess{1.12 Process Alarm}
-		\tmprocess{1.13 Manage Configuration}
-		\tmprocess{1.14 Browse Statistics}
-		\tmprocess{1.15 Check Schedule}
-		\tmprocess{1.16 Make Prediction}
-		\tmprocess{1.17 Manage Actuator}
-		\midrule[0.5pt]
-		\multicolumn{8}{c}{\textbf{Entity}} \\
-		\midrule[0.5pt]
-		\tmentity{2. Remote Module}
-		\tmentity{3. Consumer}
-		\tmentity{4. UIS Communication Component}
-		\tmentity{5. Third Party Billing Web Service}
-		\tmentity{6. Researcher}
-		\tmentity{7. ReMeS Personnel}
-		\bottomrule[1pt]
+\npar Table \ref{table:threat-map-all} shows the mapping of threats to all
+DFD elements.
 
-		\caption{}
-		\label{table:threat-map}
-		\end{longtable}
-	\end{center}
+\begin{center}
+	\begin{longtable}{p{9cm}ccccccc}
+	\toprule[1pt]
+	\bf Threat target & \bf L & \bf I & \bf N & \bf D & \bf D & \bf U & \bf N \\
+	\midrule[0.5pt]
+	\multicolumn{8}{c}{\textbf{Data Store}} \\
+	\midrule[0.5pt]
+	\tmdatastore{1.8 Measurements/Information Data}
+	\tmdatastore{1.9 User Data}
+	\tmdatastore{1.10 Alarm Configuration Data}
+	\midrule[0.5pt]
+	\multicolumn{8}{c}{\textbf{Data Flow}} \\
+	\midrule[0.5pt]
+	\tmdataflow{1.1 Incoming Communication Component -- 1.11 Process Data}
+	\tmdataflow{1.1 Incoming Communication Component -- 1.12 Process Alarm}
+	\tmdataflow{1.1 Incoming Communication Component -- 1.13 Manage Configuration}
+	\tmdataflow{1.1 Incoming Communication Component -- 1.17 Manage Actuator}
+	\tmdataflow{1.2 Outgoing Communication Component -- 1.8 Measurements/Information Data}
+	\tmdataflow{1.2 Outgoing Communication Component -- 1.9 User Data}
+	\tmdataflow{1.2 Outgoing Communication Component -- 2. Remote Module}
+	\tmdataflow{1.2 Outgoing Communication Component -- 3. Consumer}
+	\tmdataflow{1.3 Consumer Portal -- 1.8 Measurements/Information Data}
+	\tmdataflow{1.3 Consumer Portal -- 1.9 User Data}
+	\tmdataflow{1.3 Consumer Portal -- 1.13 Manage Configuration (module configuration)}
+	\tmdataflow{1.3 Consumer Portal -- 1.13 Manage Configuration (notification management)}
+	\tmdataflow{1.3 Consumer Portal -- 1.13 Manage Configuration (valve activation)}
+	\tmdataflow{1.3 Consumer Portal -- 1.14 Browse Statistics}
+	\tmdataflow{1.3 Consumer Portal -- 3. Consumer}
+	\tmdataflow{1.4 Operator Portal -- 1.6 UIS Web Service}
+	\tmdataflow{1.4 Operator Portal -- 1.9 User Data}
+	\tmdataflow{1.4 Operator Portal -- 1.14 Browse Statistics}
+	\tmdataflow{1.4 Operator Portal -- 7. ReMeS Personnel}
+	\tmdataflow{1.5 Researcher Portal -- 1.9 User Data}
+	\tmdataflow{1.5 Researcher Portal -- 1.14 Browse Statistics}
+	\tmdataflow{1.5 Researcher Portal -- 6. Researcher}
+	\tmdataflow{1.6 UIS Web Service -- 1.8 Measurements/Information Data}
+	\tmdataflow{1.6 UIS Web Service -- 1.14 Browse Statistics}
+	\tmdataflow{1.6 UIS Web Service -- 4. UIS Communication Component}
+	\tmdataflow{1.7 Billing -- 1.8 Measurements/Information Data}
+	\tmdataflow{1.7 Billing -- 5. Third Party Billing Web Service}
+	\tmdataflow{1.8 Measurements/Information Data -- 1.6 UIS Web Service}
+	\tmdataflow{1.8 Measurements/Information Data -- 1.7 Billing}
+	\tmdataflow{1.8 Measurements/Information Data -- 1.11 Process Data}
+	\tmdataflow{1.8 Measurements/Information Data -- 1.12 Process Alarm}
+	\tmdataflow{1.8 Measurements/Information Data -- 1.14 Browse Statistics}
+	\tmdataflow{1.8 Measurements/Information Data -- 1.15 Check Schedule}
+	\tmdataflow{1.8 Measurements/Information Data -- 1.16 Make Prediction}
+	\tmdataflow{1.9 User Data -- 1.2 Outgoing Communication Component}
+	\tmdataflow{1.9 User Data -- 1.3 Consumer Portal}
+	\tmdataflow{1.9 User Data -- 1.4 Operator Portal}
+	\tmdataflow{1.9 User Data -- 1.5 Researcher Portal}
+	\tmdataflow{1.10 Alarm Configuration Data -- 1.12 Process Alarm}
+	\tmdataflow{1.11 Process Data -- 1.2 Outgoing Communication Component}
+	\tmdataflow{1.11 Process Data -- 1.8 Measurements/Information Data}
+	\tmdataflow{1.12 Process Alarm -- 1.8 Measurements/Information Data}
+	\tmdataflow{1.12 Process Alarm -- 1.10 Alarm Configuration Data}
+	\tmdataflow{1.13 Manage Configuration -- 1.2 Outgoing Communication Component (notification)}
+	\tmdataflow{1.13 Manage Configuration -- 1.2 Outgoing Communication Component (control trame)}
+	\tmdataflow{1.13 Manage Configuration -- 1.8 Measurements/Information Data}
+	\tmdataflow{1.13 Manage Configuration -- 1.17 Manage Actuator}
+	\tmdataflow{1.14 Browse Statistics -- 1.3 Consumer Portal}
+	\tmdataflow{1.14 Browse Statistics -- 1.4 Operator Portal}
+	\tmdataflow{1.14 Browse Statistics -- 1.5 Researcher Portal}
+	\tmdataflow{1.14 Browse Statistics -- 1.6 UIS Web Service}
+	\tmdataflow{1.14 Browse Statistics -- 1.8 Measurements/Information Data}
+	\tmdataflow{1.15 Check Schedule -- 1.2 Outgoing Communication Component}
+	\tmdataflow{1.16 Make Prediction -- 1.8 Measurements/Information Data}
+	\tmdataflow{1.17 Manage Actuator -- 1.2 Outgoing Communcation Component (notification)}
+	\tmdataflow{1.17 Manage Actuator -- 1.2 Outgoing Communcation Component (control trame)}
+	\tmdataflow{1.17 Manage Actuator -- 1.8 Measurements/Information Data}
+	\tmdataflow{2. Remote Module -- 1.1 Incoming Communication Component}
+	\tmdataflow{3. Consumer -- 1.3 Consumer Portal}
+	\tmdataflow{4. UIS Communication Component -- 1.6 UIS Web Service}
+	\tmdataflow{5. Third Party Billing Web Service -- 1.7 Billing}
+	\tmdataflow{6. Researcher -- 1.5 Researcher Portal}
+	\tmdataflow{7. ReMeS Personnel -- 1.4 Operator Portal}
+	\midrule[0.5pt]
+	\multicolumn{8}{c}{\textbf{Process}} \\
+	\midrule[0.5pt]
+	\tmprocess{1.1 Incoming Communication Component}
+	\tmprocess{1.2 Outgoing Communication Component}
+	\tmprocess{1.3 Consumer Portal}
+	\tmprocess{1.4 Operator Portal}
+	\tmprocess{1.5 Reearcher Portal}
+	\tmprocess{1.6 UIS Web Service}
+	\tmprocess{1.7 Billing}
+	\tmprocess{1.11 Process Data}
+	\tmprocess{1.12 Process Alarm}
+	\tmprocess{1.13 Manage Configuration}
+	\tmprocess{1.14 Browse Statistics}
+	\tmprocess{1.15 Check Schedule}
+	\tmprocess{1.16 Make Prediction}
+	\tmprocess{1.17 Manage Actuator}
+	\midrule[0.5pt]
+	\multicolumn{8}{c}{\textbf{Entity}} \\
+	\midrule[0.5pt]
+	\tmentity{2. Remote Module}
+	\tmentity{3. Consumer}
+	\tmentity{4. UIS Communication Component}
+	\tmentity{5. Third Party Billing Web Service}
+	\tmentity{6. Researcher}
+	\tmentity{7. ReMeS Personnel}
+	\bottomrule[1pt]
+	%% CAPTION %%
+	\caption{Threat mapping before applying the assumptions}
+	\label{table:threat-map-all}
+	\end{longtable}
+\end{center}
+
+\npar Table \ref{table:threat-map-reduced} shows the reduced mapping of threats
+to the DFD elements, i.e. after applying the assumptions from section
+\ref{sec:assumptions}.
+
+
+\begin{center}
+	\begin{longtable}{p{9cm}ccccccc}
+	\toprule[1pt]
+	\bf Threat target & \bf L & \bf I & \bf N & \bf D & \bf D & \bf U & \bf N \\
+	\midrule[0.5pt]
+	\multicolumn{8}{c}{\textbf{Data Store}} \\
+	\midrule[0.5pt]
+	\footnotesize 1.8 Measurements/Information Data & $\times$ & $\times$ &  &  & $\times$ &  & $\times$ \\
+	\footnotesize 1.9 User Data 					& $\times$ & $\times$ &  &  & $\times$ &  & $\times$ \\
+	\footnotesize 1.10 Alarm Configuration Data 	& $\times$ & $\times$ &  &  & $\times$ &  & $\times$ \\
+	\midrule[0.5pt]
+	\multicolumn{8}{c}{\textbf{Data Flow}} \\
+	\midrule[0.5pt]
+	\footnotesize 1.1 Incoming Communication Component -- 1.11 Process Data &          &          &          &          & $\times$ & & $\times$ \\
+	\footnotesize 1.2 Outgoing Communication Component -- 2. Remote Module 	& $\times$ & $\times$ &          &          &          & & $\times$ \\
+	\footnotesize 1.2 Outgoing Communication Component -- 3. Consumer 		& $\times$ & $\times$ &          &          &          & & $\times$ \\
+	\footnotesize 1.3 Consumer Portal -- 3. Consumer 						& $\times$ & $\times$ &          &          &          & & $\times$ \\
+	\footnotesize 1.4 Operator Portal -- 7. ReMeS Personnel 				& $\times$ & $\times$ &          &          &          & & $\times$ \\
+	\footnotesize 1.5 Researcher Portal -- 6. Researcher 					& $\times$ & $\times$ &          &          &          & & $\times$ \\
+	\footnotesize 1.6 UIS Web Service -- 4. UIS Communication Component 	& $\times$ & $\times$ & $\times$ & $\times$ & $\times$ & & $\times$ \\ % TODO
+	\footnotesize 1.7 Billing -- 5. Third Party Billing Web Service 		& $\times$ & $\times$ &          &          &          & & $\times$ \\
+
+	\midrule[0.5pt]
+	\multicolumn{8}{c}{\textbf{Process}} \\
+	\midrule[0.5pt]
+	\footnotesize 1.1 Incoming Communication Component 	&  &  &  &  & $\times$ & & $\times$ \\
+	\midrule[0.5pt]
+	\multicolumn{8}{c}{\textbf{Entity}} \\
+	\midrule[0.5pt]
+	\footnotesize 2. Remote Module 						&  &  &  &  &  &          & \\
+	\footnotesize 3. Consumer 							&  &  &  &  &  & $\times$ & \\
+	\footnotesize 4. UIS Communication Component 		&  &  &  &  &  &          & \\
+	\footnotesize 5. Third Party Billing Web Service 	&  &  &  &  &  &          & \\
+	\footnotesize 6. Researcher 						&  &  &  &  &  &          & \\
+	\footnotesize 7. ReMeS Personnel 					&  &  &  &  &  &          & \\
+	\bottomrule[1pt]
+	%% CAPTION %%
+	\caption{Threat mapping after applying the assumptions}
+	\label{table:threat-map-reduced}
+	\end{longtable}
+\end{center}
+
+
