@@ -1,0 +1,57 @@
+\subsubsection{T01- Linking measurementsdata}
+
+\paragraph{Summary}
+
+\npar A researcher or other insider wich malicious intents links measurement,
+user or alarm configuration data.
+
+\paragraph{Primary mis-actor}
+
+\npar unskilled insider (authenticated user, e.g. researcher)
+
+\paragraph{Basic path}
+\begin{enumerate}
+	\item[bf1.] The misactor performs a set of targeted queries on the
+	measurements data and retrieves very detailed results.
+    \item[bf2.] The misactor links the results of the queries together (e.g.
+    based on the regio where the measurements are from)
+\end{enumerate}
+
+\paragraph{Consequence}
+
+\npar By applying these data mining algorithms on the query results the misactor
+has more knowledge of information about ReMeS or users than desirable. 
+
+\paragraph{Reference to threat tree node(s)} 
+
+\begin{itemize}
+  \item L\_ds1
+  \item L\_ds2
+  \item 
+\end{itemize}
+
+\paragraph{Parent threat tree(s)}
+
+\begin{itemize}
+  \item L\_ds
+\end{itemize}
+
+\paragraph{DFD element(s)}
+
+\begin{itemize}
+  \item Measurement and information data
+  \item User data
+  \item Alarm configuration data
+\end{itemize}
+
+\paragraph{Remarks}
+
+	\begin{enumerate}
+         \item[r1.] Altough this threat mainly describes the measurements
+         and information data, it also applies to all data stores, namely
+         Measurement and information, user and alarm configuration data.
+         \item[r2.] Because of assumption %TODO referentie voor een enumeration
+		 , the misactor has access to several (strong) data mining technique and hence
+		 L\_ds2 is fulfilled
+         \item[r3.] Node L\_ds1 is applicable due to assumption %TODO reference.
+    \end{enumerate}
