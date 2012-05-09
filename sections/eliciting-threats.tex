@@ -25,20 +25,24 @@ influence the elicitation process.
   \item Misactors have access to strong data mining techniques, since
   there is an enormous supply of optimized machine learing libraries available
   on the Internet.
-  
+  \item Side channel attacks are not considered to occur since they take a lot
+  of analysis and the extracted information is not in correspondence of the
+  effort.
+   
   %Data stores
-  \item All internal data stores are only susceptible to insider threats, as we
-  consider the back-end sufficiently protected against outsider threats. All
-  these dataflows will therefore be combined into a single data store and only
-  this data store will be examined.
+  \item All internal data stores are kept separate even though they are the
+  possible target of the same threats (as seen in table %todo refentie ).
+  This is done to stress the fact that the different databases could be linked
+  together, this is handled in a separate misuse case.
   \item Linkability is a threat to the data stores because for example a
   researcher with malicious intents could link several data and commercialise
   this information.
   \item Identifiability forms as well a threat for data stores because it is
   impossible to omit all identification details out of the data. 
-  \item Information Disclosure for data stores is off course applicable to the
-  data stores because the contain all the data and this data needs to be
-  protected at all times.
+  \item Information Disclosure for data stores is logic because they contain all
+  the data and this data needs to be protected at all times.
+  \item Datastores are sufficiently protected so extra-monitor and bad-storage
+  management are not possible.
   
   % data flows
   \item All internal dataflows (i.e. dataflows between two internal processes
@@ -47,10 +51,10 @@ influence the elicitation process.
   protected against outsider threats. All these dataflows will therefore be
   combined into a single dataflow and only this dataflow will be examined.
   \item All bidirectional flows are combined into a single flow as there is no
-  difference between the two directions. Notice that fundamentally different
-  flows (e.g. consumer portal - consumer and operator portal - ReMeS personnel)
-  are not simplified into one flow because the information sent over the flow
-  is different.
+  difference between the two directions. 
+  \item All Portal - Entity dataflows are combined into a single flow because
+  there is no difference between regarding privacy. %TODO is user data niet veel
+  % gevoeliger dan bvb registeren van devices zoals (cf. operator portal)
   \item Detectability and Information Disclosure are not considered as a threats
   for external dataflows (i.e. flows between an entity and a process) as we
   assume that those flows are encrypted (e.g. with the SSL protocol).
