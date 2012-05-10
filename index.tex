@@ -29,7 +29,6 @@
 \fancyhf[HL]{\nouppercase{\textit{\leftmark}}}
 \fancyhf[FC]{\thepage}
 
-
 % Custom Paragraphs
 \setlength{\parindent}{0pt}
 \setlength{\headheight}{14pt}
@@ -43,6 +42,7 @@
 \bibliographystyle{plainnat}
 \renewcommand{\bibname}{References}
 
+\setcounter{tocdepth}{3}
 \begin{document}
 
 \frontmatter
@@ -57,19 +57,10 @@
 % Table of Contents
 \tableofcontents
 
-%\input{chapters/abstract.tex}
-%\input{chapters/introduction.tex}
-
 \mainmatter
 
 % Content
 \input{chapters/understanding-architecture.tex}
 \input{chapters/privacy-analysis.tex}
-
-\appendix
-
-\newpage
-\bibliography{references}
-\nocite{*}
 
 \end{document}
