@@ -72,10 +72,16 @@ influence the elicitation process.
   responsibility of the consumer to fill in these contact details correctly.
   Therefore this kind of Identification Disclosure is left out of consideration.
   \item Linkability and identiability are a threat for only a specific
-  number of external dataflows, namely the ones who involve interaction with a
-  third party (e.g. billing service). For the flow from and towards consumers
-  and remote modules these threats do not apply. This is logical considering
-  that there need to be unique identifiers to contact both.
+  number of external dataflows, namely the one which involves interaction with a
+  third party (i.e. billing service). The flow between UIS Communication
+  Component and the UIS Web Service is not applicable for these theats
+  because the contents of the flow are not personal. It is important to remark
+  that the predictions will therefore not contain any customer profiles like
+  for example customer X will consume an amount Y of utility Z. If the dataflow
+  did contain such profiles, the contents would be personal.
+  \item For the flow from and towards consumers and remote modules linkability
+  and identiability threats do not apply. This is logical considering that there
+  need to be unique identifiers to contact both of these entities.
 
   %Processes.
   \item All internal processes are only susceptible to insider threats, as we
