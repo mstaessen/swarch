@@ -1,2 +1,91 @@
 \section{Prioritization}
 \label{sec:prioritization}
+
+\npar This section lists all the threats (ID and title) according to their
+priority. This ordering is based on the risk of the threat which depends on one
+side on the likelihood and on the other side on the impact. The threats are
+divided into high, medium and low priority ones. Each of these categories is
+subsequently ordered according to the risk of the threats in it. In addition to
+this ordering, a brief explanation is given why the threats are ordered into
+that specific order.
+
+\subsection{High Priority}
+
+\ %Lay-out
+
+\begin{itemize}
+  \item T04 -- Information disclosure of user data
+  \item T05 -- Information Disclosure of transmitted personal information
+  \item T03 -- Identifying a customer from his user data  
+\end{itemize}
+
+\npar Information disclosure of data is the most important threat as it violates
+the customer's privacy the most (the customer enters his personal information
+under the assumption that this information is kept confidential).
+
+\npar When a data flow is intercepted containing personal information is
+intercepted, there is also information disclosure. However, there will leak less
+information as would be the case when a data store is involved. Therefore the
+priority of this kind of information disclosure is still high priority but lower
+than the one of the data store.
+
+\npar Identifiability of stored user data also poses a high risk as it should be
+assured that only the customer can access his own identiable information.
+
+\subsection{Medium Priority}
+
+\ %Lay-out
+
+\begin{itemize}
+  \item T07 -- Identifiability of bills sent to the Third Party Billing
+  Web Service
+  \item T02 -- Linking measurementsdata to user data
+  \item T01 -- Linking measurementsdata
+  \item T06 -- Linkability of bills sent to the Third Party Billing Web
+  Service 
+  \item T10 -- Non-compliance
+  \item T11 -- Missing consumer consents
+\end{itemize}
+
+\npar Identiability for bills has a medium prioriy since the identification
+information included in the bills is rather limited. This identification
+information is on the other hand necessary as one needs to be able to know who
+has to pay the bill. The risk of identiability is higher than the one of
+linkability since identifiability leads directly to privacy violation. With
+linkability is it only a possible side effect.
+
+\npar Linking measurements, user or other data only poses a real threat when the
+linking actually leads to identification. Therefore, linkability on its own is
+only considerd medium risk. Notice that there are several linking threats. They
+are organized according to the size of the involved IOI's. When one is able to
+link for example the measurements data to the user data, he/she has much more
+information at his/her disposal than linking only bills.
+
+\npar Non-compliance of the system in general, and missing consents specically,
+will result in a violation of the customers' privacy. However, the management
+are considered knowledgeable and at least aware of the consequences of ignoring
+legislation. Also, even though officially a system is non-compliant, it is still
+possible that the general legislation concepts are present. Therefore these
+threats are the lowest medium priority
+
+\subsection{Low Priority}
+
+\ %Lay-out 
+
+\begin{itemize}
+  \item T09 -- Content inaccuracy
+  \item T08 -- Information disclosure internal process
+\end{itemize}
+
+\npar Information inaccuracy is considered low risk. Although inaccurate data
+can indeed lead to potential problems (e.g. a customer who is unaware of the
+closure of a valve), this does not form an issue as no important decisions are
+made based on the data.
+
+\npar The internal process is considered low priority as there is a trust
+relation with the employees. Most likely there is also a non-disclosure
+agreement in their contract with associated consequences (lawsuit,
+enprisonment, fine, fired, etc.) depending on the severity of the
+non-disclosure. So given the trust relationship between the employees and the
+company, it is less likely that they will violate the rules. T08 is placed lower
+in the ordering because it is less likely to occur. 
