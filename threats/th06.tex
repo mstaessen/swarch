@@ -1,6 +1,6 @@
-\subsubsection{TXX -- Linkability of bills sent to the Third Party Billing Web
+\subsubsection{T06 -- Linkability of bills sent to the Third Party Billing Web
 Service}
-% TODO
+
 \paragraph{Summary} The misactor links several bills to the same consumer and
 creates a profile of this consumer. 
 
@@ -16,9 +16,9 @@ Service)
 
 \paragraph{Consequence} The misactor can build a profile of the consumer
 
-\paragraph{Reference to threat tree node(s)} L_df3, L_df10
+\paragraph{Reference to threat tree node(s)} L\_df3, L\_df10
 
-\paragraph{Parent threat tree(s)} L_df
+\paragraph{Parent threat tree(s)} L\_df
 
 \paragraph{DFD element(s)} data flow from 1.7 Billing to 5. Third Party Billing
 Web Service
@@ -28,8 +28,8 @@ Web Service
 	\item[r1.] The misactor is the receiver, which justifies this threat.
 	\item[r2.] The data flow is encrypted (see assumption ??), which will prevent
 	information disclosure to outsiders. % TODO: assumptie encryptie
-	\item[r3.] Different bills are linked based on the consumer's ID (L_df10). 
-	\item[r4.] The right branch of the three (L_df4 and children) is not considered
-	because it is not the sender whose identity should be protected, but the
+	\item[r3.] Different bills are linked based on the consumer's ID (L\_df10). 
+	\item[r4.] The right branch of the three (L\_df4 and children) is not
+	considered because it is not the sender whose identity should be protected, but the
 	consumer, who is not directly a part of the data flow.
 \end{enumerate}
