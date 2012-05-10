@@ -3,18 +3,17 @@
 
 \subsection{Level 0}
 
-\begin{figure}[H]
+\begin{figure}[h!]
 	\begin{centering}
-		%TODO Figure
-		%\includegraphics[width=1.2\textwidth,angle=90]{figs/data-flow-diagram-lvl0.pdf}
+		\includegraphics[width=0.8\textwidth]{figs/level-0.pdf}
 		\caption{The level zero data flow diagram of the ReMeS system.}
 		\label{fig:data-flow-diagram-lvl0}
 	\end{centering}
 \end{figure}
 
-\npar In \ref{fig:data-flow-diagram-lvl0} the level zero data flow diagram (DFD)
-is depicted. It is representation of the whole system and is quite analogous to
-the context diagram. There is only one process, ReMeS, and all actors are
+\npar In figure \ref{fig:data-flow-diagram-lvl0} the level zero data flow
+diagram (DFD) is depicted. It is a representation of the whole system and is quite analogous
+to the context diagram. There is only one process, ReMeS, and all actors are
 derived from the context diagram. Notice that ReMeS operator and ReMeS
 technician are generalised into ReMeS personnel. This is done because there is
 no significant difference between the two from the system's point of view. They
@@ -22,46 +21,28 @@ both only communicate with the Operator Portal.
 
 \subsection{Level 1}
 
-\begin{figure}[H]
+\begin{figure}[h!]
 	\begin{centering}
-		%TODO Figure
-		%\includegraphics[width=1.2\textwidth,angle=90]{figs/data-flow-diagram-lvl1.pdf}
-		\caption{The level 1 data flow diagram of the ReMeS system, namely the
-		second level.}
-		\label{fig:data-flow-diagram-lvl1}
-	\end{centering}
-\end{figure} 
-
-\npar In the next level of decomposition the components with external interfaces
-are introduced. This means nothing else than the components who interect with
-components or services from outside the ReMeS system. These components also
-follow directly from the context diagram. In addition to these components all
-the databases of the architecture are modelled as (separate) data stores. They
-are added in this level because they contribute in great matter to the daily
-operation of the ReMeS sytem. 
-
-\npar Notice that the ``Data Processor'' and ``Anomaly Detector'' are not
-present in the diagram. They are replaced by the ``Process Data" process. The
-reason for doing this is simply because the Data Processor hands all trames over
-to the Anomaly Detector and the latter's service is only used by the Data
-Processor. Therefore, with no loss of generalisation they can modelled as a
-single process since no threats are lost. Notice that they both require
-interaction with the database but this can be left out of consideration for the
-analysis of threats. A schematic overview is given in figure
-\ref{fig:data-flow-diagram-lvl1}.
-
-\subsection{Level 2}
-
-\begin{figure}[H]
-	\begin{centering}
-		%TODO Figure
-		%\includegraphics[width=1.2\textwidth,angle=90]{figs/data-flow-diagram-lvl2.pdf}
+		\includegraphics[width=\textwidth]{figs/level-1.pdf}
 		\caption{The most detailed data flow diagram of the ReMeS system, namely the
 		second level.}
 		\label{fig:data-flow-diagram-lvl2}
 	\end{centering}
 \end{figure}
 
-\npar Level two represents the final decomposition. In this last step all
-other internal components are added to the diagram. The result is shown in
-figure \ref{fig:data-flow-diagram-lvl2}.
+\npar In the next level, the single ReMeS process is decomposed. The
+decomposition follows from the component diagram. 
+
+\npar Notice that the ``Data Processor'' and ``Anomaly Detector'' are not
+present in the diagram. Because the Data Processor hands over all trames 
+to the Anomaly Detector and the latter's service is only used by the Data
+Processor, they are merged into a single ``Process Data'' process.
+
+\npar The database component from the component diagram is also decomposed into
+different data stores: Measurements and Information Data, User Data and Alarm
+Configuration Data.
+
+\npar The result is shown in figure \ref{fig:data-flow-diagram-lvl2}.
+
+
+
