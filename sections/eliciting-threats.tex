@@ -10,9 +10,9 @@ influence the elicitation process.
 \begin{enumerate}
 
   %General
-  \item Non-compliance will be modelled as a single threat to the whole system
-  instead of differentiating between all \textsc{dfd} elements.
-  \item Non-repudiation does not form a threat to the system, in fact it is a
+  \item Non-compliance will be modelled as a single threat because it poses a
+  threat to the whole system rather than to individual \textsc{dfd} elements.
+  \item Non-repudiation does not form a threat to the system. In fact, it is a
   desirable aspect of the system. With no non-repudiation it is for
   example possible for a client to deny that he consumed the measured amounts
   of the different utilities.
@@ -32,18 +32,19 @@ influence the elicitation process.
    
   %Data stores
   \item All internal data stores are kept separate even though they are the
-  possible target of the same threats (as seen in table %todo refentie ).
-  This is done to stress the fact that the different databases could be linked
-  together, this is handled in a separate misuse case.
+  possible target of the same threats (as seen in table
+  \ref{table:threat-map-reduced}). This is done to stress the fact that the
+  different databases could be linked together and is shown in a separate
+  misuse case (T02).
   \item Linkability is a threat to the data stores because for example a
   researcher with malicious intents could link several data and commercialise
   this information.
-  \item Identifiability forms as well a threat for data stores because it is
+  \item Identifiability forms a threat for data stores as well because it is
   impossible to omit all identification details out of the data. 
-  \item Information Disclosure for data stores is logic because they contain all
-  the data and this data needs to be protected at all times.
-  \item Datastores are sufficiently protected so extra-monitor and bad-storage
-  management are not possible.
+  \item Information disclosure for data stores is a logical threat because they
+  contain all the data and this data needs to be protected at all times.
+  \item Datastores are sufficiently protected so extra-monitor access and
+  bad-storage management are not possible.
   
   % data flows
   \item All internal dataflows (i.e. dataflows between two internal processes
@@ -52,56 +53,59 @@ influence the elicitation process.
   protected against outsider threats. All these dataflows will therefore be
   combined into a single dataflow and only this dataflow will be examined.
   \item All bidirectional flows are combined into a single flow as there is no
-  difference between the two directions. 
-  \item All Portal - Entity dataflows are combined into a single flow because
-  there is no difference between regarding privacy. %TODO is user data niet veel
-  % gevoeliger dan bvb registeren van devices zoals (cf. operator portal)
-  \item Detectability and Information Disclosure are not considered as a threats
+  difference between the two directions . For example Consumer Portal - Consumer
+  and Consumer - Consumer Portal are combined into Consumer Portal - Consumer.
+  \item All portal - entity dataflows are combined into a single flow because
+  there is no big difference between them regarding privacy.
+  \item Detectability and information disclosure are not considered as a threat
   for external dataflows (i.e. flows between an entity and a process) as we
-  assume that those flows are encrypted (e.g. with the SSL protocol).
+  assume that those flows are encrypted (e.g. with the SSL protocol). Internal
+  dataflows, however, are not encrypted and are still vulnerable to information
+  disclosure.
   \item Because the flows are assumed to be encrypted, all external entities
   will need to be able to execute these encryption algorithms themselves. This
   might form a problem for remote modules as their resources are limited.
   However, there are two reasons why this will not cause problems. First of all
   the modules can run leak detection algorithms so running the encryption
-  algorithms in addition to the leak detection ones will cause performance
+  algorithms in addition to the leak detection ones will not cause performance
   issues. Second, modules which communicate through WiFi need this encryption
   functionality anyway to communicate.
-  \item It is possible that there is Information Disclosure on the Outgoing
+  \item It is possible that there is information disclosure on the Outgoing
   Communication Component - Consumer dataflow when the alarm recipients are
-  wrong (e.g. an email adres belonging to somebody else). However, it is the
+  wrong (e.g. an email address belonging to somebody else). However, it is the
   responsibility of the consumer to fill in these contact details correctly.
-  Therefore this kind of Identification Disclosure is left out of
+  Therefore this kind of identification disclosure is left out of
   consideration.
   \item Linkability and identiability are a threat for only a specific
   number of external dataflows, namely the one which involves interaction with a
   third party (i.e. billing service). The flow between UIS Communication
   Component and the UIS Web Service is not applicable for these theats
   because the contents of the flow are not personal. It is important to remark
-  that the predictions will therefore not contain any customer profiles like
-  for example customer X will consume an amount Y of utility Z. If the dataflow
-  did contain such profiles, the contents would be personal.
-  \item For the flow from and towards consumers and remote modules linkability
-  and identiability threats do not apply. This is logical considering that there
-  need to be unique identifiers to contact both of these entities.
+  that the predictions will therefore not contain any pseudonymized consumption
+  profiles. Demand predictions cannot be requested for a customer or group of
+  customers but only for all customers or a large geographic region.  
+  \item For all flows from and towards consumers and remote modules linkability
+  and identiability threats do not apply. This is logical considering that
+  unique identifiers are vital to contact both of these entities.
 
   %Processes.
   \item All internal processes are only susceptible to insider threats, as we
   consider the back-end sufficiently protected against outsider threats. All
   these processes will therefore be combined into a single process and only
   this process will be examined. 
-  \item Linkability and identifiability are not considerd as threats for
+  \item Linkability and identifiability are not considered as threats for
   processes because knowing that two actions belong to the same user does not
   violate that user's privacy. His or her privacy is only violated when the
   content of the action is revealed.
   \item Information Disclosure is still a threat that needs to be taken into
-  account.
+  account for processes as malicious insiders could still access the
+  information.
   
   % Entities
-  \item Identifiability and linkability are no threat to the system as each
-  of the entities has a unique identifier and there is no need to conceal this
-  identity. 
-  \item Content unawareness is only applicable to Customers as they are the only
+  \item Identifiability and linkability of entities are no threat to the system
+  as each of the entities has a unique identifier and there is no need to
+  conceal this identity. 
+  \item Content unawareness is only applicable to consumers as they are the only
   actors that enter actual (personal) data in the system. Other entities, like
   for example researchers only retrieve data from the system, the ReMeS
   personnel only retrieves statistics and registers new devices. Remote modules

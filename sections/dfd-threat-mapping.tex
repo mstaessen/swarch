@@ -61,6 +61,7 @@ DFD elements.
 	\tmdataflow{1.11 Process Data -- 1.8 Measurements/Information Data}
 	\tmdataflow{1.12 Process Alarm -- 1.8 Measurements/Information Data}
 	\tmdataflow{1.12 Process Alarm -- 1.10 Alarm Configuration Data}
+	\tmdataflow{1.12 Process Alarm -- 1.2 Outgoing Communication Component}
 	\tmdataflow{1.13 Manage Configuration -- 1.2 Outgoing Communication Component (notification)}
 	\tmdataflow{1.13 Manage Configuration -- 1.2 Outgoing Communication Component (control trame)}
 	\tmdataflow{1.13 Manage Configuration -- 1.8 Measurements/Information Data}
@@ -118,6 +119,37 @@ DFD elements.
 to the DFD elements, i.e. after applying the assumptions from section
 \ref{sec:assumptions}.
 
+\npar First of all are the non-repudation and detectability threats eliminated
+because of respectively assumptions 2 and 3. The non-compliance threat is
+handled for the whole system because of assumption 1. All the datastores are
+kept separate by assumption 7. Linkability and identifiability are still
+taken into account because of assumptions 8 and 9.
+
+\npar Amongst the dataflows are a lot of similar flows. Therefore a lot of them
+are merged into a single flow. Firstly, all internal dataflows (i.e. between 2
+internal processes or between an internal process and a data store) are
+represented by the ``1.1 Incoming Communication Component - 1.11 Process
+Data'' dataflow. Hence, the latter dataflow represents almost all flows of table
+\ref{table:threat-map-all}. This simplification is justified by assumption 12.
+Linkability and identifiability are eliminated for internal flows and selected
+for external flows based on assumptions 19 and 18. This leaves only information
+disclosure for internal flows as a threat by assumption 15. Concerning the
+information disclosure on the flows beginning at the outgoing communication
+component there is an extra assumption, number 17.
+
+\npar Furthermore are bidirectional flows (such as Third Party Billing Web
+Service - Billing and Billing - Third Party Billing Web Service) collapsed into
+a single flow because of assumption 13. Assumption 14 validates the
+representation of all portal - entity flows by ``1.3 Consumer Portal - 3. Consumer''.
+
+\npar All processes are combined into a single process because of assumption 20.
+They are only susceptible to information disclosure and non-compliance as a
+result of assumptions 21 and 22.
+
+\npar Since content unawareness is the only threat to corresponds to one of the
+entities (namely the consumer) by assumptions 23 and 24, there is no need to
+combine them into a single entity. All the entities stay in the reduced table
+even though only one of them has causes a threat.
 
 \begin{center}
 	\begin{longtable}{p{9cm}ccccccc}

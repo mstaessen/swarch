@@ -8,9 +8,9 @@ Service)
 
 \paragraph{Basic path}
 \begin{enumerate}
-	\item[bf1.] New bills are sent to the third party billing web service
-	\item[bf2.] The misactor intercepts the data flow
-	\item[bf3.] The misactor links several bills to the same consumer
+	\item[bf1.] New bills are sent to the third party billing web service.
+	\item[bf2.] The misactor intercepts the data flow.
+	\item[bf3.] The misactor links several bills to the same consumer.
 \end{enumerate}
 
 \paragraph{Consequence} The misactor can build a profile of the consumer
@@ -25,8 +25,8 @@ Web Service
 \paragraph{Remarks}
 \begin{enumerate}
 	\item[r1.] The misactor is the receiver, which justifies this threat.
-	\item[r2.] The data flow is encrypted (see assumption ??), which will prevent
-	information disclosure to outsiders. % TODO: assumptie encryptie
+	\item[r2.] The data flow is encrypted (see assumption 15), which will prevent
+	information disclosure to outsiders.
 	\item[r3.] Different bills are linked based on the consumer's ID (L\_df10). 
 	\item[r4.] The right branch of the three (L\_df4 and children) is not
 	considered because it is not the sender whose identity should be protected, but the

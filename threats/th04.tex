@@ -13,13 +13,13 @@
 \begin{enumerate}
 	\item[bf1.] The misactor authenticates himserlf (by using his own valid
 	credentials or by spoofing a user (e.g. The retrieval of his credentials, see
-	threat \ref{threats:t05})).
+	threat T05)).
     \item[bf2.] The misactor gains access to the user data.
 \end{enumerate}
 
 \paragraph{Consequence}
 
-\npar Confidential user, measurement and/or alarm configuration data is exposed
+\npar Confidential user, measurements and/or alarm configuration data is exposed
 to unauthorized users or outsiders.
 
 \paragraph{Reference to threat tree node(s)}
@@ -38,12 +38,10 @@ configuration data store
 \paragraph{Remarks}
 	\begin{enumerate}
          \item[r1.] This threat is applicable to all data stores.
-         \item[r2.] Side channel attacks are not considered (see assumption
-         %TODO ref)
-         \item[r3.] Because of the weak access control system (assumption nr.
-         %TODO ref)
-		 ID\_ds7 is applicable, since there is no protection for authenticated users.
-         \item[r4.] Due to assumption number %TODO ref)
-		 ID\_ds3 till ID\_ds5 are eliminated.
-         \item[] %TODO spoofing is a precondition?
+         \item[r2.] Because of the weak access control system (assumption nr.
+         4). ID\_ds7 is applicable, since there is no protection for
+         authenticated users.
+         \item[r3.] Due to assumption numbers 6 and 11 ID\_ds3 till ID\_ds5 are
+         eliminated.
+         %TODO spoofing is a precondition?
     \end{enumerate}

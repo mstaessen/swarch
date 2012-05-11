@@ -15,7 +15,7 @@ companies).
 \paragraph{Basic path}
 
 \begin{enumerate}
-	\item[bf1.] The misactor retrieves information from both the measurement and
+	\item[bf1.] The misactor retrieves information from both the measurements and
 	information data store and the user data store.
     \item[bf2.] The misactor subsequently links both sets of data (e.g. based
     on a shared foreign key)
@@ -37,23 +37,19 @@ L\_ds
 
 \paragraph{DFD element(s)}
 
-\begin{itemize}
-  \item 1.8 Measurement and information data
-  \item 1.9 User data
-  \item 1.10 Alarm configuration data
-\end{itemize}
+1.8 Measurement and information data, 1.9 User data, 1.10 Alarm configuration
+data
 
 \paragraph{Remarks}
 	\begin{enumerate}
          \item[r1.] Altough this threat describes the linking of measurements
          and information data to user data, it also applies to all other
          combinations of data stores.
-         \item[r2.] Because of assumption %TODO ref
-		 , the misactor has access to several (strong) data mining technique and hence
-		 L\_ds2 is fulfilled
-         \item[r3.] Node L\_ds1 is applicable due to assumption %TODO ref.
+         \item[r2.] Because of assumption 5, the misactor has access to several
+         (strong) data mining technique and hence L\_ds2 is fulfilled
+         \item[r3.] Node L\_ds1 is applicable due to assumption 4.
          \item[r4.] L\_ds3 is mentioned because this is exactly what this threat
          describes, namely the linking of different databases.
          \item[r5.] This threat can be used a precondition for the identiability
-         threat of data stores (%TODO ref naar T03)
+         threat of data stores (T03).
     \end{enumerate}
